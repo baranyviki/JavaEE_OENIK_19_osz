@@ -5,14 +5,12 @@
  */
 package hu.oenik.web;
 
-import hu.oenik.data.RegistrationException;
+import hu.oenik.data.Hero;
+import hu.oenik.data.Hybrid;
+import hu.oenik.data.Species;
+import hu.oenik.data.SpeciesRepository;
 import hu.oenik.data.User;
-import hu.oenik.data.UserRepository;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.inject.Inject;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -23,8 +21,8 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Viki
  */
-@WebServlet(name = "RegistrationServlet", urlPatterns = {"/reg"})
-public class RegistrationServlet extends HttpServlet {
+@WebServlet(name = "HeroServlet", urlPatterns = {"/newHero"})
+public class HeroServlet extends HttpServlet {
 
 //    @Inject
 //    UserRepository users;
@@ -68,18 +66,18 @@ public class RegistrationServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String password = request.getParameter("pass");
-        String username = request.getParameter("username");
-        String fullname = request.getParameter("name");
-        //User tmpU = new User(name, password, false);
-         try {
-             UserRepository.instance.registration(fullname,username, password);
-         } catch (RegistrationException ex) {
-             Logger.getLogger(RegistrationServlet.class.getName()).log(Level.SEVERE, null, ex);
-             response.getWriter().print("no success");
-         }
-         
-         response.sendRedirect("/web");
+        
+    Hero h = new Hero(request.getParameter("name"),request.getParameter("desc"));    
+    for (Species s : SpeciesRepository.instance.getSpecies() ){
+        Hybrid newHybrid = new Hybrid(s, Byte.parseByte(request.getParameter(s.getName())));
+       h.getHybrids().add(newHybrid);
+    response.getWriter().print(s.getName()+" - "+request.getParameter(s.getName())) ;
+    }
+    
+    User sess = ((User)request.getSession().getAttribute("user"));
+   sess.getHeroes().add(h);
+   
+   response.getWriter().print("- - - -");
     }
 
     /**

@@ -5,7 +5,9 @@
  */
 package hu.oenik.web;
 
+import hu.oenik.data.LoginException;
 import hu.oenik.data.RegistrationException;
+import hu.oenik.data.SpeciesRepository;
 import hu.oenik.data.User;
 import hu.oenik.data.UserRepository;
 import java.io.IOException;
@@ -23,13 +25,11 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Viki
  */
-@WebServlet(name = "RegistrationServlet", urlPatterns = {"/reg"})
-public class RegistrationServlet extends HttpServlet {
+@WebServlet(name = "LoginServlet", urlPatterns = {"/login"})
+public class LoginServlet extends HttpServlet {
 
 //    @Inject
 //    UserRepository users;
-    
-    
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -39,10 +39,7 @@ public class RegistrationServlet extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-  
     // UserRepository users = new UserRepository();
-   
-
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
@@ -69,17 +66,21 @@ public class RegistrationServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String password = request.getParameter("pass");
-        String username = request.getParameter("username");
-        String fullname = request.getParameter("name");
-        //User tmpU = new User(name, password, false);
-         try {
-             UserRepository.instance.registration(fullname,username, password);
-         } catch (RegistrationException ex) {
-             Logger.getLogger(RegistrationServlet.class.getName()).log(Level.SEVERE, null, ex);
-             response.getWriter().print("no success");
-         }
-         
-         response.sendRedirect("/web");
+        String username = request.getParameter("name");
+
+        try {
+            //User tmpU = new User(name, password, false);
+
+            request.getSession().setAttribute("user", UserRepository.instance.login(username, password));
+            request.setAttribute("species", SpeciesRepository.instance.getSpecies());
+            getServletContext().getRequestDispatcher("/hero.jsp").include(request, response);
+
+        } catch (LoginException ex) {
+            Logger.getLogger(LoginServlet.class.getName()).log(Level.SEVERE, null, ex);
+            response.getWriter().print("login error");
+
+//response.sendRedirect("/home");
+        }
     }
 
     /**
