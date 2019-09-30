@@ -1,5 +1,6 @@
 package hu.oenik.data;
 
+import empire.Empire;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,7 +18,8 @@ public class User {
     private String name,userName,password;
     private Boolean admin;
     private List<Hero> heroes = new ArrayList<>();
-
+    private List<Empire> empires = new ArrayList<>();
+ 
     
     public User(String name, String userName, String password, Boolean admin) {
         this.name = name;
@@ -75,5 +77,11 @@ public class User {
         this.heroes = heroes;
     }
     
-    
+       public List<Empire> getEmpires() {
+        return empires;
+    }
+
+    public void setEmpires(List<Empire> empires) {
+        this.empires = empires;
+    }
 }

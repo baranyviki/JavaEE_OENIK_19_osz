@@ -10,6 +10,7 @@ import hu.oenik.data.Hybrid;
 import hu.oenik.data.Species;
 import hu.oenik.data.SpeciesRepository;
 import hu.oenik.data.User;
+import hu.oenik.data.UserRepository;
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -26,8 +27,6 @@ public class HeroServlet extends HttpServlet {
 
 //    @Inject
 //    UserRepository users;
-    
-    
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -37,10 +36,7 @@ public class HeroServlet extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-  
     // UserRepository users = new UserRepository();
-   
-
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
@@ -66,18 +62,23 @@ public class HeroServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+
+        Hero h = new Hero(request.getParameter("name"), request.getParameter("desc"));
+        for (Species s : SpeciesRepository.instance.getSpecies()) {
+            Hybrid newHybrid = new Hybrid(s, Byte.parseByte(request.getParameter(s.getName())));
+            h.getHybrids().add(newHybrid);
+            //response.getWriter().print(s.getName() + " - " + request.getParameter(s.getName()));
+        }
+
+        User sess = ((User) request.getSession().getAttribute("user"));
+        sess.getHeroes().add(h);
         
-    Hero h = new Hero(request.getParameter("name"),request.getParameter("desc"));    
-    for (Species s : SpeciesRepository.instance.getSpecies() ){
-        Hybrid newHybrid = new Hybrid(s, Byte.parseByte(request.getParameter(s.getName())));
-       h.getHybrids().add(newHybrid);
-    response.getWriter().print(s.getName()+" - "+request.getParameter(s.getName())) ;
-    }
-    
-    User sess = ((User)request.getSession().getAttribute("user"));
-   sess.getHeroes().add(h);
-   
-   response.getWriter().print("- - - -");
+            request.setAttribute("heroes",sess.getHeroes() );
+            request.setAttribute("empires",sess.getEmpires() );
+            request.setAttribute("species", SpeciesRepository.instance.getSpecies());
+            
+        getServletContext().getRequestDispatcher("/UserHome.jsp").include(request, response);
+            
     }
 
     /**

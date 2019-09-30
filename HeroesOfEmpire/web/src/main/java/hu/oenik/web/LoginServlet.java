@@ -70,10 +70,15 @@ public class LoginServlet extends HttpServlet {
 
         try {
             //User tmpU = new User(name, password, false);
-
-            request.getSession().setAttribute("user", UserRepository.instance.login(username, password));
+             User loggedIn =  UserRepository.instance.login(username, password);
+            request.getSession().setAttribute("user", loggedIn);
+            request.setAttribute("heroes",loggedIn.getHeroes() );
+            request.setAttribute("heroes",loggedIn.getEmpires() );
             request.setAttribute("species", SpeciesRepository.instance.getSpecies());
-            getServletContext().getRequestDispatcher("/hero.jsp").include(request, response);
+            
+            getServletContext().getRequestDispatcher("/UserHome.jsp").include(request, response);
+            
+          //  getServletContext().getRequestDispatcher("/hero.jsp").include(request, response);
 
         } catch (LoginException ex) {
             Logger.getLogger(LoginServlet.class.getName()).log(Level.SEVERE, null, ex);

@@ -22,6 +22,12 @@
             <c:forEach var="spc" items="${species}">
                 ${spc.name}<input type="text" name="${spc.name}">                
             </c:forEach>
-        </form>
+        </form>      
+        
+        <select>
+            <c:forEach>
+                <option value="hero">${hero.name}</option>
+            </c:forEach>
+        </select>
     </body>
 </html>
