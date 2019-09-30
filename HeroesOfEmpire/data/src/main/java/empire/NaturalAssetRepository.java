@@ -30,7 +30,7 @@ public class NaturalAssetRepository {
     return instance;
     }
 
-    public List<NaturalAsset> getSpecies() {
+    public List<NaturalAsset> getAssets() {
         return assets;
     }
     

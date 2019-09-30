@@ -19,15 +19,8 @@ public class Empire {
     List<Population> population;
     List<Stock> produce;
     List<Stock> warehouse;
+    List<Building> buildings;
 
-    public Empire(String name, String description, Long level, List<Population> population, List<Stock> produce, List<Stock> warehouse) {
-        this.name = name;
-        this.description = description;
-        this.level = level;
-        this.population = population;
-        this.produce = produce;
-        this.warehouse = warehouse;
-    }
     
     public Empire(String name, String description, EnvironmentTypes envType )
     {
@@ -37,6 +30,7 @@ public class Empire {
         this.population = new ArrayList<Population>();
         this.produce = new ArrayList<Stock>();
         this.warehouse = new ArrayList<Stock>();
+        this.buildings = new ArrayList<Building>();
         GenerateEnvironment(envType);
     }
     
@@ -44,93 +38,172 @@ public class Empire {
         
         switch(envType){
             case Mountainous:
-                for (Population p : PopulationRepository.getInstance().getPopulation())
+                for (People p : PeopleRepository.getInstance().getPeople())
                 {
-                 if(p.getPeople().getName().equals("Miner")){
-                 population.add(p);population.add(p);population.add(p);
+                 if(p.getName().equals("Miner")){
+                 population.add(new Population(p,(long)10));
+                 population.add(new Population(p,(long)10));
+                 population.add(new Population(p,(long)10));
                 }
                  else{
-                     population.add(p);
+                     population.add(new Population(p,(long)10));
                  }
-                 for (Stock s:StockRepository.getInstance().getStocks()){
-                     if(s.getAsset().getName().equals("Stone")){
-                         produce.add(s);produce.add(s);produce.add(s);
+                 for (NaturalAsset s:NaturalAssetRepository.getInstance().getAssets()){
+                     if(s.getName().equals("Stone")){
+                         produce.add(new Stock(s,(long)(10)));
+                         produce.add(new Stock(s,(long)(10)));
+                         produce.add(new Stock(s,(long)(10)));
                      }
                      else{
-                         produce.add(s);
+                         produce.add(new Stock(s,(long)(5)));
                      }
                  }
-                 for (Stock s:StockRepository.getInstance().getStocks()){
-                     if(s.getAsset().getName().equals("Stone")){
-                         warehouse.add(s);warehouse.add(s);
+                 for (NaturalAsset s:NaturalAssetRepository.getInstance().getAssets()){
+                     if(s.getName().equals("Stone")){
+                        warehouse.add(new Stock(s,(long)(5)));
+                        warehouse.add(new Stock(s,(long)(5)));
                      }
                      else{
-                         warehouse.add(s);
+                         warehouse.add(new Stock(s,(long)(5)));
                      }
                  }
                 }
                
                 break;
             case Flatlands:
-                for (Population p : PopulationRepository.getInstance().getPopulation())
+                for (People p : PeopleRepository.getInstance().getPeople())
                 {
-                 if(p.getPeople().getName().equals("Farmer")){
-                 population.add(p);population.add(p);population.add(p);
+                 if(p.getName().equals("Farmer")){
+                 population.add(new Population(p,(long)10));
+                 population.add(new Population(p,(long)10));
+                 population.add(new Population(p,(long)10));
                 }
                  else{
-                     population.add(p);
+                     population.add(new Population(p,(long)10));
                  }
-                 for (Stock s:StockRepository.getInstance().getStocks()){
-                     if(s.getAsset().getName().equals("Food")){
-                         produce.add(s);produce.add(s);produce.add(s);
+                 for (NaturalAsset s:NaturalAssetRepository.getInstance().getAssets()){
+                     if(s.getName().equals("Food")){
+                         produce.add(new Stock(s,(long)(10)));
+                         produce.add(new Stock(s,(long)(10)));
+                         produce.add(new Stock(s,(long)(10)));
                      }
                      else{
-                         produce.add(s);
+                         produce.add(new Stock(s,(long)(5)));
                      }
                  }
-                 for (Stock s:StockRepository.getInstance().getStocks()){
-                     if(s.getAsset().getName().equals("Food")){
-                         warehouse.add(s);warehouse.add(s);
+                 for (NaturalAsset s:NaturalAssetRepository.getInstance().getAssets()){
+                     if(s.getName().equals("Food")){
+                        warehouse.add(new Stock(s,(long)(5)));
+                        warehouse.add(new Stock(s,(long)(5)));
                      }
                      else{
-                         warehouse.add(s);
+                         warehouse.add(new Stock(s,(long)(5)));
                      }
                  }
                 }
                 break;
             case Forest:
-                for (Population p : PopulationRepository.getInstance().getPopulation())
+                for (People p : PeopleRepository.getInstance().getPeople())
                 {
-                 if(p.getPeople().getName().equals("Worker")){
-                 population.add(p);population.add(p);population.add(p);
+                 if(p.getName().equals("Farmer")){
+                 population.add(new Population(p,(long)10));
+                 population.add(new Population(p,(long)10));
+                 population.add(new Population(p,(long)10));
                 }
                  else{
-                     population.add(p);
+                     population.add(new Population(p,(long)10));
                  }
-                 for (Stock s:StockRepository.getInstance().getStocks()){
-                     if(s.getAsset().getName().equals("Wood")){
-                         produce.add(s);produce.add(s);produce.add(s);
+                 for (NaturalAsset s:NaturalAssetRepository.getInstance().getAssets()){
+                     if(s.getName().equals("Food")){
+                         produce.add(new Stock(s,(long)(10)));
+                         produce.add(new Stock(s,(long)(10)));
+                         produce.add(new Stock(s,(long)(10)));
                      }
                      else{
-                         produce.add(s);
+                         produce.add(new Stock(s,(long)(5)));
                      }
                  }
-                 for (Stock s:StockRepository.getInstance().getStocks()){
-                     if(s.getAsset().getName().equals("Wood")){
-                         warehouse.add(s);warehouse.add(s);
+                 for (NaturalAsset s:NaturalAssetRepository.getInstance().getAssets()){
+                     if(s.getName().equals("Food")){
+                        warehouse.add(new Stock(s,(long)(5)));
+                        warehouse.add(new Stock(s,(long)(5)));
                      }
                      else{
-                         warehouse.add(s);
+                         warehouse.add(new Stock(s,(long)(5)));
                      }
                  }
                 }
                 break;
                 
             case Budapest:
-                
+                for (People p : PeopleRepository.getInstance().getPeople())
+                {
+                 if(p.getName().equals("Soldier")){
+                 population.add(new Population(p,(long)10));
+                 population.add(new Population(p,(long)10));
+                 
+                }
+                 else if(p.getName().equals("Badass soldier")){
+                     population.add(new Population(p,(long)10));
+                 }
+                 else{
+                     population.add(new Population(p,(long)10));
+                 }
+                 for (NaturalAsset s:NaturalAssetRepository.getInstance().getAssets()){
+                     if(s.getName().equals("Gold")){
+                         produce.add(new Stock(s,(long)(10)));
+                         produce.add(new Stock(s,(long)(10)));
+                         produce.add(new Stock(s,(long)(10)));
+                     }
+                     else{
+                         produce.add(new Stock(s,(long)(5)));
+                     }
+                 }
+                 for (NaturalAsset s:NaturalAssetRepository.getInstance().getAssets()){
+                     if(s.getName().equals("Gold")){
+                        warehouse.add(new Stock(s,(long)(5)));
+                        warehouse.add(new Stock(s,(long)(5)));
+                     }
+                     else{
+                         warehouse.add(new Stock(s,(long)(5)));
+                     }
+                 }
+                }
                 break;
             case Beach:
-                
+                for (People p : PeopleRepository.getInstance().getPeople())
+                {
+                 if(p.getName().equals("Worker")){
+                 population.add(new Population(p,(long)10));
+                 population.add(new Population(p,(long)10));
+                 
+                }
+                 else if(p.getName().equals("Soldier")){
+                     population.add(new Population(p,(long)10));
+                 }
+                 else{
+                     population.add(new Population(p,(long)10));
+                 }
+                 for (NaturalAsset s:NaturalAssetRepository.getInstance().getAssets()){
+                     if(s.getName().equals("Food")){
+                         produce.add(new Stock(s,(long)(10)));
+                         produce.add(new Stock(s,(long)(10)));
+                         produce.add(new Stock(s,(long)(10)));
+                     }
+                     else{
+                         produce.add(new Stock(s,(long)(5)));
+                     }
+                 }
+                 for (NaturalAsset s:NaturalAssetRepository.getInstance().getAssets()){
+                     if(s.getName().equals("Gold")){
+                        warehouse.add(new Stock(s,(long)(5)));
+                        warehouse.add(new Stock(s,(long)(5)));
+                     }
+                     else{
+                         warehouse.add(new Stock(s,(long)(5)));
+                     }
+                 }
+                }                
                 break;
         }
     }
@@ -183,5 +256,5 @@ public class Empire {
         this.warehouse = warehouse;
     }
     
-    
+        
 }
