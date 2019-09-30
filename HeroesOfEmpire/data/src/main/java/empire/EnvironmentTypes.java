@@ -3,19 +3,17 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package hu.oenik.data;
+package empire;
 
-import empire.Empire;
-import java.sql.Timestamp;
 /**
  *
  * @author Thrawn
  */
-public class TimeTable {
-    Hero hero;
-    Empire empire;
-    Timestamp start; 
-    Timestamp stop;
-    
+public enum EnvironmentTypes {
+    Mountainous,
+    Flatlands,
+    Forest,
+    Budapest,
+    Beach
     
 }
