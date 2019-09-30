@@ -15,13 +15,25 @@
     <body>
         <h1>Heroes</h1>
         <table>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Description</th>
+                    <th>-</th>
+                </tr>
+            </thead>
+            <tbody>
             <c:forEach var="hero" items="${heroes}">
                 <tr>
+           <form method="get" action="modHero" >
+                <input type="hidden"  value="${hero.name}" name="heroname"/>
                     <td>${hero.name}</td>
                     <td>${hero.description}</td>
-                    <td><button onclick="??">Modify</button></td>
-                </tr>
+                    <td><input type="submit" value="Modify"/></td>
+           </form>
+            </tr>
             </c:forEach>
+            </tbody>
         </table>
         <h2>
             Add new Hero

@@ -49,6 +49,7 @@ public class HeroServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+
     }
 
     /**
@@ -91,4 +92,25 @@ public class HeroServlet extends HttpServlet {
         return "Short description";
     }// </editor-fold>
 
+    protected void modify(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+
+        Hero h = new Hero(request.getParameter("name"), request.getParameter("desc"));
+        for (Species s : SpeciesRepository.instance.getSpecies()) {
+            Hybrid newHybrid = new Hybrid(s, Byte.parseByte(request.getParameter(s.getName())));
+            h.getHybrids().add(newHybrid);
+            //response.getWriter().print(s.getName() + " - " + request.getParameter(s.getName()));
+        }
+
+        User sess = ((User) request.getSession().getAttribute("user"));
+        sess.getHeroes().add(h);
+        
+            request.setAttribute("heroes",sess.getHeroes() );
+            request.setAttribute("empires",sess.getEmpires() );
+            request.setAttribute("species", SpeciesRepository.instance.getSpecies());
+            
+        getServletContext().getRequestDispatcher("/UserHome.jsp").include(request, response);
+            
+    }
+    
 }

@@ -7,15 +7,11 @@ package hu.oenik.web;
 
 import hu.oenik.data.Hero;
 import hu.oenik.data.Hybrid;
-import hu.oenik.data.LoginException;
 import hu.oenik.data.Species;
 import hu.oenik.data.SpeciesRepository;
 import hu.oenik.data.User;
 import hu.oenik.data.UserRepository;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -26,8 +22,8 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Viki
  */
-@WebServlet(name = "LoginServlet", urlPatterns = {"/login"})
-public class LoginServlet extends HttpServlet {
+@WebServlet(name = "modHeroServlet", urlPatterns = {"/modHero"})
+public class modHeroServlet extends HttpServlet {
 
 //    @Inject
 //    UserRepository users;
@@ -53,6 +49,23 @@ public class LoginServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        
+        User sess = ((User) request.getSession().getAttribute("user"));
+        
+        String heroname =  request.getParameter("heroname");
+        Hero selectedHero = new Hero();
+        for (Hero h : sess.getHeroes()) {
+            if(h.getName().equals(heroname))
+            {
+                selectedHero=h;
+            }
+            //TODO: error handling
+        }
+        request.setAttribute("selectedHero", selectedHero);
+        request.setAttribute("species", SpeciesRepository.instance.getSpecies());
+
+        getServletContext().getRequestDispatcher("/hero.jsp").include(request, response);
+
     }
 
     /**
@@ -66,28 +79,7 @@ public class LoginServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String password = request.getParameter("pass");
-        String username = request.getParameter("name");
-
-        try {
-            //User tmpU = new User(name, password, false);
-             User loggedIn =  UserRepository.instance.login(username, password);
-             loggedIn.getHeroes().add(new Hero("face","scary",new ArrayList<Hybrid>()));
-            request.getSession().setAttribute("user", loggedIn);
-            request.setAttribute("heroes",loggedIn.getHeroes() );
-            request.setAttribute("empires",loggedIn.getEmpires() );
-            request.setAttribute("species", SpeciesRepository.instance.getSpecies());
-            
-            getServletContext().getRequestDispatcher("/UserHome.jsp").include(request, response);
-            
-          //  getServletContext().getRequestDispatcher("/hero.jsp").include(request, response);
-
-        } catch (LoginException ex) {
-            Logger.getLogger(LoginServlet.class.getName()).log(Level.SEVERE, null, ex);
-            response.getWriter().print("login error");
-
-//response.sendRedirect("/home");
-        }
+        //todo.
     }
 
     /**

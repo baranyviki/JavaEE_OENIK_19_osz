@@ -14,20 +14,14 @@
         <title>JSP Page</title>
     </head>
     <body>        
-        <form method="post" action="newHero">
-            
-            Hero Name:<input type="text" name ="name"/></br>
-            Description:<input type="type" name="desc"/></br>
-            <input type="submit" value="OK"/>
-            <c:forEach var="spc" items="${species}">
-                ${spc.name}<input type="text" name="${spc.name}">                
+        <form method="post" action="modHero">
+            Hero Name:<input type="text" name ="name" value="${selectedHero.name}"/></br>
+            Description:<input type="type" name="desc" value="${selectedHero.description}"/></br>
+            <c:forEach var="hyb" items="${hybrids}">
+                ${hyb.species.name}<input type="text" name="${hyb.species.name}" value="${hyb.species.percent}"><br/>
             </c:forEach>
+            <input type="submit" value="OK"/>
         </form>      
         
-        <select>
-            <c:forEach>
-                <option value="hero">${hero.name}</option>
-            </c:forEach>
-        </select>
     </body>
 </html>

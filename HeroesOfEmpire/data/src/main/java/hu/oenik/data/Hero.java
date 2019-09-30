@@ -14,7 +14,7 @@ import java.util.List;
  */
 public class Hero {
 
-    String name, description;
+   String name, description;
    List<Hybrid> hybrids   = new ArrayList<>();
    List<Quality> qualities = new ArrayList<>();
 
@@ -23,6 +23,11 @@ public class Hero {
         this.description = description;
         this.hybrids = hybrids;
         this.qualities = qualities;
+    }
+    public Hero(String name, String description, ArrayList<Hybrid> hybrids) {
+        this.name = name;
+        this.description = description;
+        this.hybrids = hybrids;
     }
 
     public Hero(String name, String description) {
