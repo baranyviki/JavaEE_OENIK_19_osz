@@ -6,7 +6,8 @@
 package hu.oenik.data;
 
 import empire.Empire;
-import jdk.jfr.Timestamp; // hát nem tudom hogy ez az a timestamp -e
+import java.sql.Timestamp;
+ // hát nem tudom hogy ez az a timestamp -e
 
 /**
  *
