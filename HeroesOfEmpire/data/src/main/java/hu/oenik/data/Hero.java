@@ -15,7 +15,7 @@ import java.util.List;
 public class Hero {
 
    String name, description;
-   List<Hybrid> hybrids   = new ArrayList<>();
+   List<Hybrid>  hybrids   = new ArrayList<>();
    List<Quality> qualities = new ArrayList<>();
 
     public Hero(String name, String description, ArrayList<Hybrid> hybrids, ArrayList<Quality> qualities) {

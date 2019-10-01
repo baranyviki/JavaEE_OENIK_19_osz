@@ -31,6 +31,10 @@
                     <td>${hero.description}</td>
                     <td><input type="submit" value="Modify"/></td>
            </form>
+            <form method="post" action="deleteHero">                
+                <input type="hidden"  value="${hero.name}" name="heroname"/>
+                <td><input type="submit" value="Delete"/></td>
+            </form>
             </tr>
             </c:forEach>
             </tbody>

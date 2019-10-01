@@ -12,6 +12,8 @@ import hu.oenik.data.SpeciesRepository;
 import hu.oenik.data.User;
 import hu.oenik.data.UserRepository;
 import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -66,20 +68,27 @@ public class HeroServlet extends HttpServlet {
 
         Hero h = new Hero(request.getParameter("name"), request.getParameter("desc"));
         for (Species s : SpeciesRepository.instance.getSpecies()) {
-            Hybrid newHybrid = new Hybrid(s, Byte.parseByte(request.getParameter(s.getName())));
-            h.getHybrids().add(newHybrid);
+            try {
+                Byte b = Byte.parseByte(request.getParameter(s.getName()));
+                Hybrid newHybrid = new Hybrid(s, b);
+                h.getHybrids().add(newHybrid);
+
+            } catch (NumberFormatException ex) {
+                Logger.getLogger(LoginServlet.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
             //response.getWriter().print(s.getName() + " - " + request.getParameter(s.getName()));
         }
 
         User sess = ((User) request.getSession().getAttribute("user"));
         sess.getHeroes().add(h);
-        
-            request.setAttribute("heroes",sess.getHeroes() );
-            request.setAttribute("empires",sess.getEmpires() );
-            request.setAttribute("species", SpeciesRepository.instance.getSpecies());
-            
+
+        request.setAttribute("heroes", sess.getHeroes());
+        request.setAttribute("empires", sess.getEmpires());
+        request.setAttribute("species", SpeciesRepository.instance.getSpecies());
+
         getServletContext().getRequestDispatcher("/UserHome.jsp").include(request, response);
-            
+
     }
 
     /**
@@ -104,13 +113,13 @@ public class HeroServlet extends HttpServlet {
 
         User sess = ((User) request.getSession().getAttribute("user"));
         sess.getHeroes().add(h);
-        
-            request.setAttribute("heroes",sess.getHeroes() );
-            request.setAttribute("empires",sess.getEmpires() );
-            request.setAttribute("species", SpeciesRepository.instance.getSpecies());
-            
+
+        request.setAttribute("heroes", sess.getHeroes());
+        request.setAttribute("empires", sess.getEmpires());
+        request.setAttribute("species", SpeciesRepository.instance.getSpecies());
+
         getServletContext().getRequestDispatcher("/UserHome.jsp").include(request, response);
-            
+
     }
-    
+
 }

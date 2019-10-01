@@ -15,10 +15,10 @@
     </head>
     <body>        
         <form method="post" action="modHero">
-            Hero Name:<input type="text" name ="name" value="${selectedHero.name}"/></br>
-            Description:<input type="type" name="desc" value="${selectedHero.description}"/></br>
+            Hero Name:<label>${selectedHero.name}</label><input type="hidden" name ="heroname" value="${selectedHero.name}"/></br>
+            Description:<input type="text" name="desc" value="${selectedHero.description}" /></br>
             <c:forEach var="hyb" items="${hybrids}">
-                ${hyb.species.name}<input type="text" name="${hyb.species.name}" value="${hyb.species.percent}"><br/>
+                ${hyb.species.name}<input type="text" name="${hyb.species.name}" value="${hyb.percent}"><br/>
             </c:forEach>
             <input type="submit" value="OK"/>
         </form>      
