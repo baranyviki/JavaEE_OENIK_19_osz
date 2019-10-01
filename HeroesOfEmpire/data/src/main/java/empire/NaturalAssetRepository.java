@@ -20,7 +20,7 @@ public class NaturalAssetRepository {
 
     public NaturalAssetRepository() {
         assets.add(new NaturalAsset("Stone", "Mostly used for build buildings"));        
-        assets.add(new NaturalAsset("Gold", "Mostly used for train soldiers and pay for the ladies..i mean pray"));         
+        assets.add(new NaturalAsset("Gold", "Mostly used for train the soldiers"));         
         assets.add(new NaturalAsset("Wood", "Mostly used for build buildings"));       
         assets.add(new NaturalAsset("Food", "nyam")); 
         
@@ -30,7 +30,7 @@ public class NaturalAssetRepository {
     return instance;
     }
 
-    public List<NaturalAsset> getSpecies() {
+    public List<NaturalAsset> getAssets() {
         return assets;
     }
     
