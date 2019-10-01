@@ -6,7 +6,9 @@
 package empire;
 
 import java.util.ArrayList;
+import java.util.Hashtable;
 import java.util.List;
+import java.util.Map;
 
 /**
  *
@@ -19,7 +21,7 @@ public class Empire {
     List<Population> population;
     List<Stock> produce;
     List<Stock> warehouse;
-    List<Building> buildings;
+    Map<String,Integer> buildings;
 
     
     public Empire(String name, String description, EnvironmentTypes envType )
@@ -30,8 +32,14 @@ public class Empire {
         this.population = new ArrayList<Population>();
         this.produce = new ArrayList<Stock>();
         this.warehouse = new ArrayList<Stock>();
-        this.buildings = new ArrayList<Building>();
+        this.buildings = new Hashtable<String,Integer>();
         GenerateEnvironment(envType);
+        buildings.put("Barrack",0);
+        buildings.put("Farm",0);
+        buildings.put("Blacksmith",0);
+        buildings.put("Mine",0);
+        buildings.put("Lumberjack",0);
+        buildings.put("Townhall",0);
     }
     
     private void GenerateEnvironment(EnvironmentTypes envType){
@@ -205,6 +213,29 @@ public class Empire {
                  }
                 }                
                 break;
+        }
+    }
+    
+    public boolean ConstructNewBuilding(){
+    //TODO
+        return true;
+    }
+    
+    public void TimeChanged(){
+        //TODO valami ilyesminek kéne történie körről körre?
+        for(Population p : population){
+         p.quantity++;
+        }
+        for(Stock p : produce){
+         if(p.getAsset().getName()=="Stone" || p.getAsset().getName()=="Gold" )
+            p.quantity+=1+2*(buildings.get("Mine"));
+         if(p.getAsset().getName()=="Wood" )
+            p.quantity+=1+2*(buildings.get("Lumberyard"));
+         if(p.getAsset().getName()=="Food" )
+            p.quantity+=1+2*(buildings.get("Farm"));
+         if(p.getAsset().getName()=="Gold" ) //egy kis adó
+            p.quantity+=1*(population.get(0).quantity);
+         
         }
     }
 
