@@ -18,7 +18,7 @@ public class NaturalAssetRepository {
     
     private List<NaturalAsset> assets = new ArrayList<>();
 
-    public NaturalAssetRepository() {
+    private NaturalAssetRepository() {
         assets.add(new NaturalAsset("Stone", "Mostly used for build buildings"));        
         assets.add(new NaturalAsset("Gold", "Mostly used for train the soldiers"));         
         assets.add(new NaturalAsset("Wood", "Mostly used for build buildings"));       

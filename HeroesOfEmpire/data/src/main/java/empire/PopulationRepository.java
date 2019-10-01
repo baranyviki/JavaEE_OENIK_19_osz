@@ -17,7 +17,7 @@ public class PopulationRepository {
     
     private List<Population> population = new ArrayList<>();
     
-    public PopulationRepository (){
+    private PopulationRepository (){
         population.add(new Population(new People("Miner","people who likes minecraft"),(long)10));
         population.add(new Population(new People("Farmer","they produces your food"),(long)10));
         population.add(new Population(new People("Soldier","normal figther guys"),(long)10));

@@ -5,6 +5,12 @@
  */
 package empire;
 
+import java.util.ArrayList;
+import java.util.EnumSet;
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
 /**
  *
  * @author Thrawn
@@ -14,6 +20,13 @@ public enum EnvironmentTypes {
     Flatlands,
     Forest,
     Budapest,
-    Beach
+    Beach;
+    
+    public static List<String> getAllTypes(){
+    List<String> enumNames = Stream.of(EnvironmentTypes.values())
+                               .map(EnvironmentTypes::name)
+                               .collect(Collectors.toList());
+    return enumNames;
+}
     
 }

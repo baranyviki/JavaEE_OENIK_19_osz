@@ -22,7 +22,7 @@ public class Empire {
     List<Stock> produce;
     List<Stock> warehouse;
     Map<String,Integer> buildings;
-
+    EnvironmentTypes environmentType;
     
     public Empire(String name, String description, EnvironmentTypes envType )
     {
@@ -33,6 +33,7 @@ public class Empire {
         this.produce = new ArrayList<Stock>();
         this.warehouse = new ArrayList<Stock>();
         this.buildings = new Hashtable<String,Integer>();
+        environmentType = envType;
         GenerateEnvironment(envType);
         buildings.put("Barrack",0);
         buildings.put("Farm",0);
@@ -285,6 +286,22 @@ public class Empire {
 
     public void setWarehouse(List<Stock> warehouse) {
         this.warehouse = warehouse;
+    }
+
+    public Map<String, Integer> getBuildings() {
+        return buildings;
+    }
+
+    public void setBuildings(Map<String, Integer> buildings) {
+        this.buildings = buildings;
+    }
+
+    public EnvironmentTypes getEnvironmentType() {
+        return environmentType;
+    }
+
+    public void setEnvironmentType(EnvironmentTypes environmentType) {
+        this.environmentType = environmentType;
     }
     
         

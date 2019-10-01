@@ -17,7 +17,7 @@ public class StockRepository {
     
     private List<Stock> stocks = new ArrayList<Stock>();
     
-    public StockRepository (){
+    private StockRepository (){
         stocks.add(new Stock(new NaturalAsset("Stone", "Mostly used for build buildings"),(long)10));
         stocks.add(new Stock(new NaturalAsset("Gold", "Mostly used for train soldiers and pay for the ladies..i mean pray"),(long)10));
         stocks.add(new Stock(new NaturalAsset("Wood", "Mostly used for build buildings"),(long)10));

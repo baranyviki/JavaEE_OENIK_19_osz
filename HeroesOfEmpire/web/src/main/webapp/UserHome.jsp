@@ -23,47 +23,84 @@
                 </tr>
             </thead>
             <tbody>
-            <c:forEach var="hero" items="${heroes}">
-                <tr>
-           <form method="get" action="modHero" >
-                <input type="hidden"  value="${hero.name}" name="heroname"/>
+                <c:forEach var="hero" items="${heroes}">
+                    <tr>
+                <form method="get" action="modHero" >
+                    <input type="hidden"  value="${hero.name}" name="heroname"/>
                     <td>${hero.name}</td>
                     <td>${hero.description}</td>
                     <td><input type="submit" value="Modify"/></td>
-           </form>
-            <form method="post" action="deleteHero">                
-                <input type="hidden"  value="${hero.name}" name="heroname"/>
-                <td><input type="submit" value="Delete"/></td>
-            </form>
+                </form>
+                <form method="post" action="deleteHero">                
+                    <input type="hidden"  value="${hero.name}" name="heroname"/>
+                    <td><input type="submit" value="Delete"/></td>
+                </form>
             </tr>
-            </c:forEach>
-            </tbody>
-        </table>
-        <h2>
-            Add new Hero
-        </h2>
-        <form method="post" action="newHero">            
-            Hero Name:<input type="text" name ="name"/>
-            Description:<input type="type" name="desc"/>
-            <br/>
-            <c:forEach var="spc" items="${species}">
-                ${spc.name}<input type="text" name="${spc.name}">                
-            </c:forEach>                
-            <input type="submit" value="OK"/>
-        </form>      
-        
+        </c:forEach>
+    </tbody>
+</table>
+<h2>
+    Add new Hero
+</h2>
+<form method="post" action="newHero">            
+    Hero Name:<input type="text" name ="name"/>
+    Description:<input type="type" name="desc"/>
+    <br/>
+    <c:forEach var="spc" items="${species}">
+        ${spc.name}<input type="text" name="${spc.name}">                
+    </c:forEach>                
+    <input type="submit" value="OK"/>
+</form>      
 
-        <br/>                
-        
-        <h1>Empires</h1>
-        <table>
-            <c:forEach var="emp" items="${Empires}">
-                <tr>
-                    <td>${emp.name}</td>
-                    <td>${emp.description}</td>
-                    <td><button onclick="??">View</button></td>
-                </tr>
-            </c:forEach>
-        </table>
-    </body>
+
+<br/>                
+
+<h1>Empires</h1>
+<table>
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Level</th>
+            <th>Environment</th>
+        </tr>
+    </thead>
+    <tbody>
+        <c:forEach var="emp" items="${empires}">
+            <tr>
+                <td>${emp.name}</td>
+                <td>${emp.description}</td>
+                <td>${emp.level}</td>                
+                <td>${emp.environmentType}</td>
+        <form method="get" action="manageEmpire">            
+            <input type="hidden"  value="${emp.name}" name="empirename"/>
+            <td><input type="submit" value="View"/></td>
+        </form>
+        <form method="post" action="manageEmpire">                
+            <input type="hidden"  value="${emp.name}" name="empirename"/>
+            <td><input type="submit" value="Modify"/></td>
+        </form>
+        <form method="post" action="deleteEmpire">                
+            <input type="hidden"  value="${emp.name}" name="empirename"/>
+            <td><input type="submit" value="Delete"/></td>
+        </form>
+    </tr>
+</c:forEach>    
+</tbody>    
+</table>
+<h2>Add new Empire</h2>
+<form method="post" action="newEmpire">            
+    Empire Name:<input type="text" name ="name"/></br>
+    Description:<input type="type" name="desc"/><br/>
+    <select name="envlist">  
+        <option value="Mountainous">Mountainous</option>
+        <option value="Flatlands">Flatlands</option>
+        <option value="Forest">Forest</option>
+        <option value="Budapest">Budapest</option>
+        <option value="Beach">Beach</option>
+    </select>
+    <input type="submit" value="OK"/>
+</form>      
+
+</body>
 </html>

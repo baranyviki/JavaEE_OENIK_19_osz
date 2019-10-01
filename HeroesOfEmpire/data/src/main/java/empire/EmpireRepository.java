@@ -13,21 +13,27 @@ import java.util.List;
  * @author Thrawn
  */
 public class EmpireRepository {
+    
     public static final EmpireRepository instance = new EmpireRepository();
     
-    private List<EmpireRepository> empires = new ArrayList<>();
+    private List<Empire> empires = new ArrayList<>();
 
-    public EmpireRepository() {
+    private EmpireRepository() {
         //todo
-        
     }
 
     public static EmpireRepository getInstance (){
     return instance;
     }
 
-    public List<EmpireRepository> getAssets() {
+    public List<Empire> getEmpires() {
         return empires;
     }
-    
+    /*
+    public void createEmpire(String name, String description, EnvironmentTypes envType )
+    {
+        Empire emp = new Empire(name,description,envType);
+        empires.add(emp);
+    }
+    */
 }

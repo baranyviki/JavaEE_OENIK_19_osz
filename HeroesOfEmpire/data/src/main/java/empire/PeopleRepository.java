@@ -18,7 +18,7 @@ public class PeopleRepository {
     
     private List<People> people = new ArrayList<>();
     
-    public PeopleRepository (){
+    private PeopleRepository (){
         people.add(new People("Miner","people who likes minecraft"));
         people.add(new People("Farmer","they produces your food"));
         people.add(new People("Soldier","normal figther guys"));
