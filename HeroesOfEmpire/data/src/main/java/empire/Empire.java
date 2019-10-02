@@ -44,7 +44,7 @@ public class Empire {
     }
     
     private void GenerateEnvironment(EnvironmentTypes envType){
-        
+        //TODO
         switch(envType){
             case Mountainous:
                 for (People p : PeopleRepository.getInstance().getPeople())
@@ -57,16 +57,7 @@ public class Empire {
                  else{
                      population.add(new Population(p,(long)10));
                  }
-                 for (NaturalAsset s:NaturalAssetRepository.getInstance().getAssets()){
-                     if(s.getName().equals("Stone")){
-                         produce.add(new Stock(s,(long)(10)));
-                         produce.add(new Stock(s,(long)(10)));
-                         produce.add(new Stock(s,(long)(10)));
-                     }
-                     else{
-                         produce.add(new Stock(s,(long)(5)));
-                     }
-                 }
+                }       
                  for (NaturalAsset s:NaturalAssetRepository.getInstance().getAssets()){
                      if(s.getName().equals("Stone")){
                         warehouse.add(new Stock(s,(long)(5)));
@@ -76,8 +67,8 @@ public class Empire {
                          warehouse.add(new Stock(s,(long)(5)));
                      }
                  }
-                }
-               
+                
+                
                 break;
             case Flatlands:
                 for (People p : PeopleRepository.getInstance().getPeople())
@@ -90,6 +81,7 @@ public class Empire {
                  else{
                      population.add(new Population(p,(long)10));
                  }
+                }
                  for (NaturalAsset s:NaturalAssetRepository.getInstance().getAssets()){
                      if(s.getName().equals("Food")){
                          produce.add(new Stock(s,(long)(10)));
@@ -109,7 +101,7 @@ public class Empire {
                          warehouse.add(new Stock(s,(long)(5)));
                      }
                  }
-                }
+                
                 break;
             case Forest:
                 for (People p : PeopleRepository.getInstance().getPeople())
@@ -122,6 +114,7 @@ public class Empire {
                  else{
                      population.add(new Population(p,(long)10));
                  }
+                }
                  for (NaturalAsset s:NaturalAssetRepository.getInstance().getAssets()){
                      if(s.getName().equals("Food")){
                          produce.add(new Stock(s,(long)(10)));
@@ -141,7 +134,7 @@ public class Empire {
                          warehouse.add(new Stock(s,(long)(5)));
                      }
                  }
-                }
+                
                 break;
                 
             case Budapest:
@@ -155,9 +148,11 @@ public class Empire {
                  else if(p.getName().equals("Badass soldier")){
                      population.add(new Population(p,(long)10));
                  }
+                
                  else{
                      population.add(new Population(p,(long)10));
                  }
+                }
                  for (NaturalAsset s:NaturalAssetRepository.getInstance().getAssets()){
                      if(s.getName().equals("Gold")){
                          produce.add(new Stock(s,(long)(10)));
@@ -177,7 +172,7 @@ public class Empire {
                          warehouse.add(new Stock(s,(long)(5)));
                      }
                  }
-                }
+                
                 break;
             case Beach:
                 for (People p : PeopleRepository.getInstance().getPeople())
@@ -193,6 +188,7 @@ public class Empire {
                  else{
                      population.add(new Population(p,(long)10));
                  }
+                }
                  for (NaturalAsset s:NaturalAssetRepository.getInstance().getAssets()){
                      if(s.getName().equals("Food")){
                          produce.add(new Stock(s,(long)(10)));
@@ -212,7 +208,7 @@ public class Empire {
                          warehouse.add(new Stock(s,(long)(5)));
                      }
                  }
-                }                
+                               
                 break;
         }
     }
