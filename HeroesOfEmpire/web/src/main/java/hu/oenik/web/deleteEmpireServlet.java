@@ -5,8 +5,8 @@
  */
 package hu.oenik.web;
 
-import empire.Empire;
-import hu.oenik.data.SpeciesRepository;
+import hu.oenik.data.Empire;
+import repos.SpeciesRepository;
 import hu.oenik.data.User;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -22,6 +22,12 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class deleteEmpireServlet extends HttpServlet {
 
+<<<<<<< Updated upstream
+=======
+    @Inject 
+    SpeciesRepository sepeciesRepository;
+    
+>>>>>>> Stashed changes
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -75,7 +81,11 @@ public class deleteEmpireServlet extends HttpServlet {
         sess.getEmpires().remove(selected);
         request.setAttribute("heroes", sess.getHeroes());
             request.setAttribute("empires", sess.getEmpires());
+<<<<<<< Updated upstream
             request.setAttribute("species", SpeciesRepository.instance.getSpecies());
+=======
+            request.setAttribute("species",sepeciesRepository.getSpecies());
+>>>>>>> Stashed changes
         getServletContext().getRequestDispatcher("/UserHome.jsp").include(request, response);
         
     }

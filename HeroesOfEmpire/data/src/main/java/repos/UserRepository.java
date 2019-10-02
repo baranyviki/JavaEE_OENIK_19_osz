@@ -3,8 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package hu.oenik.data;
+package repos;
 
+import exceptions.LoginException;
+import hu.oenik.data.User;
 import java.util.ArrayList;
 import java.util.List;
 import javax.inject.Singleton;

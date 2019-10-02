@@ -1,6 +1,5 @@
 package hu.oenik.data;
 
-import empire.Empire;
 import java.util.ArrayList;
 import java.util.List;
 

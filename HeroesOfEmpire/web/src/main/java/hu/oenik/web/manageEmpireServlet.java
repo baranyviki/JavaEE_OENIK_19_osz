@@ -5,7 +5,7 @@
  */
 package hu.oenik.web;
 
-import empire.Empire;
+import hu.oenik.data.Empire;
 import hu.oenik.data.User;
 import java.io.IOException;
 import java.util.List;

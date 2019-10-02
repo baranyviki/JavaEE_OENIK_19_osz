@@ -5,11 +5,15 @@
  */
 package hu.oenik.web;
 
-import empire.EnvironmentTypes;
+import hu.oenik.data.EnvironmentTypes;
 import hu.oenik.data.Hero;
+<<<<<<< Updated upstream
+=======
+import repos.HeroRepository;
+>>>>>>> Stashed changes
 import hu.oenik.data.Hybrid;
 import hu.oenik.data.Species;
-import hu.oenik.data.SpeciesRepository;
+import repos.SpeciesRepository;
 import hu.oenik.data.User;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -30,8 +34,16 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet(name = "HeroServlet", urlPatterns = {"/newHero"})
 public class HeroServlet extends HttpServlet {
 
+<<<<<<< Updated upstream
 //    @Inject
 //    UserRepository users;
+=======
+    @Inject
+    HeroRepository heroesRepository;
+
+    @Inject
+    SpeciesRepository speciesRepository;
+>>>>>>> Stashed changes
 
     // UserRepository users = new UserRepository();
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -55,7 +67,11 @@ public class HeroServlet extends HttpServlet {
             throws ServletException, IOException {
 
         Hero h = new Hero(request.getParameter("name"), request.getParameter("desc"));
+<<<<<<< Updated upstream
         for (Species s : SpeciesRepository.instance.getSpecies()) {
+=======
+        for (Species s : speciesRepository.getSpecies()) {
+>>>>>>> Stashed changes
             try {
                 Byte b = Byte.parseByte(request.getParameter(s.getName()));
                 Hybrid newHybrid = new Hybrid(s, b);
@@ -69,11 +85,20 @@ public class HeroServlet extends HttpServlet {
         }
 
         User sess = ((User) request.getSession().getAttribute("user"));
+<<<<<<< Updated upstream
         sess.getHeroes().add(h);
 
         request.setAttribute("heroes", sess.getHeroes());
         request.setAttribute("empires", sess.getEmpires());
         request.setAttribute("species", SpeciesRepository.instance.getSpecies());
+=======
+        //sess.getHeroes().add(h);
+        heroesRepository.add(h);
+
+        request.setAttribute("heroes", sess.getHeroes());
+        request.setAttribute("empires", sess.getEmpires());
+        request.setAttribute("species", speciesRepository.getSpecies());
+>>>>>>> Stashed changes
         List<EnvironmentTypes> envtypes = new ArrayList<>(Arrays.asList(EnvironmentTypes.values()));
         request.setAttribute("envtypes",envtypes);
                   

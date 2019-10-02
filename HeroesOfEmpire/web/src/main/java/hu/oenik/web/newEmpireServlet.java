@@ -5,9 +5,9 @@
  */
 package hu.oenik.web;
 
-import empire.Empire;
-import empire.EnvironmentTypes;
-import hu.oenik.data.SpeciesRepository;
+import hu.oenik.data.Empire;
+import hu.oenik.data.EnvironmentTypes;
+import repos.SpeciesRepository;
 import hu.oenik.data.User;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -27,6 +27,12 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet(name = "newEmpireServlet", urlPatterns = {"/newEmpire"})
 public class newEmpireServlet extends HttpServlet {
 
+<<<<<<< Updated upstream
+=======
+    @Inject
+    SpeciesRepository speciesRepository;
+    
+>>>>>>> Stashed changes
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -74,7 +80,11 @@ public class newEmpireServlet extends HttpServlet {
         
             request.setAttribute("heroes", sess.getHeroes());
             request.setAttribute("empires", sess.getEmpires());
+<<<<<<< Updated upstream
             request.setAttribute("species", SpeciesRepository.instance.getSpecies());
+=======
+            request.setAttribute("species", speciesRepository.getSpecies());
+>>>>>>> Stashed changes
             request.setAttribute("envtypes", Arrays.asList(EnvironmentTypes.values()));
             getServletContext().getRequestDispatcher("/UserHome.jsp").include(request, response);
     }

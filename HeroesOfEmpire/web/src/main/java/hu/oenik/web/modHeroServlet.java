@@ -8,7 +8,7 @@ package hu.oenik.web;
 import hu.oenik.data.Hero;
 import hu.oenik.data.Hybrid;
 import hu.oenik.data.Species;
-import hu.oenik.data.SpeciesRepository;
+import repos.SpeciesRepository;
 import hu.oenik.data.User;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -28,6 +28,12 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet(name = "modHeroServlet", urlPatterns = {"/modHero"})
 public class modHeroServlet extends HttpServlet {
 
+<<<<<<< Updated upstream
+=======
+    @Inject
+    SpeciesRepository speciesRepository;
+    
+>>>>>>> Stashed changes
 //    @Inject
 //    UserRepository users;
     /**
@@ -66,7 +72,11 @@ public class modHeroServlet extends HttpServlet {
         request.setAttribute("selectedHero", selectedHero);
 
         List<Hybrid> selectionHybrids = new ArrayList<>();
+<<<<<<< Updated upstream
         for (Species s : SpeciesRepository.instance.getSpecies()) {
+=======
+        for (Species s : speciesRepository.getSpecies()) {
+>>>>>>> Stashed changes
             selectionHybrids.add(new Hybrid(s, (byte) 0));
         }
 
@@ -110,7 +120,11 @@ public class modHeroServlet extends HttpServlet {
         sessUser.getHeroes().get(moddedHeroIdx).setDescription(desc);
 
         List<Hybrid> heroHybrids = new ArrayList<>();
+<<<<<<< Updated upstream
         for (Species s : SpeciesRepository.instance.getSpecies()) {
+=======
+        for (Species s : speciesRepository.getSpecies()) {
+>>>>>>> Stashed changes
             try {
                 Byte percent = Byte.parseByte(request.getParameter(s.getName()));
                 if (percent > 0) {
@@ -125,7 +139,11 @@ public class modHeroServlet extends HttpServlet {
         sessUser.getHeroes().get(moddedHeroIdx).setHybrids(heroHybrids);
         request.setAttribute("heroes",sessUser.getHeroes() );
         request.setAttribute("empires",sessUser.getEmpires() );
+<<<<<<< Updated upstream
         request.setAttribute("species", SpeciesRepository.instance.getSpecies());
+=======
+        request.setAttribute("species",speciesRepository.getSpecies());
+>>>>>>> Stashed changes
             
         getServletContext().getRequestDispatcher("/UserHome.jsp").include(request, response);
     }
