@@ -9,8 +9,8 @@ import empire.Empire;
 import hu.oenik.data.SpeciesRepository;
 import hu.oenik.data.User;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.List;
+import javax.inject.Inject;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -22,6 +22,9 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class deleteEmpireServlet extends HttpServlet {
 
+    @Inject 
+    SpeciesRepository species;
+    
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -75,7 +78,7 @@ public class deleteEmpireServlet extends HttpServlet {
         sess.getEmpires().remove(selected);
         request.setAttribute("heroes", sess.getHeroes());
             request.setAttribute("empires", sess.getEmpires());
-            request.setAttribute("species", SpeciesRepository.instance.getSpecies());
+            request.setAttribute("species",species.getSpecies());
         getServletContext().getRequestDispatcher("/UserHome.jsp").include(request, response);
         
     }

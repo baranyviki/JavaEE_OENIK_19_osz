@@ -7,33 +7,31 @@ package hu.oenik.data;
 
 import java.util.ArrayList;
 import java.util.List;
+import javax.enterprise.context.RequestScoped;
 
 /**
  *
  * @author Viki
  */
 public class SpeciesRepository {
-    
-    
-    public static final SpeciesRepository instance = new SpeciesRepository();
-    
+
     private List<Species> species = new ArrayList<>();
 
-    public SpeciesRepository() {
-        species.add(new Species("Human", "Bold"));        
-        species.add(new Species("Dwarf", "Strong"));        
-        species.add(new Species("Elder Blood", "Chosen ones"));        
-        species.add(new Species("Mutant", "Wolf School Witcher"));
-        
-    }
-
-    public static SpeciesRepository getInstance (){
-    return instance;
-    }
-
+    //  public SpeciesRepository() {
+    //  species.add(new Species("Human", "Bold"));        
+    //  species.add(new Species("Dwarf", "Strong"));        
+    //  species.add(new Species("Elder Blood", "Chosen ones"));        
+    //  species.add(new Species("Mutant", "Wolf School Witcher"));
+    //   }
+    
+    
     public List<Species> getSpecies() {
         return species;
     }
-   
+
+    public void add(Species s)
+    {
+    
+    }
     
 }

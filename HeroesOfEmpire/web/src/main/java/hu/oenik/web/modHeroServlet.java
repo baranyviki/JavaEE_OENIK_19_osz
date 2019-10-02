@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.inject.Inject;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -28,6 +29,9 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet(name = "modHeroServlet", urlPatterns = {"/modHero"})
 public class modHeroServlet extends HttpServlet {
 
+    @Inject
+    SpeciesRepository species;
+    
 //    @Inject
 //    UserRepository users;
     /**
@@ -66,7 +70,7 @@ public class modHeroServlet extends HttpServlet {
         request.setAttribute("selectedHero", selectedHero);
 
         List<Hybrid> selectionHybrids = new ArrayList<>();
-        for (Species s : SpeciesRepository.instance.getSpecies()) {
+        for (Species s : species.getSpecies()) {
             selectionHybrids.add(new Hybrid(s, (byte) 0));
         }
 
@@ -110,7 +114,7 @@ public class modHeroServlet extends HttpServlet {
         sessUser.getHeroes().get(moddedHeroIdx).setDescription(desc);
 
         List<Hybrid> heroHybrids = new ArrayList<>();
-        for (Species s : SpeciesRepository.instance.getSpecies()) {
+        for (Species s : species.getSpecies()) {
             try {
                 Byte percent = Byte.parseByte(request.getParameter(s.getName()));
                 if (percent > 0) {
@@ -125,7 +129,7 @@ public class modHeroServlet extends HttpServlet {
         sessUser.getHeroes().get(moddedHeroIdx).setHybrids(heroHybrids);
         request.setAttribute("heroes",sessUser.getHeroes() );
         request.setAttribute("empires",sessUser.getEmpires() );
-        request.setAttribute("species", SpeciesRepository.instance.getSpecies());
+        request.setAttribute("species",species.getSpecies());
             
         getServletContext().getRequestDispatcher("/UserHome.jsp").include(request, response);
     }

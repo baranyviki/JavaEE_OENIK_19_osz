@@ -23,11 +23,12 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Viki
  */
+
 @WebServlet(name = "RegistrationServlet", urlPatterns = {"/reg"})
 public class RegistrationServlet extends HttpServlet {
 
-//    @Inject
-//    UserRepository users;
+   @Inject
+    UserRepository users;
     
     
     /**
@@ -73,7 +74,7 @@ public class RegistrationServlet extends HttpServlet {
         String fullname = request.getParameter("name");
         //User tmpU = new User(name, password, false);
          try {
-             UserRepository.instance.registration(fullname,username, password);
+             users.registration(fullname,username, password);
          } catch (RegistrationException ex) {
              Logger.getLogger(RegistrationServlet.class.getName()).log(Level.SEVERE, null, ex);
              response.getWriter().print("no success");

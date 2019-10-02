@@ -57,6 +57,8 @@ public class Empire {
                  else{
                      population.add(new Population(p,(long)10));
                  }
+                 
+                 List<NaturalAsset> nat =NaturalAssetRepository.getInstance().getAssets();
                  for (NaturalAsset s:NaturalAssetRepository.getInstance().getAssets()){
                      if(s.getName().equals("Stone")){
                          produce.add(new Stock(s,(long)(10)));
