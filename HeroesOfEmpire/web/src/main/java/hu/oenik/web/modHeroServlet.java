@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.inject.Inject;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -28,26 +29,10 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet(name = "modHeroServlet", urlPatterns = {"/modHero"})
 public class modHeroServlet extends HttpServlet {
 
-<<<<<<< Updated upstream
-=======
     @Inject
     SpeciesRepository speciesRepository;
-    
->>>>>>> Stashed changes
-//    @Inject
-//    UserRepository users;
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
+/*  
      *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    // UserRepository users = new UserRepository();
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /**
      * Handles the HTTP <code>GET</code> method.
      *
      * @param request servlet request
@@ -72,11 +57,8 @@ public class modHeroServlet extends HttpServlet {
         request.setAttribute("selectedHero", selectedHero);
 
         List<Hybrid> selectionHybrids = new ArrayList<>();
-<<<<<<< Updated upstream
-        for (Species s : SpeciesRepository.instance.getSpecies()) {
-=======
+
         for (Species s : speciesRepository.getSpecies()) {
->>>>>>> Stashed changes
             selectionHybrids.add(new Hybrid(s, (byte) 0));
         }
 
@@ -120,11 +102,8 @@ public class modHeroServlet extends HttpServlet {
         sessUser.getHeroes().get(moddedHeroIdx).setDescription(desc);
 
         List<Hybrid> heroHybrids = new ArrayList<>();
-<<<<<<< Updated upstream
-        for (Species s : SpeciesRepository.instance.getSpecies()) {
-=======
+
         for (Species s : speciesRepository.getSpecies()) {
->>>>>>> Stashed changes
             try {
                 Byte percent = Byte.parseByte(request.getParameter(s.getName()));
                 if (percent > 0) {
@@ -139,13 +118,8 @@ public class modHeroServlet extends HttpServlet {
         sessUser.getHeroes().get(moddedHeroIdx).setHybrids(heroHybrids);
         request.setAttribute("heroes",sessUser.getHeroes() );
         request.setAttribute("empires",sessUser.getEmpires() );
-<<<<<<< Updated upstream
-        request.setAttribute("species", SpeciesRepository.instance.getSpecies());
-=======
-        request.setAttribute("species",speciesRepository.getSpecies());
->>>>>>> Stashed changes
-            
-        getServletContext().getRequestDispatcher("/UserHome.jsp").include(request, response);
+        request.setAttribute("species",speciesRepository.getSpecies());           
+        getServletContext().getRequestDispatcher("/userHome.jsp").include(request, response);
     }
 
     /**

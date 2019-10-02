@@ -15,28 +15,19 @@ import java.util.List;
  */
 public class PeopleRepository {
     
-    public static final PeopleRepository instance = new PeopleRepository();
-    
     private List<People> people = new ArrayList<>();
     
-    private PeopleRepository (){
-        people.add(new People("Miner","people who likes minecraft"));
-        people.add(new People("Farmer","they produces your food"));
-        people.add(new People("Soldier","normal figther guys"));
-        people.add(new People("Badass soldier","they can kill you in a brutal way"));
-        people.add(new People("Worker","man for constructions"));
-    }
-    
-    public static PeopleRepository getInstance()
-    {
-        return instance;
+    public PeopleRepository (){
+        
     }
 
     public List<People> getPeople() {
         return people;
     }
 
-   
-    
+   public void add(People p)
+   {
+       people.add(p);
+   }
     
 }

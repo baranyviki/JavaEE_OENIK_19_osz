@@ -7,10 +7,7 @@ package hu.oenik.web;
 
 import hu.oenik.data.EnvironmentTypes;
 import hu.oenik.data.Hero;
-<<<<<<< Updated upstream
-=======
 import repos.HeroRepository;
->>>>>>> Stashed changes
 import hu.oenik.data.Hybrid;
 import hu.oenik.data.Species;
 import repos.SpeciesRepository;
@@ -21,11 +18,13 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.inject.Inject;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import repos.UserRepository;
 
 /**
  *
@@ -34,17 +33,14 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet(name = "HeroServlet", urlPatterns = {"/newHero"})
 public class HeroServlet extends HttpServlet {
 
-<<<<<<< Updated upstream
-//    @Inject
-//    UserRepository users;
-=======
+   //@Inject
+    //UserRepository users;
+
     @Inject
     HeroRepository heroesRepository;
 
     @Inject
     SpeciesRepository speciesRepository;
->>>>>>> Stashed changes
-
     // UserRepository users = new UserRepository();
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
 
@@ -67,11 +63,8 @@ public class HeroServlet extends HttpServlet {
             throws ServletException, IOException {
 
         Hero h = new Hero(request.getParameter("name"), request.getParameter("desc"));
-<<<<<<< Updated upstream
-        for (Species s : SpeciesRepository.instance.getSpecies()) {
-=======
         for (Species s : speciesRepository.getSpecies()) {
->>>>>>> Stashed changes
+
             try {
                 Byte b = Byte.parseByte(request.getParameter(s.getName()));
                 Hybrid newHybrid = new Hybrid(s, b);
@@ -85,24 +78,16 @@ public class HeroServlet extends HttpServlet {
         }
 
         User sess = ((User) request.getSession().getAttribute("user"));
-<<<<<<< Updated upstream
         sess.getHeroes().add(h);
-
-        request.setAttribute("heroes", sess.getHeroes());
-        request.setAttribute("empires", sess.getEmpires());
-        request.setAttribute("species", SpeciesRepository.instance.getSpecies());
-=======
-        //sess.getHeroes().add(h);
         heroesRepository.add(h);
-
         request.setAttribute("heroes", sess.getHeroes());
         request.setAttribute("empires", sess.getEmpires());
         request.setAttribute("species", speciesRepository.getSpecies());
->>>>>>> Stashed changes
+
         List<EnvironmentTypes> envtypes = new ArrayList<>(Arrays.asList(EnvironmentTypes.values()));
         request.setAttribute("envtypes",envtypes);
                   
-        getServletContext().getRequestDispatcher("/UserHome.jsp").include(request, response);
-
+        getServletContext().getRequestDispatcher("/userHome.jsp").include(request, response);
+        
     }
 }

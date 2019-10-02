@@ -5,15 +5,14 @@
  */
 package hu.oenik.web;
 
+import bl.EmpireLogic;
 import hu.oenik.data.Empire;
 import hu.oenik.data.EnvironmentTypes;
 import repos.SpeciesRepository;
 import hu.oenik.data.User;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.EnumSet;
-import java.util.List;
+import javax.inject.Inject;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -27,24 +26,8 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet(name = "newEmpireServlet", urlPatterns = {"/newEmpire"})
 public class newEmpireServlet extends HttpServlet {
 
-<<<<<<< Updated upstream
-=======
     @Inject
     SpeciesRepository speciesRepository;
-    
->>>>>>> Stashed changes
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-
-
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
      *
@@ -75,18 +58,15 @@ public class newEmpireServlet extends HttpServlet {
         String description = request.getParameter("desc");
         String envValue = request.getParameter("envlist");
         EnvironmentTypes envType = EnvironmentTypes.valueOf(request.getParameter("envlist"));
-        Empire emp = new Empire(name,description,envType);
-        sess.getEmpires().add(emp);
+        EmpireLogic c = new EmpireLogic();
+        Empire emp = c.EmpireFactory(name, description, envType);
         
-            request.setAttribute("heroes", sess.getHeroes());
-            request.setAttribute("empires", sess.getEmpires());
-<<<<<<< Updated upstream
-            request.setAttribute("species", SpeciesRepository.instance.getSpecies());
-=======
-            request.setAttribute("species", speciesRepository.getSpecies());
->>>>>>> Stashed changes
-            request.setAttribute("envtypes", Arrays.asList(EnvironmentTypes.values()));
-            getServletContext().getRequestDispatcher("/UserHome.jsp").include(request, response);
+        sess.getEmpires().add(emp);        
+        request.setAttribute("heroes", sess.getHeroes());
+        request.setAttribute("empires", sess.getEmpires());
+        request.setAttribute("species", speciesRepository.getSpecies());
+        request.setAttribute("envtypes", Arrays.asList(EnvironmentTypes.values()));
+        getServletContext().getRequestDispatcher("/userHome.jsp").include(request, response);
     }
 
     /**

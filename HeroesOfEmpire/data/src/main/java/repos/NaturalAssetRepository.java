@@ -15,24 +15,17 @@ import java.util.List;
  */
 public class NaturalAssetRepository {
     
-    public static final NaturalAssetRepository instance = new NaturalAssetRepository();
-    
     private List<NaturalAsset> assets = new ArrayList<>();
-
-    private NaturalAssetRepository() {
-        assets.add(new NaturalAsset("Stone", "Mostly used for build buildings"));        
-        assets.add(new NaturalAsset("Gold", "Mostly used for train the soldiers"));         
-        assets.add(new NaturalAsset("Wood", "Mostly used for build buildings"));       
-        assets.add(new NaturalAsset("Food", "nyam")); 
-        
+    
+    public NaturalAssetRepository() {
     }
-
-    public static NaturalAssetRepository getInstance (){
-    return instance;
-    }
-
+    
     public List<NaturalAsset> getAssets() {
         return assets;
+    }
+    
+    public void add(NaturalAsset n) {
+        assets.add(n);
     }
     
 }

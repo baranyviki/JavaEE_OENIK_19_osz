@@ -8,23 +8,16 @@ package hu.oenik.web;
 import hu.oenik.data.EnvironmentTypes;
 import hu.oenik.data.Hero;
 import hu.oenik.data.Hybrid;
-<<<<<<< Updated upstream
-import hu.oenik.data.LoginException;
-import hu.oenik.data.Species;
-import hu.oenik.data.SpeciesRepository;
-=======
 import exceptions.LoginException;
 import repos.SpeciesRepository;
->>>>>>> Stashed changes
 import hu.oenik.data.User;
 import repos.UserRepository;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.EnumSet;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.inject.Inject;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -35,22 +28,18 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Viki
  */
+
+
 @WebServlet(name = "LoginServlet", urlPatterns = {"/login"})
 public class LoginServlet extends HttpServlet {
 
-<<<<<<< Updated upstream
-//    @Inject
-//    UserRepository users;
-    /**
-=======
-  @Inject
+    @Inject
     UserRepository userRepository;
 
-  @Inject 
-  SpeciesRepository speciesRepository;
-  
-  /**
->>>>>>> Stashed changes
+    @Inject
+    SpeciesRepository speciesRepository;
+
+    /*
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
      *
@@ -89,31 +78,24 @@ public class LoginServlet extends HttpServlet {
         String username = request.getParameter("name");
 
         try {
-            //User tmpU = new User(name, password, false);
-<<<<<<< Updated upstream
-            User loggedIn = UserRepository.instance.login(username, password);
-=======
             User loggedIn = userRepository.login(username, password);
->>>>>>> Stashed changes
-            loggedIn.getHeroes().add(new Hero("face", "scary", new ArrayList<Hybrid>()));
+            //loggedIn.getHeroes().add(new Hero("face", "scary", new ArrayList<Hybrid>()));
             request.getSession().setAttribute("user", loggedIn);
             request.setAttribute("heroes", loggedIn.getHeroes());
             request.setAttribute("empires", loggedIn.getEmpires());
-<<<<<<< Updated upstream
-            request.setAttribute("species", SpeciesRepository.instance.getSpecies());
-=======
+
             request.setAttribute("species", speciesRepository.getSpecies());
->>>>>>> Stashed changes
+
             List<String> s = EnvironmentTypes.getAllTypes();
-            request.setAttribute("envtypes",s);
-            getServletContext().getRequestDispatcher("/UserHome.jsp").include(request, response);
+            request.setAttribute("envtypes", s);
+            getServletContext().getRequestDispatcher("/userHome.jsp").include(request, response);
 
             //  getServletContext().getRequestDispatcher("/hero.jsp").include(request, response);
         } catch (LoginException ex) {
             Logger.getLogger(LoginServlet.class.getName()).log(Level.SEVERE, null, ex);
             response.getWriter().print("login error");
 
-//response.sendRedirect("/home");
+            //response.sendRedirect("/home");
         }
     }
 

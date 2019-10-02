@@ -30,6 +30,8 @@ public class EmpireRepository {
     public List<Empire> getEmpires() {
         return empires;
     }
+    
+    
     /*
     public void createEmpire(String name, String description, EnvironmentTypes envType )
     {
