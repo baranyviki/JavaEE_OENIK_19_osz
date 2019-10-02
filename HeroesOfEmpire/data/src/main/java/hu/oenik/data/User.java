@@ -1,6 +1,8 @@
 package hu.oenik.data;
 
+import empire.Empire;
 import java.util.ArrayList;
+import java.util.List;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -13,20 +15,21 @@ import java.util.ArrayList;
  * @author Viki
  */
 public class User {
-    private String name,loginName,password;
+    private String name,userName,password;
     private Boolean admin;
-    ArrayList<Hero> heroes;
-
+    private List<Hero> heroes = new ArrayList<>();
+    private List<Empire> empires = new ArrayList<>();
+ 
     
-    public User(String name, String loginName, String password, Boolean admin) {
+    public User(String name, String userName, String password, Boolean admin) {
         this.name = name;
-        this.loginName = loginName;
+        this.userName = userName;
         this.password = password;
         this.admin = admin;
     }
 
-    public User(String loginName, String password, Boolean admin) {
-        this.loginName = loginName;
+    public User(String userName, String password, Boolean admin) {
+        this.userName = userName;
         this.password = password;
         this.admin = admin;
     }
@@ -42,12 +45,12 @@ public class User {
         this.name = name;
     }
 
-    public String getLoginName() {
-        return loginName;
+    public String GetUserName() {
+        return userName;
     }
 
-    public void setLoginName(String loginName) {
-        this.loginName = loginName;
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
     public String getPassword() {
@@ -66,13 +69,19 @@ public class User {
         this.admin = admin;
     }
 
-    public ArrayList<Hero> getHeroes() {
+    public List<Hero> getHeroes() {
         return heroes;
     }
 
-    public void setHeroes(ArrayList<Hero> heroes) {
+    public void setHeroes(List<Hero> heroes) {
         this.heroes = heroes;
     }
     
-    
+       public List<Empire> getEmpires() {
+        return empires;
+    }
+
+    public void setEmpires(List<Empire> empires) {
+        this.empires = empires;
+    }
 }

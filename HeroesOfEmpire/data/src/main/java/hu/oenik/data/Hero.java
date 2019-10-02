@@ -6,6 +6,7 @@
 package hu.oenik.data;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -13,15 +14,20 @@ import java.util.ArrayList;
  */
 public class Hero {
 
-    String name, description;
-    ArrayList<Hybrid> hybrids;
-    ArrayList<Quality> qualities;
+   String name, description;
+   List<Hybrid>  hybrids   = new ArrayList<>();
+   List<Quality> qualities = new ArrayList<>();
 
     public Hero(String name, String description, ArrayList<Hybrid> hybrids, ArrayList<Quality> qualities) {
         this.name = name;
         this.description = description;
         this.hybrids = hybrids;
         this.qualities = qualities;
+    }
+    public Hero(String name, String description, ArrayList<Hybrid> hybrids) {
+        this.name = name;
+        this.description = description;
+        this.hybrids = hybrids;
     }
 
     public Hero(String name, String description) {
@@ -48,20 +54,21 @@ public class Hero {
         this.description = description;
     }
 
-    public ArrayList<Hybrid> getHybrids() {
+    public List<Hybrid> getHybrids() {
         return hybrids;
     }
 
-    public void setHybrids(ArrayList<Hybrid> hybrids) {
+    public void setHybrids(List<Hybrid> hybrids) {
         this.hybrids = hybrids;
     }
 
-    public ArrayList<Quality> getQualities() {
+    public List<Quality> getQualities() {
         return qualities;
     }
 
-    public void setQualities(ArrayList<Quality> qualities) {
+    public void setQualities(List<Quality> qualities) {
         this.qualities = qualities;
     }
+
 
 }

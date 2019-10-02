@@ -6,6 +6,7 @@
 package hu.oenik.data;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -13,7 +14,7 @@ import java.util.ArrayList;
  */
 public class Species {
     String name, description;
-    ArrayList<Quality> qualities;
+   List<Quality> qualities = new ArrayList<>();
 
     public Species() {
     }
@@ -44,13 +45,15 @@ public class Species {
     public void setDescription(String description) {
         this.description = description;
     }
-    
-    public ArrayList<Quality> getQualities() {
+
+    public List<Quality> getQualities() {
         return qualities;
     }
 
-    public void setQualities(ArrayList<Quality> qualities) {
+    public void setQualities(List<Quality> qualities) {
         this.qualities = qualities;
     }
+    
+ 
 
 }

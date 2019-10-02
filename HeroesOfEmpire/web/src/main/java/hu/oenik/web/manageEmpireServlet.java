@@ -5,14 +5,10 @@
  */
 package hu.oenik.web;
 
-import hu.oenik.data.RegistrationException;
+import empire.Empire;
 import hu.oenik.data.User;
-import hu.oenik.data.UserRepository;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.inject.Inject;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -23,25 +19,8 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Viki
  */
-@WebServlet(name = "RegistrationServlet", urlPatterns = {"/reg"})
-public class RegistrationServlet extends HttpServlet {
-
-//    @Inject
-//    UserRepository users;
-    
-    
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-  
-    // UserRepository users = new UserRepository();
-   
+@WebServlet(name = "manageEmpireServlet", urlPatterns = {"/manageEmpire"})
+public class manageEmpireServlet extends HttpServlet {
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
@@ -55,6 +34,23 @@ public class RegistrationServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        String empireName = request.getParameter("empirename");
+        User sess = ((User) request.getSession().getAttribute("user"));
+        List<Empire> emp = sess.getEmpires();
+        int idx = 0;
+        int selected = 0;
+        while (idx < emp.size() && !emp.get(idx).getName().equals(empireName)) {
+            idx++;
+        }
+        if (idx < emp.size()) {
+            selected = idx;
+        } else {
+            throw new ServletException("user dont have empire with given name");
+        }
+
+        request.setAttribute("selectedEmpire", sess.getEmpires().get(selected));
+
+        getServletContext().getRequestDispatcher("/empire.jsp").include(request, response);
     }
 
     /**
@@ -68,18 +64,7 @@ public class RegistrationServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String password = request.getParameter("pass");
-        String username = request.getParameter("username");
-        String fullname = request.getParameter("name");
-        //User tmpU = new User(name, password, false);
-         try {
-             UserRepository.instance.registration(fullname,username, password);
-         } catch (RegistrationException ex) {
-             Logger.getLogger(RegistrationServlet.class.getName()).log(Level.SEVERE, null, ex);
-             response.getWriter().print("no success");
-         }
-         
-         response.sendRedirect("/web");
+
     }
 
     /**

@@ -5,14 +5,15 @@
  */
 package hu.oenik.web;
 
-import hu.oenik.data.RegistrationException;
+import empire.Empire;
+import empire.EnvironmentTypes;
+import hu.oenik.data.SpeciesRepository;
 import hu.oenik.data.User;
-import hu.oenik.data.UserRepository;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.inject.Inject;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.EnumSet;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -23,13 +24,9 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Viki
  */
-@WebServlet(name = "RegistrationServlet", urlPatterns = {"/reg"})
-public class RegistrationServlet extends HttpServlet {
+@WebServlet(name = "newEmpireServlet", urlPatterns = {"/newEmpire"})
+public class newEmpireServlet extends HttpServlet {
 
-//    @Inject
-//    UserRepository users;
-    
-    
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -39,9 +36,7 @@ public class RegistrationServlet extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-  
-    // UserRepository users = new UserRepository();
-   
+
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
@@ -55,6 +50,7 @@ public class RegistrationServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        
     }
 
     /**
@@ -68,18 +64,19 @@ public class RegistrationServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String password = request.getParameter("pass");
-        String username = request.getParameter("username");
-        String fullname = request.getParameter("name");
-        //User tmpU = new User(name, password, false);
-         try {
-             UserRepository.instance.registration(fullname,username, password);
-         } catch (RegistrationException ex) {
-             Logger.getLogger(RegistrationServlet.class.getName()).log(Level.SEVERE, null, ex);
-             response.getWriter().print("no success");
-         }
-         
-         response.sendRedirect("/web");
+        User sess = ((User)request.getSession().getAttribute("user"));
+        String name = request.getParameter("name");
+        String description = request.getParameter("desc");
+        String envValue = request.getParameter("envlist");
+        EnvironmentTypes envType = EnvironmentTypes.valueOf(request.getParameter("envlist"));
+        Empire emp = new Empire(name,description,envType);
+        sess.getEmpires().add(emp);
+        
+            request.setAttribute("heroes", sess.getHeroes());
+            request.setAttribute("empires", sess.getEmpires());
+            request.setAttribute("species", SpeciesRepository.instance.getSpecies());
+            request.setAttribute("envtypes", Arrays.asList(EnvironmentTypes.values()));
+            getServletContext().getRequestDispatcher("/UserHome.jsp").include(request, response);
     }
 
     /**
