@@ -18,6 +18,9 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import repos.EmpireRepository;
+import repos.NaturalAssetRepository;
+import repos.PeopleRepository;
 
 /**
  *
@@ -28,6 +31,16 @@ public class newEmpireServlet extends HttpServlet {
 
     @Inject
     SpeciesRepository speciesRepository;
+    
+    @Inject
+    PeopleRepository peopleRepository;
+    
+    @Inject
+    NaturalAssetRepository naturalAssetRepository; 
+    
+    @Inject
+    EmpireRepository empireRepository;
+    
     /**
      * Handles the HTTP <code>GET</code> method.
      *
@@ -58,10 +71,12 @@ public class newEmpireServlet extends HttpServlet {
         String description = request.getParameter("desc");
         String envValue = request.getParameter("envlist");
         EnvironmentTypes envType = EnvironmentTypes.valueOf(request.getParameter("envlist"));
-        EmpireLogic c = new EmpireLogic();
+        EmpireLogic c = new EmpireLogic(peopleRepository,naturalAssetRepository);
         Empire emp = c.EmpireFactory(name, description, envType);
+
+        empireRepository.add(emp);
+        sess.getEmpires().add(emp);
         
-        sess.getEmpires().add(emp);        
         request.setAttribute("heroes", sess.getHeroes());
         request.setAttribute("empires", sess.getEmpires());
         request.setAttribute("species", speciesRepository.getSpecies());

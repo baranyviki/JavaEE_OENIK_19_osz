@@ -21,6 +21,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import repos.HeroRepository;
 
 /**
  *
@@ -31,6 +32,9 @@ public class modHeroServlet extends HttpServlet {
 
     @Inject
     SpeciesRepository speciesRepository;
+    @Inject
+    HeroRepository heroRepository;
+    
 /*  
      *
      * Handles the HTTP <code>GET</code> method.
@@ -116,6 +120,8 @@ public class modHeroServlet extends HttpServlet {
 
         }
         sessUser.getHeroes().get(moddedHeroIdx).setHybrids(heroHybrids);
+        heroRepository.getHeroes().get(moddedHeroIdx).setHybrids(heroHybrids);
+        
         request.setAttribute("heroes",sessUser.getHeroes() );
         request.setAttribute("empires",sessUser.getEmpires() );
         request.setAttribute("species",speciesRepository.getSpecies());           

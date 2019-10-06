@@ -15,6 +15,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import repos.EmpireRepository;
 
 /**
  *
@@ -22,8 +23,11 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class deleteEmpireServlet extends HttpServlet {
 
-    @Inject 
+    @Inject
     SpeciesRepository sepeciesRepository;
+
+    @Inject
+    EmpireRepository empireRepository;
     
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -34,8 +38,6 @@ public class deleteEmpireServlet extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-
-
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
@@ -48,7 +50,7 @@ public class deleteEmpireServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-  }
+    }
 
     /**
      * Handles the HTTP <code>POST</code> method.
@@ -61,7 +63,7 @@ public class deleteEmpireServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-           String empireName = request.getParameter("empirename");
+        String empireName = request.getParameter("empirename");
         User sess = ((User) request.getSession().getAttribute("user"));
         List<Empire> emp = sess.getEmpires();
         int idx = 0;
@@ -76,13 +78,15 @@ public class deleteEmpireServlet extends HttpServlet {
         }
 
         sess.getEmpires().remove(selected);
-        request.setAttribute("heroes", sess.getHeroes());
-            request.setAttribute("empires", sess.getEmpires());
-
-            request.setAttribute("species",sepeciesRepository.getSpecies());
-        getServletContext().getRequestDispatcher("/userHome.jsp").include(request, response);
+        empireRepository.remove(selected);
         
+        request.setAttribute("heroes", sess.getHeroes());
+        request.setAttribute("empires", sess.getEmpires());
+        request.setAttribute("species", sepeciesRepository.getSpecies());
+        getServletContext().getRequestDispatcher("/userHome.jsp").include(request, response);
+
     }
+
     /**
      * Returns a short description of the servlet.
      *

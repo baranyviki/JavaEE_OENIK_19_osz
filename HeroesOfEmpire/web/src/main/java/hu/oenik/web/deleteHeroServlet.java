@@ -16,6 +16,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import repos.HeroRepository;
 
 /**
  *
@@ -27,6 +28,9 @@ public class deleteHeroServlet extends HttpServlet {
     @Inject
     SpeciesRepository speciesRepository;
 
+    @Inject
+    HeroRepository heroRepository;
+    
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -78,6 +82,7 @@ public class deleteHeroServlet extends HttpServlet {
             throw new ServletException("unlisted hero name in post request parameter of delete hero servlet");
         }
         sessUser.getHeroes().remove(moddedHeroIdx);
+        heroRepository.remove(moddedHeroIdx);
         
         request.setAttribute("heroes", sessUser.getHeroes());
         request.setAttribute("empires", sessUser.getEmpires());

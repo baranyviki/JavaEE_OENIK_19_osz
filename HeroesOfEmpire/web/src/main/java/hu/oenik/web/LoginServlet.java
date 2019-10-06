@@ -6,14 +6,12 @@
 package hu.oenik.web;
 
 import hu.oenik.data.EnvironmentTypes;
-import hu.oenik.data.Hero;
-import hu.oenik.data.Hybrid;
 import exceptions.LoginException;
+import hu.oenik.data.NaturalAsset;
 import repos.SpeciesRepository;
 import hu.oenik.data.User;
 import repos.UserRepository;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -23,6 +21,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import repos.NaturalAssetRepository;
 
 /**
  *
@@ -35,10 +34,12 @@ public class LoginServlet extends HttpServlet {
 
     @Inject
     UserRepository userRepository;
-
+      
     @Inject
     SpeciesRepository speciesRepository;
 
+
+    
     /*
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -83,7 +84,6 @@ public class LoginServlet extends HttpServlet {
             request.getSession().setAttribute("user", loggedIn);
             request.setAttribute("heroes", loggedIn.getHeroes());
             request.setAttribute("empires", loggedIn.getEmpires());
-
             request.setAttribute("species", speciesRepository.getSpecies());
 
             List<String> s = EnvironmentTypes.getAllTypes();

@@ -10,7 +10,6 @@ import exceptions.LoginException;
 import hu.oenik.data.User;
 import java.util.ArrayList;
 import java.util.List;
-import javax.inject.Singleton;
 
 /**
  *

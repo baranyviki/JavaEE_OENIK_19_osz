@@ -11,6 +11,7 @@ import hu.oenik.data.NaturalAsset;
 import hu.oenik.data.People;
 import hu.oenik.data.Population;
 import hu.oenik.data.Stock;
+import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import repos.NaturalAssetRepository;
 import repos.PeopleRepository;
@@ -19,16 +20,22 @@ import repos.PeopleRepository;
  *
  * @author Viki
  */
+@ApplicationScoped
 public class EmpireLogic {
 
-    @Inject
     PeopleRepository peopleRepository;
-
-    @Inject
     NaturalAssetRepository nautralAssetRepository;
+    
+    public EmpireLogic(PeopleRepository peopleRepository, NaturalAssetRepository nautralAssetRepository) {
+        this.peopleRepository = peopleRepository;
+        this.nautralAssetRepository = nautralAssetRepository;
+    }
+    
+    
     
     public Empire EmpireFactory(String name, String description, EnvironmentTypes envType) {
         Empire emp = GenerateEmpireWithEnvironment(envType);
+        emp.setName(name);
         emp.setDescription(description);
         emp.setEnvironmentType(envType);
         emp.setLevel(1L);
@@ -37,6 +44,7 @@ public class EmpireLogic {
 
     private Empire GenerateEmpireWithEnvironment(EnvironmentTypes envType) {
         Empire empire = new Empire();
+//        List<NaturalAsset> nats = nautralAssetRepository.getAssets();
         for (NaturalAsset s : nautralAssetRepository.getAssets()) {
             empire.getProduce().add(new Stock(s, (long) (5)));
         }

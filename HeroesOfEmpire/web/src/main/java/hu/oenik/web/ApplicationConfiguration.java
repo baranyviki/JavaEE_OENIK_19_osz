@@ -13,6 +13,7 @@ import hu.oenik.data.User;
 import repos.UserRepository;
 import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.inject.Produces;
+import repos.EmpireRepository;
 import repos.NaturalAssetRepository;
 import repos.PeopleRepository;
 
@@ -72,4 +73,12 @@ public class ApplicationConfiguration {
         nat.add(new NaturalAsset("Food", "nyam"));
         return nat;
     }
+    
+    @ApplicationScoped
+    @Produces
+    public EmpireRepository createEmpireRepository() {
+        EmpireRepository emp = new EmpireRepository();
+        return emp;
+    }
+    
 }

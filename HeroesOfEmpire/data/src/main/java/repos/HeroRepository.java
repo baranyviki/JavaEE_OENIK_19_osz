@@ -24,5 +24,10 @@ public class HeroRepository {
     public void add(Hero h){
     heroes.add(h);
     }
+    
+    public void remove(int heroIdx)
+    {
+        heroes.remove(heroIdx);
+    }
 
 }
