@@ -8,20 +8,27 @@ package repos;
 import hu.oenik.data.Species;
 import java.util.ArrayList;
 import java.util.List;
+import javax.persistence.EntityManager;
+import javax.persistence.Persistence;
 
 /**
  *
  * @author Viki
  */
 public class SpeciesRepository {
-    private List<Species> species = new ArrayList<>();
-    
+
+    private EntityManager em = Persistence.createEntityManagerFactory("heroesPU").createEntityManager();
+    //private List<Species> species = new ArrayList<>();   
+
     public List<Species> getSpecies() {
-        return species;
+        //class-ra hivatkozunk.
+        return em.createQuery("SELECT s FROM Species s", Species.class).getResultList();
     }
-    public void add(Species s)
-    {
-        species.add(s);
-    }  
-    
+
+    public void add(Species s) {
+        em.getTransaction().begin();
+        em.persist(s);
+        em.getTransaction().commit();
+    }
+
 }

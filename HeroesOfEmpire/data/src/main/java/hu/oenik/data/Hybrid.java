@@ -5,11 +5,38 @@
  */
 package hu.oenik.data;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+
 /**
  *
  * @author Viki
  */
+@Entity
+@Table(name="hybrid")
 public class Hybrid {
+    
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Id
+    private long id;
+
+    public Hybrid() {
+    }
+
+    
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+    
+    @ManyToOne
     Species species;
     byte percent;
 

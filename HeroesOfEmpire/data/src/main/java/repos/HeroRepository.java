@@ -6,28 +6,34 @@
 package repos;
 
 import hu.oenik.data.Hero;
-import java.util.ArrayList;
+import hu.oenik.data.Hybrid;
 import java.util.List;
+import javax.persistence.EntityManager;
+import javax.persistence.Persistence;
 
 /**
  *
  * @author Viki
  */
 public class HeroRepository {
-   
-    private List<Hero> heroes = new ArrayList<>();
-    
-    public List<Hero> getHeroes(){
-    return heroes;
+
+    private EntityManager em = Persistence.createEntityManagerFactory("heroesPU").createEntityManager();
+
+    public List<Hero> getHeroes() {
+        return em.createQuery("SELECT h FROM Hero h", Hero.class).getResultList();
     }
-    
-    public void add(Hero h){
-    heroes.add(h);
+
+    public void add(Hero he) {
+        em.getTransaction().begin();
+        for (Hybrid h : he.getHybrids()) {
+            em.persist(h);
+        }
+        em.persist(he);
+        em.getTransaction().commit();
     }
-    
-    public void remove(int heroIdx)
-    {
-        heroes.remove(heroIdx);
+
+    public void remove(int heroIdx) {
+       // heroes.remove(heroIdx);
     }
 
 }

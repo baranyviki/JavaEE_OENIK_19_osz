@@ -7,14 +7,34 @@ package hu.oenik.data;
 
 import java.util.ArrayList;
 import java.util.List;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 /**
  *
  * @author Viki
  */
+@Entity
+@Table(name="hero")
 public class Hero {
 
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Id
+   private long id;
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
    String name, description;
+      @OneToMany
    List<Hybrid>  hybrids   = new ArrayList<>();
    List<Quality> qualities = new ArrayList<>();
 
