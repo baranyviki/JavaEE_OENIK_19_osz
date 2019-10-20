@@ -7,7 +7,12 @@ package hu.oenik.web;
 
 import hu.oenik.data.RegistrationException;
 import hu.oenik.data.User;
+<<<<<<< Updated upstream
 import hu.oenik.data.UserRepository;
+=======
+import hu.oenik.data.UserService;
+import repos.UserRepository;
+>>>>>>> Stashed changes
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.logging.Level;
@@ -26,10 +31,16 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet(name = "RegistrationServlet", urlPatterns = {"/reg"})
 public class RegistrationServlet extends HttpServlet {
 
+<<<<<<< Updated upstream
 //    @Inject
 //    UserRepository users;
     
     
+=======
+   @Inject
+    UserService userService;
+        
+>>>>>>> Stashed changes
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -70,10 +81,14 @@ public class RegistrationServlet extends HttpServlet {
             throws ServletException, IOException {
         String password = request.getParameter("pass");
         String username = request.getParameter("username");
-        String fullname = request.getParameter("name");
+        //String fullname = request.getParameter("name");
         //User tmpU = new User(name, password, false);
          try {
+<<<<<<< Updated upstream
              UserRepository.instance.registration(fullname,username, password);
+=======
+             userService.registration(username, password);
+>>>>>>> Stashed changes
          } catch (RegistrationException ex) {
              Logger.getLogger(RegistrationServlet.class.getName()).log(Level.SEVERE, null, ex);
              response.getWriter().print("no success");

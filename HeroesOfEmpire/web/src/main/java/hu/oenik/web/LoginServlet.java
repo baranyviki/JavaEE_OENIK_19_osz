@@ -5,6 +5,7 @@
  */
 package hu.oenik.web;
 
+<<<<<<< Updated upstream
 import empire.EnvironmentTypes;
 import hu.oenik.data.Hero;
 import hu.oenik.data.Hybrid;
@@ -13,6 +14,15 @@ import hu.oenik.data.Species;
 import hu.oenik.data.SpeciesRepository;
 import hu.oenik.data.User;
 import hu.oenik.data.UserRepository;
+=======
+import hu.oenik.data.EnvironmentTypes;
+import exceptions.LoginException;
+import hu.oenik.data.HeroService;
+import repos.SpeciesRepository;
+import hu.oenik.data.User;
+import hu.oenik.data.UserService;
+import repos.UserRepository;
+>>>>>>> Stashed changes
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -33,9 +43,21 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet(name = "LoginServlet", urlPatterns = {"/login"})
 public class LoginServlet extends HttpServlet {
 
+<<<<<<< Updated upstream
 //    @Inject
 //    UserRepository users;
     /**
+=======
+    @Inject
+    UserService userService;
+      
+    @Inject
+    SpeciesRepository speciesRepository;
+
+
+    
+    /*
+>>>>>>> Stashed changes
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
      *
@@ -74,9 +96,14 @@ public class LoginServlet extends HttpServlet {
         String username = request.getParameter("name");
 
         try {
+<<<<<<< Updated upstream
             //User tmpU = new User(name, password, false);
             User loggedIn = UserRepository.instance.login(username, password);
             loggedIn.getHeroes().add(new Hero("face", "scary", new ArrayList<Hybrid>()));
+=======
+            User loggedIn = userService.login(username, password);
+            //loggedIn.getHeroes().add(new Hero("face", "scary", new ArrayList<Hybrid>()));
+>>>>>>> Stashed changes
             request.getSession().setAttribute("user", loggedIn);
             request.setAttribute("heroes", loggedIn.getHeroes());
             request.setAttribute("empires", loggedIn.getEmpires());

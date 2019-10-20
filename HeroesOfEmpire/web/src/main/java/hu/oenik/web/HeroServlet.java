@@ -7,6 +7,11 @@ package hu.oenik.web;
 
 import empire.EnvironmentTypes;
 import hu.oenik.data.Hero;
+<<<<<<< Updated upstream
+=======
+import hu.oenik.data.HeroService;
+import repos.HeroRepository;
+>>>>>>> Stashed changes
 import hu.oenik.data.Hybrid;
 import hu.oenik.data.Species;
 import hu.oenik.data.SpeciesRepository;
@@ -33,6 +38,18 @@ public class HeroServlet extends HttpServlet {
 //    @Inject
 //    UserRepository users;
 
+<<<<<<< Updated upstream
+=======
+    @Inject
+    HeroRepository heroesRepository;
+
+    @Inject
+    SpeciesRepository speciesRepository;
+    
+    @Inject
+    HeroService heroService;
+    
+>>>>>>> Stashed changes
     // UserRepository users = new UserRepository();
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
 
@@ -70,7 +87,12 @@ public class HeroServlet extends HttpServlet {
 
         User sess = ((User) request.getSession().getAttribute("user"));
         sess.getHeroes().add(h);
+<<<<<<< Updated upstream
 
+=======
+        heroService.add(h);
+        //heroesRepository.add(h);
+>>>>>>> Stashed changes
         request.setAttribute("heroes", sess.getHeroes());
         request.setAttribute("empires", sess.getEmpires());
         request.setAttribute("species", SpeciesRepository.instance.getSpecies());

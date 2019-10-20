@@ -3,6 +3,7 @@ package hu.oenik.data;
 import empire.Empire;
 import java.util.ArrayList;
 import java.util.List;
+import javax.persistence.OneToMany;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -15,21 +16,16 @@ import java.util.List;
  * @author Viki
  */
 public class User {
-    private String name,userName,password;
+    private String name,password;
     private Boolean admin;
+    //ez azért van hogy a hero-ba is bekerüljön az hogy ki a user akihez tartozik
+    @OneToMany
     private List<Hero> heroes = new ArrayList<>();
     private List<Empire> empires = new ArrayList<>();
  
     
-    public User(String name, String userName, String password, Boolean admin) {
-        this.name = name;
-        this.userName = userName;
-        this.password = password;
-        this.admin = admin;
-    }
-
     public User(String userName, String password, Boolean admin) {
-        this.userName = userName;
+       // this.userName = userName;
         this.password = password;
         this.admin = admin;
     }
@@ -43,14 +39,6 @@ public class User {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public String GetUserName() {
-        return userName;
-    }
-
-    public void setUserName(String userName) {
-        this.userName = userName;
     }
 
     public String getPassword() {
