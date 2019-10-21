@@ -23,7 +23,7 @@ public class EmpireRepository {
 
     private EntityManager em = Persistence.createEntityManagerFactory("heroesPU").createEntityManager();
     public EmpireRepository() {
-        //todo
+        
     }
 
     public List<Empire> getEmpires() {
@@ -32,11 +32,14 @@ public class EmpireRepository {
 
     public void add(Empire emp) {
         em.getTransaction().begin();
-        for (Stock s : emp.getWarehouse()) {
-            em.persist(s);
-        }
+//        for (Stock s : emp.getWarehouse()) {
+//            em.persist(s);
+//        }
          for (Population p : emp.getPopulation()) {
             em.persist(p);
+        }
+        for (Stock s : emp.getProduce()) {
+            em.persist(s);
         }
         em.persist(emp);
         em.getTransaction().commit();

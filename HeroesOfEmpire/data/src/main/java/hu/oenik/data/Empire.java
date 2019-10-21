@@ -43,7 +43,7 @@ public class Empire {
     List<Population> population = new ArrayList<>();
     @OneToMany
     List<Stock> produce= new ArrayList<>();
-    @OneToMany
+    //@OneToMany
     List<Stock> warehouse= new ArrayList<>();
     List<Building> buildings= new ArrayList<>();
     EnvironmentTypes environmentType;
@@ -63,7 +63,7 @@ public class Empire {
         this.level = level;
         this.population = population;
         this.produce = produce;
-        this.warehouse = warehouse;
+        //this.warehouse = warehouse;
         this.buildings = buildings;
         this.environmentType = environmentType;
     }  
@@ -256,13 +256,15 @@ public class Empire {
         return produce;
     }
 
-    public void setProduce(List<Stock> produce) {
-        this.produce = produce;
-    }
-
-    public List<Stock> getWarehouse() {
-        return warehouse;
-    }
+//    public void setProduce(List<Stock> produce) {
+//        this.produce = produce;
+//    }
+//
+//    public List<Stock> getWarehouse() {
+//        
+//        
+//        return warehouse;
+//    }
 
     public void setWarehouse(List<Stock> warehouse) {
         this.warehouse = warehouse;
