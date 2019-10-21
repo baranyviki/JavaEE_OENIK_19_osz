@@ -21,7 +21,7 @@ public class NaturalAsset {
     String name;
     String description;
     
-     @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     
     @Id
     private long id;

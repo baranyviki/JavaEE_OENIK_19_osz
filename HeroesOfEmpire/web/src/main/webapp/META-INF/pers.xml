@@ -4,12 +4,8 @@
     <class>hu.oenik.data.Species</class>
     <class>hu.oenik.data.Hero</class>
     <class>hu.oenik.data.Hybrid</class>
-    <class>hu.oenik.data.User</class>
-    <class>hu.oenik.data.NaturalAsset</class>
     <class>hu.oenik.data.Empire</class>
-    <class>hu.oenik.data.Population</class>
-    <class>hu.oenik.data.People</class>
-    <class>hu.oenik.data.Stock</class>
+    <class>hu.oenik.data.NaturalAsset</class>
     <exclude-unlisted-classes>true</exclude-unlisted-classes>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/hero?useSSL=false"/>

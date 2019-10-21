@@ -34,7 +34,7 @@ public class Hero {
         this.id = id;
     }
    String name, description;
-      @OneToMany
+   @OneToMany
    List<Hybrid>  hybrids   = new ArrayList<>();
    List<Quality> qualities = new ArrayList<>();
 

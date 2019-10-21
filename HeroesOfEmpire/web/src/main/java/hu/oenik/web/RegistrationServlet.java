@@ -18,6 +18,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import services.UserService;
 
 /**
  *
@@ -27,7 +28,7 @@ import javax.servlet.http.HttpServletResponse;
 public class RegistrationServlet extends HttpServlet {
 
    @Inject
-    UserRepository userRepository;
+    UserService userService;
     
     
     /**
@@ -73,7 +74,7 @@ public class RegistrationServlet extends HttpServlet {
         String fullname = request.getParameter("name");
         //User tmpU = new User(name, password, false);
          try {
-             userRepository.registration(fullname,username, password);
+             userService.registration(username, password);
          } catch (RegistrationException ex) {
              Logger.getLogger(RegistrationServlet.class.getName()).log(Level.SEVERE, null, ex);
              response.getWriter().print("no success");

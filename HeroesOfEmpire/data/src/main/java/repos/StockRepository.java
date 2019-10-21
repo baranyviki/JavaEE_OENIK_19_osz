@@ -5,34 +5,41 @@
  */
 package repos;
 
-import hu.oenik.data.NaturalAsset;
 import hu.oenik.data.Stock;
-import java.util.ArrayList;
 import java.util.List;
+import javax.persistence.EntityManager;
+import javax.persistence.Persistence;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
 
 /**
  *
  * @author Thrawn
  */
 public class StockRepository {
-    public static final StockRepository instance = new StockRepository();
-    
-    private List<Stock> stocks = new ArrayList<Stock>();
-    
-    private StockRepository (){
-        stocks.add(new Stock(new NaturalAsset("Stone", "Mostly used for build buildings"),(long)10));
-        stocks.add(new Stock(new NaturalAsset("Gold", "Mostly used for train soldiers and pay for the ladies..i mean pray"),(long)10));
-        stocks.add(new Stock(new NaturalAsset("Wood", "Mostly used for build buildings"),(long)10));
-        stocks.add(new Stock(new NaturalAsset("Food", "nyam"),(long)10));
-    }
-    
-    public static StockRepository getInstance()
-    {
-        return instance;
+
+    private EntityManager em = Persistence.createEntityManagerFactory("heroesPU").createEntityManager();
+
+    public StockRepository() {
+        //stocks.add(new Stock(new NaturalAsset("Stone", "Mostly used for build buildings"),(long)10));
+        //stocks.add(new Stock(new NaturalAsset("Gold", "Mostly used for train soldiers and pay for the ladies..i mean pray"),(long)10));
+        //stocks.add(new Stock(new NaturalAsset("Wood", "Mostly used for build buildings"),(long)10));
+        //stocks.add(new Stock(new NaturalAsset("Food", "nyam"),(long)10));
     }
 
     public List<Stock> getStocks() {
-        return stocks;
+        //class-ra hivatkozunk.
+        return em.createQuery("SELECT s FROM Stock s ORDER BY name", Stock.class).getResultList();
     }
-    
+
+    public Stock getStock(int id) {
+        CriteriaBuilder cb = em.getCriteriaBuilder();
+        CriteriaQuery cq = cb.createQuery(Stock.class);
+        Root rt = cq.from(Stock.class);
+        cq.select(rt);
+        cq.where(cb.equal(rt.get("id"), id));
+        return (Stock) em.createQuery(cq).getSingleResult();
+    }
+
 }

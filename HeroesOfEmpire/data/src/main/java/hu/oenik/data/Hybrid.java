@@ -26,7 +26,6 @@ public class Hybrid {
 
     public Hybrid() {
     }
-
     
     public long getId() {
         return id;

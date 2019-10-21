@@ -2,6 +2,12 @@ package hu.oenik.data;
 
 import java.util.ArrayList;
 import java.util.List;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -13,22 +19,23 @@ import java.util.List;
  *
  * @author Viki
  */
+@Entity
+@Table(name="user")
 public class User {
-    private String name,userName,password;
+    private String name,password;
     private Boolean admin;
+    @OneToMany
     private List<Hero> heroes = new ArrayList<>();
     private List<Empire> empires = new ArrayList<>();
+    
+    
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Id
+    private Long id;
  
     
-    public User(String name, String userName, String password, Boolean admin) {
+    public User(String name, String password, Boolean admin) {
         this.name = name;
-        this.userName = userName;
-        this.password = password;
-        this.admin = admin;
-    }
-
-    public User(String userName, String password, Boolean admin) {
-        this.userName = userName;
         this.password = password;
         this.admin = admin;
     }
@@ -42,14 +49,6 @@ public class User {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public String GetUserName() {
-        return userName;
-    }
-
-    public void setUserName(String userName) {
-        this.userName = userName;
     }
 
     public String getPassword() {
@@ -82,5 +81,13 @@ public class User {
 
     public void setEmpires(List<Empire> empires) {
         this.empires = empires;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 }

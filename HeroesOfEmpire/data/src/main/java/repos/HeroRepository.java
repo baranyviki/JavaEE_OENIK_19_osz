@@ -33,7 +33,7 @@ public class HeroRepository {
     }
 
     public void remove(int heroIdx) {
-       // heroes.remove(heroIdx);
+       em.remove(heroIdx);
     }
 
 }

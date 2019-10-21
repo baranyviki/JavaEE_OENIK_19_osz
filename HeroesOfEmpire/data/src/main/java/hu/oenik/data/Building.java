@@ -6,16 +6,27 @@
 package hu.oenik.data;
 
 import java.util.List;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
 /**
  *
  * @author Thrawn
  */
+@Entity
+@Table(name="building")
 public class Building {
     String name;
     String description;
     List<Stock> produce;
-    Long buildingTime;
+    Long buildingTime;    
+    
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Id
+    private Long id;
 
     public Building(String name, String description, List<Stock> produce, Long buildingTime) {
         this.name = name;
@@ -54,6 +65,14 @@ public class Building {
 
     public void setBuildingTime(Long buildingTime) {
         this.buildingTime = buildingTime;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
     
     

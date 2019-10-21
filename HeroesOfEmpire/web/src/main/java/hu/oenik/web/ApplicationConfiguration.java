@@ -13,9 +13,11 @@ import hu.oenik.data.User;
 import repos.UserRepository;
 import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.inject.Produces;
+import repos.BuildingRepository;
 import repos.EmpireRepository;
 import repos.NaturalAssetRepository;
 import repos.PeopleRepository;
+import repos.StockRepository;
 
 /**
  *
@@ -28,8 +30,8 @@ public class ApplicationConfiguration {
     @Produces
     public UserRepository createUserRepository() {
         UserRepository ur = new UserRepository();
-        ur.add(new User("a", "a", "a", false));
-        ur.add(new User("Eleven", "el", "11", false));
+        //ur.add(new User("a",  "a", false));
+        //ur.add(new User( "el", "11", false));
         return ur;
     }
 
@@ -79,6 +81,19 @@ public class ApplicationConfiguration {
     public EmpireRepository createEmpireRepository() {
         EmpireRepository emp = new EmpireRepository();
         return emp;
+    }
+     @ApplicationScoped
+    @Produces
+    public BuildingRepository createBuildingRepository() {
+        BuildingRepository bld = new BuildingRepository();
+        return bld;
+    }
+    
+    @ApplicationScoped
+    @Produces
+    public StockRepository createStockRepository() {
+        StockRepository stck = new StockRepository();
+        return stck;
     }
     
 }

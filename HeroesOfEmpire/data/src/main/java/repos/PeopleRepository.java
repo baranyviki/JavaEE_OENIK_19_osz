@@ -17,22 +17,21 @@ import javax.persistence.Persistence;
  * @author Thrawn
  */
 public class PeopleRepository {
-    
+
     private EntityManager em = Persistence.createEntityManagerFactory("heroesPU").createEntityManager();
-    
-    public PeopleRepository (){
-        
+
+    public PeopleRepository() {
+
     }
 
     public List<People> getPeople() {
         return em.createQuery("SELECT s FROM People s", People.class).getResultList();
     }
 
-   public void add(People p)
-   {
-      em.getTransaction().begin();
+    public void add(People p) {
+        em.getTransaction().begin();
         em.persist(p);
         em.getTransaction().commit();
-   }
-    
+    }
+
 }

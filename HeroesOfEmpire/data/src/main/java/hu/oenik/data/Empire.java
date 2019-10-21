@@ -41,8 +41,9 @@ public class Empire {
     Long level;
     @OneToMany
     List<Population> population = new ArrayList<>();
-    @OneToMany
+    
     List<Stock> produce= new ArrayList<>();
+    
     @OneToMany
     List<Stock> warehouse= new ArrayList<>();
     List<Building> buildings= new ArrayList<>();

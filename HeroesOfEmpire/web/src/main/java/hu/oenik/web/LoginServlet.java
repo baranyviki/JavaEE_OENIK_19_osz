@@ -22,6 +22,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import repos.NaturalAssetRepository;
+import services.UserService;
 
 /**
  *
@@ -33,7 +34,7 @@ import repos.NaturalAssetRepository;
 public class LoginServlet extends HttpServlet {
 
     @Inject
-    UserRepository userRepository;
+    UserService userService;
       
     @Inject
     SpeciesRepository speciesRepository;
@@ -79,7 +80,7 @@ public class LoginServlet extends HttpServlet {
         String username = request.getParameter("name");
 
         try {
-            User loggedIn = userRepository.login(username, password);
+            User loggedIn = userService.login(username, password);
             //loggedIn.getHeroes().add(new Hero("face", "scary", new ArrayList<Hybrid>()));
             request.getSession().setAttribute("user", loggedIn);
             request.setAttribute("heroes", loggedIn.getHeroes());

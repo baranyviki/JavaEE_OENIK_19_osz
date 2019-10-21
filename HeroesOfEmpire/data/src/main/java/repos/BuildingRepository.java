@@ -10,26 +10,32 @@ import hu.oenik.data.NaturalAsset;
 import hu.oenik.data.Stock;
 import java.util.ArrayList;
 import java.util.List;
+import javax.persistence.EntityManager;
+import javax.persistence.Persistence;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
 
 /**
  *
  * @author Thrawn
  */
 public class BuildingRepository {
-    public static final BuildingRepository instance = new BuildingRepository();
     
-    private List<Building> buildings = new ArrayList<>();
+    private EntityManager em = Persistence.createEntityManagerFactory("heroesPU").createEntityManager();
 
     public BuildingRepository() {
+        /*
         buildings.add(new Building("Barrack", "Trains soldiers",CreateStockRequirements(1),(long)30));        
         buildings.add(new Building("Farm", "",CreateStockRequirements(2),(long)40));         
         buildings.add(new Building("Blacksmith", "",CreateStockRequirements(3),(long)60));
         buildings.add(new Building("Mine", "",CreateStockRequirements(4),(long)50));
         buildings.add(new Building("Lumberyard", "",CreateStockRequirements(5),(long)40));
         buildings.add(new Building("Townhall", "",CreateStockRequirements(6),(long)70));
-        
+        */        
     }
     
+    /*ezt majd vmi stockService-be kesobb at lehetne tenni*/
     private ArrayList<Stock> CreateStockRequirements(int b){ //TODO ezt is repoból kéne?
         ArrayList<Stock> req = new ArrayList<Stock>();
         switch(b){
@@ -67,11 +73,18 @@ public class BuildingRepository {
         return req;
     }
 
-    public static BuildingRepository getInstance (){
-    return instance;
+   public List<Building> getBuildings() {
+        //class-ra hivatkozunk.
+        return em.createQuery("SELECT s FROM Building s ORDER BY name", Building.class).getResultList();
     }
-
-    public List<Building> getAssets() {
-        return buildings;
-    }
+    
+   public Building getBuilding(int id)
+   {
+        CriteriaBuilder cb = em.getCriteriaBuilder();
+        CriteriaQuery cq = cb.createQuery(Building.class);
+        Root rt = cq.from(Building.class);
+        cq.select(rt);
+        cq.where(cb.equal(rt.get("id"), id));
+        return (Building) em.createQuery(cq).getSingleResult();
+   }
 }
