@@ -82,12 +82,7 @@ public class ApplicationConfiguration {
         EmpireRepository emp = new EmpireRepository();
         return emp;
     }
-     @ApplicationScoped
-    @Produces
-    public BuildingRepository createBuildingRepository() {
-        BuildingRepository bld = new BuildingRepository();
-        return bld;
-    }
+  
     
     @ApplicationScoped
     @Produces

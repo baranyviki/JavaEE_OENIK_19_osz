@@ -35,10 +35,6 @@ public class Building {
     }
     List<Stock> produce;
     Long buildingTime;    
-    
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Id
-    private Long id;
 
     public Building(){
         
@@ -83,13 +79,5 @@ public class Building {
         this.buildingTime = buildingTime;
     }
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-    
     
 }
