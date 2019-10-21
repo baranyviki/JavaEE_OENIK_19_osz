@@ -36,8 +36,8 @@ public class BuildingRepository {
     }
     
     /*ezt majd vmi stockService-be kesobb at lehetne tenni*/
-    private ArrayList<Stock> CreateStockRequirements(int b){ //TODO ezt is repoból kéne?
-        ArrayList<Stock> req = new ArrayList<Stock>();
+    private ArrayList<Stock> CreateStockRequirements(int b){ 
+       ArrayList<Stock> req = new ArrayList<Stock>();
         switch(b){
             case 1:
                 req.add(new Stock(new NaturalAsset("Stone","Mostly used for build buildings"),(long)40));

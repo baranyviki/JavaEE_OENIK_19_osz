@@ -21,12 +21,28 @@ import javax.persistence.Table;
 public class Building {
     String name;
     String description;
+    
+    @GeneratedValue(strategy = GenerationType.AUTO)    
+    @Id
+    private long id;
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
     List<Stock> produce;
     Long buildingTime;    
     
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Id
     private Long id;
+
+    public Building(){
+        
+    }
 
     public Building(String name, String description, List<Stock> produce, Long buildingTime) {
         this.name = name;
