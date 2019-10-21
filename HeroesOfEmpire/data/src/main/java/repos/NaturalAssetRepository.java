@@ -6,8 +6,11 @@
 package repos;
 
 import hu.oenik.data.NaturalAsset;
+import hu.oenik.data.Species;
 import java.util.ArrayList;
 import java.util.List;
+import javax.persistence.EntityManager;
+import javax.persistence.Persistence;
 
 /**
  *
@@ -15,17 +18,19 @@ import java.util.List;
  */
 public class NaturalAssetRepository {
     
-    private List<NaturalAsset> assets = new ArrayList<>();
+    private EntityManager em = Persistence.createEntityManagerFactory("heroesPU").createEntityManager();
     
     public NaturalAssetRepository() {
     }
     
     public List<NaturalAsset> getAssets() {
-        return assets;
+        return em.createQuery("SELECT s FROM NaturalAsset s", NaturalAsset.class).getResultList();
     }
     
     public void add(NaturalAsset n) {
-        assets.add(n);
+        em.getTransaction().begin();
+        em.persist(n);
+        em.getTransaction().commit();
     }
     
 }

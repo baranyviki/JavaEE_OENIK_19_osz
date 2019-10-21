@@ -6,8 +6,14 @@
 package repos;
 
 import hu.oenik.data.Empire;
+import hu.oenik.data.Hero;
+import hu.oenik.data.Hybrid;
+import hu.oenik.data.Population;
+import hu.oenik.data.Stock;
 import java.util.ArrayList;
 import java.util.List;
+import javax.persistence.EntityManager;
+import javax.persistence.Persistence;
 
 /**
  *
@@ -15,22 +21,29 @@ import java.util.List;
  */
 public class EmpireRepository {
 
-    private List<Empire> empires = new ArrayList<>();
-
+    private EntityManager em = Persistence.createEntityManagerFactory("heroesPU").createEntityManager();
     public EmpireRepository() {
         //todo
     }
 
     public List<Empire> getEmpires() {
-        return empires;
+        return em.createQuery("SELECT e FROM Empire e", Empire.class).getResultList();
     }
 
     public void add(Empire emp) {
-        empires.add(emp);
+        em.getTransaction().begin();
+        for (Stock s : emp.getWarehouse()) {
+            em.persist(s);
+        }
+         for (Population p : emp.getPopulation()) {
+            em.persist(p);
+        }
+        em.persist(emp);
+        em.getTransaction().commit();
     }
 
     public void remove(int empireIdx) {
-        empires.remove(empireIdx);
+        //empires.remove(empireIdx);
     }
     /*
     public void createEmpire(String name, String description, EnvironmentTypes envType )

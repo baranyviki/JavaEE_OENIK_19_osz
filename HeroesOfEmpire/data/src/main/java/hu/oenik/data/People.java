@@ -5,13 +5,36 @@
  */
 package hu.oenik.data;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
 /**
  *
  * @author Thrawn
  */
+@Entity
+@Table(name = "people")
 public class People {
+    @GeneratedValue(strategy = GenerationType.AUTO)    
+    @Id
+    private long id;
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
     String name;
     String description;
+    
+    public People(){
+        
+    }
 
     public People(String name, String description) {
         this.name = name;

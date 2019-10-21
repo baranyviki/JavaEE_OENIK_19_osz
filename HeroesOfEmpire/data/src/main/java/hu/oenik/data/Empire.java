@@ -9,18 +9,41 @@ import repos.PeopleRepository;
 import repos.NaturalAssetRepository;
 import java.util.ArrayList;
 import java.util.List;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 /**
  *
  * @author Thrawn
  */
 
+@Entity
+@Table(name="empire")
 public class Empire {
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Id
+   private long id;
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+    
     String name;
     String description;
     Long level;
+    @OneToMany
     List<Population> population = new ArrayList<>();
+    @OneToMany
     List<Stock> produce= new ArrayList<>();
+    @OneToMany
     List<Stock> warehouse= new ArrayList<>();
     List<Building> buildings= new ArrayList<>();
     EnvironmentTypes environmentType;

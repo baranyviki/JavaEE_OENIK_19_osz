@@ -6,8 +6,11 @@
 package repos;
 
 import hu.oenik.data.People;
+import hu.oenik.data.Species;
 import java.util.ArrayList;
 import java.util.List;
+import javax.persistence.EntityManager;
+import javax.persistence.Persistence;
 
 /**
  *
@@ -15,19 +18,21 @@ import java.util.List;
  */
 public class PeopleRepository {
     
-    private List<People> people = new ArrayList<>();
+    private EntityManager em = Persistence.createEntityManagerFactory("heroesPU").createEntityManager();
     
     public PeopleRepository (){
         
     }
 
     public List<People> getPeople() {
-        return people;
+        return em.createQuery("SELECT s FROM People s", People.class).getResultList();
     }
 
    public void add(People p)
    {
-       people.add(p);
+      em.getTransaction().begin();
+        em.persist(p);
+        em.getTransaction().commit();
    }
     
 }
