@@ -13,6 +13,7 @@ import hu.oenik.data.User;
 import repos.UserRepository;
 import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.inject.Produces;
+import repos.BuildingRepository;
 import repos.EmpireRepository;
 import repos.NaturalAssetRepository;
 import repos.PeopleRepository;
@@ -37,10 +38,10 @@ public class ApplicationConfiguration {
     @Produces
     public SpeciesRepository createSpeciesRepository() {
         SpeciesRepository sr = new SpeciesRepository();
-        sr.add(new Species("Human", "Bold"));
-        sr.add(new Species("Dwarf", "Strong"));
-        sr.add(new Species("Elder Blood", "Chosen ones"));
-        sr.add(new Species("Mutant", "Wolf School Witcher"));
+//        sr.add(new Species("Human", "Bold"));
+//        sr.add(new Species("Dwarf", "Strong"));
+//        sr.add(new Species("Elder Blood", "Chosen ones"));
+//        sr.add(new Species("Mutant", "Wolf School Witcher"));
         return sr;
     }
 
@@ -55,11 +56,11 @@ public class ApplicationConfiguration {
     @Produces
     public PeopleRepository createPeopleRepository() {
         PeopleRepository people = new PeopleRepository();
-        people.add(new People("Miner","people who likes minecraft"));
-        people.add(new People("Farmer","they produces your food"));
-        people.add(new People("Soldier","normal figther guys"));
-        people.add(new People("Badass soldier","they can kill you in a brutal way"));
-        people.add(new People("Worker","man for constructions"));
+//        people.add(new People("Miner","people who likes minecraft"));
+//        people.add(new People("Farmer","they produces your food"));
+//        people.add(new People("Soldier","normal figther guys"));
+//        people.add(new People("Badass soldier","they can kill you in a brutal way"));
+//        people.add(new People("Worker","man for constructions"));
         return people;
     }
       
@@ -67,10 +68,10 @@ public class ApplicationConfiguration {
     @Produces
     public NaturalAssetRepository createNaturalAssetRepository() {
         NaturalAssetRepository nat = new NaturalAssetRepository();
-        nat.add(new NaturalAsset("Stone", "Mostly used for build buildings"));
-        nat.add(new NaturalAsset("Gold", "Mostly used for train the soldiers"));
-        nat.add(new NaturalAsset("Wood", "Mostly used for build buildings"));
-        nat.add(new NaturalAsset("Food", "nyam"));
+//        nat.add(new NaturalAsset("Stone", "Mostly used for build buildings"));
+//        nat.add(new NaturalAsset("Gold", "Mostly used for train the soldiers"));
+//        nat.add(new NaturalAsset("Wood", "Mostly used for build buildings"));
+//        nat.add(new NaturalAsset("Food", "nyam"));
         return nat;
     }
     
@@ -79,6 +80,15 @@ public class ApplicationConfiguration {
     public EmpireRepository createEmpireRepository() {
         EmpireRepository emp = new EmpireRepository();
         return emp;
+    }
+    
+    @ApplicationScoped
+    @Produces
+    public BuildingRepository createBuildingRepository(){
+        //TODO
+        BuildingRepository br = new BuildingRepository();
+        
+        return br;
     }
     
 }

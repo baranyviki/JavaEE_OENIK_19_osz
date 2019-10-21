@@ -19,6 +19,10 @@ public class BuildingRepository {
     public static final BuildingRepository instance = new BuildingRepository();
     
     private List<Building> buildings = new ArrayList<>();
+    
+//    public BuildingRepository(){
+//        
+//    }
 
     public BuildingRepository() {
         buildings.add(new Building("Barrack", "Trains soldiers",CreateStockRequirements(1),(long)30));        
@@ -30,7 +34,7 @@ public class BuildingRepository {
         
     }
     
-    private ArrayList<Stock> CreateStockRequirements(int b){ //TODO ezt is repoból kéne?
+    private ArrayList<Stock> CreateStockRequirements(int b){ 
         ArrayList<Stock> req = new ArrayList<Stock>();
         switch(b){
             case 1:

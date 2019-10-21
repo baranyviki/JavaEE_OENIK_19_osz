@@ -11,6 +11,7 @@ import hu.oenik.data.NaturalAsset;
 import hu.oenik.data.People;
 import hu.oenik.data.Population;
 import hu.oenik.data.Stock;
+import java.util.Random;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import repos.NaturalAssetRepository;
@@ -25,6 +26,7 @@ public class EmpireLogic {
 
     PeopleRepository peopleRepository;
     NaturalAssetRepository nautralAssetRepository;
+    Random rand = new Random();
     
     public EmpireLogic(PeopleRepository peopleRepository, NaturalAssetRepository nautralAssetRepository) {
         this.peopleRepository = peopleRepository;
@@ -44,9 +46,10 @@ public class EmpireLogic {
 
     private Empire GenerateEmpireWithEnvironment(EnvironmentTypes envType) {
         Empire empire = new Empire();
-//        List<NaturalAsset> nats = nautralAssetRepository.getAssets();
+//        List<NaturalAsset> nats = nautralAssetRepository.getAssets();       
         for (NaturalAsset s : nautralAssetRepository.getAssets()) {
-            empire.getProduce().add(new Stock(s, (long) (5)));
+             int r = rand.nextInt(11);
+            empire.getProduce().add(new Stock(s, (long) (10*r)));
         }
         switch (envType) {
             case Mountainous:
@@ -66,6 +69,7 @@ public class EmpireLogic {
                         empire.getWarehouse().add(new Stock(s, (long) (5)));
                     }
                 }
+                
 
                 break;
             case Flatlands:
