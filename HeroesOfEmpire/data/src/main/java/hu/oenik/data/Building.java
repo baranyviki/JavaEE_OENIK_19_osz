@@ -5,6 +5,7 @@
  */
 package hu.oenik.data;
 
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -42,12 +43,48 @@ public class Building {
         
     }
 
-    public Building(String name, String description, List<Stock> produce, Long buildingTime) {
+    public Building(String name, String description, int pr, Long buildingTime) {
         this.name = name;
         this.description = description;
-        this.produce = produce;
+        this.produce = CreateStockRequirements(pr);
         this.buildingTime = buildingTime;
     }
+     private ArrayList<Stock> CreateStockRequirements(int b){ 
+        ArrayList<Stock> req = new ArrayList<Stock>();
+        switch(b){
+            case 1:
+                req.add(new Stock(new NaturalAsset("Stone","Mostly used for build buildings"),(long)40));
+                req.add(new Stock(new NaturalAsset("Gold", "Mostly used for train the soldiers"),(long)20));
+                req.add(new Stock(new NaturalAsset("Wood", "Mostly used for build buildings"),(long)30));
+                break;
+            case 2:
+                req.add(new Stock(new NaturalAsset("Stone","Mostly used for build buildings"),(long)10));
+                
+                req.add(new Stock(new NaturalAsset("Wood", "Mostly used for build buildings"),(long)30));
+                break;
+            case 3:
+                req.add(new Stock(new NaturalAsset("Stone","Mostly used for build buildings"),(long)50));
+                req.add(new Stock(new NaturalAsset("Gold", "Mostly used for train the soldiers"),(long)10));
+                req.add(new Stock(new NaturalAsset("Wood", "Mostly used for build buildings"),(long)40));
+                break;
+            case 4:
+                req.add(new Stock(new NaturalAsset("Stone","Mostly used for build buildings"),(long)20));
+                req.add(new Stock(new NaturalAsset("Gold", "Mostly used for train the soldiers"),(long)10));
+                req.add(new Stock(new NaturalAsset("Wood", "Mostly used for build buildings"),(long)30));
+                break;
+            case 5:
+                req.add(new Stock(new NaturalAsset("Stone","Mostly used for build buildings"),(long)30));                
+                req.add(new Stock(new NaturalAsset("Wood", "Mostly used for build buildings"),(long)10));
+                break;
+            case 6:
+                req.add(new Stock(new NaturalAsset("Stone","Mostly used for build buildings"),(long)50));
+                req.add(new Stock(new NaturalAsset("Gold", "Mostly used for train the soldiers"),(long)50));
+                req.add(new Stock(new NaturalAsset("Wood", "Mostly used for build buildings"),(long)50));
+                break;
+        }
+        
+        return req;
+     }
 
     public String getName() {
         return name;

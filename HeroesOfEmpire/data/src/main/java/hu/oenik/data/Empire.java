@@ -44,7 +44,8 @@ public class Empire {
     @OneToMany
     List<Stock> produce= new ArrayList<>();
     //@OneToMany
-    List<Stock> warehouse= new ArrayList<>();
+    //List<Stock> warehouse= new ArrayList<>();
+    @OneToMany
     List<Building> buildings= new ArrayList<>();
     EnvironmentTypes environmentType;
 
@@ -266,9 +267,9 @@ public class Empire {
 //        return warehouse;
 //    }
 
-    public void setWarehouse(List<Stock> warehouse) {
-        this.warehouse = warehouse;
-    }
+//    public void setWarehouse(List<Stock> warehouse) {
+//        this.warehouse = warehouse;
+//    }
 
     public List<Building> getBuildings() {
         return buildings;

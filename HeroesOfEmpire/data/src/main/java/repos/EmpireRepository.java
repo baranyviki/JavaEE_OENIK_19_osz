@@ -5,6 +5,7 @@
  */
 package repos;
 
+import hu.oenik.data.Building;
 import hu.oenik.data.Empire;
 import hu.oenik.data.Hero;
 import hu.oenik.data.Hybrid;
@@ -40,6 +41,9 @@ public class EmpireRepository {
         }
         for (Stock s : emp.getProduce()) {
             em.persist(s);
+        }
+        for (Building b: emp.getBuildings()){
+            em.persist(b);
         }
         em.persist(emp);
         em.getTransaction().commit();

@@ -5,6 +5,7 @@
  */
 package bl;
 
+import hu.oenik.data.Building;
 import hu.oenik.data.Empire;
 import hu.oenik.data.EnvironmentTypes;
 import hu.oenik.data.NaturalAsset;
@@ -14,6 +15,7 @@ import hu.oenik.data.Stock;
 import java.util.Random;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
+import repos.BuildingRepository;
 import repos.NaturalAssetRepository;
 import repos.PeopleRepository;
 
@@ -26,11 +28,13 @@ public class EmpireLogic {
 
     PeopleRepository peopleRepository;
     NaturalAssetRepository nautralAssetRepository;
+    BuildingRepository buildingRepository;
     Random rand = new Random();
     
-    public EmpireLogic(PeopleRepository peopleRepository, NaturalAssetRepository nautralAssetRepository) {
+    public EmpireLogic(PeopleRepository peopleRepository, NaturalAssetRepository nautralAssetRepository,BuildingRepository buildingRepository) {
         this.peopleRepository = peopleRepository;
         this.nautralAssetRepository = nautralAssetRepository;
+        this.buildingRepository = buildingRepository;
     }
     
     
@@ -46,9 +50,14 @@ public class EmpireLogic {
 
     private Empire GenerateEmpireWithEnvironment(EnvironmentTypes envType) {
         Empire empire = new Empire();
-//        List<NaturalAsset> nats = nautralAssetRepository.getAssets();       
+       
+        for (Building b :buildingRepository.getBuildings()){
+           if(b.getName().equals("Townhall"))
+            empire.getBuildings().add(new Building());
+        }
+        
         for (NaturalAsset s : nautralAssetRepository.getAssets()) {
-             int r = rand.nextInt(11);
+            int r = rand.nextInt(11);
             empire.getProduce().add(new Stock(s, (long) (10*r)));
         }
         switch (envType) {
@@ -61,15 +70,15 @@ public class EmpireLogic {
                         empire.getPopulation().add(new Population(p, (long) 10));
                     }
                 }
-                for (NaturalAsset s : nautralAssetRepository.getAssets()) {
-                    if (s.getName().equals("Stone")) {
-                        empire.getWarehouse().add(new Stock(s, (long) (10)));
-
-                    } else {
-                        empire.getWarehouse().add(new Stock(s, (long) (5)));
-                    }
-                }
-                
+//                for (NaturalAsset s : nautralAssetRepository.getAssets()) {
+//                    if (s.getName().equals("Stone")) {
+//                        empire.getWarehouse().add(new Stock(s, (long) (10)));
+//
+//                    } else {
+//                        empire.getWarehouse().add(new Stock(s, (long) (5)));
+//                    }
+//                }
+//                
 
                 break;
             case Flatlands:
@@ -81,13 +90,13 @@ public class EmpireLogic {
                         empire.getPopulation().add(new Population(p, (long) 10));
                     }
                 }
-                for (NaturalAsset s : nautralAssetRepository.getAssets()) {
-                    if (s.getName().equals("Food")) {
-                        empire.getWarehouse().add(new Stock(s, (long) (10)));
-                    } else {
-                        empire.getWarehouse().add(new Stock(s, (long) (5)));
-                    }
-                }
+//                for (NaturalAsset s : nautralAssetRepository.getAssets()) {
+//                    if (s.getName().equals("Food")) {
+//                        empire.getWarehouse().add(new Stock(s, (long) (10)));
+//                    } else {
+//                        empire.getWarehouse().add(new Stock(s, (long) (5)));
+//                    }
+//                }
 
                 break;
             case Forest:
@@ -98,13 +107,13 @@ public class EmpireLogic {
                         empire.getPopulation().add(new Population(p, (long) 10));
                     }
                 }
-                for (NaturalAsset s : nautralAssetRepository.getAssets()) {
-                    if (s.getName().equals("Food")) {
-                        empire.getWarehouse().add(new Stock(s, (long) (10)));
-                    } else {
-                        empire.getWarehouse().add(new Stock(s, (long) (5)));
-                    }
-                }
+//                for (NaturalAsset s : nautralAssetRepository.getAssets()) {
+//                    if (s.getName().equals("Food")) {
+//                        empire.getWarehouse().add(new Stock(s, (long) (10)));
+//                    } else {
+//                        empire.getWarehouse().add(new Stock(s, (long) (5)));
+//                    }
+//                }
 
                 break;
 
@@ -119,13 +128,13 @@ public class EmpireLogic {
                         empire.getPopulation().add(new Population(p, (long) 10));
                     }
                 }
-                for (NaturalAsset s : nautralAssetRepository.getAssets()) {
-                    if (s.getName().equals("Gold")) {
-                        empire.getWarehouse().add(new Stock(s, (long) (10)));
-                    } else {
-                        empire.getWarehouse().add(new Stock(s, (long) (5)));
-                    }
-                }
+//                for (NaturalAsset s : nautralAssetRepository.getAssets()) {
+//                    if (s.getName().equals("Gold")) {
+//                        empire.getWarehouse().add(new Stock(s, (long) (10)));
+//                    } else {
+//                        empire.getWarehouse().add(new Stock(s, (long) (5)));
+//                    }
+//                }
 
                 break;
             case Beach:
@@ -139,13 +148,13 @@ public class EmpireLogic {
                         empire.getPopulation().add(new Population(p, (long) 10));
                     }
                 }
-                for (NaturalAsset s : nautralAssetRepository.getAssets()) {
-                    if (s.getName().equals("Gold")) {
-                        empire.getWarehouse().add(new Stock(s, (long) (10)));
-                    } else {
-                        empire.getWarehouse().add(new Stock(s, (long) (5)));
-                    }
-                }
+//                for (NaturalAsset s : nautralAssetRepository.getAssets()) {
+//                    if (s.getName().equals("Gold")) {
+//                        empire.getWarehouse().add(new Stock(s, (long) (10)));
+//                    } else {
+//                        empire.getWarehouse().add(new Stock(s, (long) (5)));
+//                    }
+//                }
                 break;
         }
         return empire;
@@ -156,18 +165,18 @@ public class EmpireLogic {
         return true;
     }
 
-    public void TimeChanged(Empire emp) {
-        //TODO valami ilyesminek kéne történie körről körre?
-        
-        for (Population p : emp.getPopulation()) {
-            p.setQuantity(p.getQuantity()+1L);
-        }
-        for (Stock w : emp.getWarehouse()) {
-            for (Stock p : emp.getProduce()) {
-                if (w.getAsset().getName().equals(p.getAsset().getName())) {
-                   w.setQuantity(w.getQuantity()+p.getQuantity());
-                }
-            }
-        }
-    }
+//    public void TimeChanged(Empire emp) {
+//        //TODO valami ilyesminek kéne történie körről körre?
+//        
+//        for (Population p : emp.getPopulation()) {
+//            p.setQuantity(p.getQuantity()+1L);
+//        }
+//        for (Stock w : emp.getWarehouse()) {
+//            for (Stock p : emp.getProduce()) {
+//                if (w.getAsset().getName().equals(p.getAsset().getName())) {
+//                   w.setQuantity(w.getQuantity()+p.getQuantity());
+//                }
+//            }
+//        }
+//    }
 }

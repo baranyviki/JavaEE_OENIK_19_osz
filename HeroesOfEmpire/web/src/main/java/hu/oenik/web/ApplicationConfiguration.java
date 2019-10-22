@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package hu.oenik.web;
+import hu.oenik.data.Building;
 import hu.oenik.data.NaturalAsset;
 import hu.oenik.data.People;
 import repos.HeroRepository;
@@ -87,7 +88,12 @@ public class ApplicationConfiguration {
     public BuildingRepository createBuildingRepository(){
         //TODO
         BuildingRepository br = new BuildingRepository();
-        
+        br.add(new Building("Barrack", "Trains soldiers",1,(long)30));        
+        br.add(new Building("Farm", "",2,(long)40));         
+        br.add(new Building("Blacksmith", "",3,(long)60));
+        br.add(new Building("Mine", "",4,(long)50));
+        br.add(new Building("Lumberyard", "",5,(long)40));
+        br.add(new Building("Townhall", "",6,(long)70)); 
         return br;
     }
     
