@@ -26,6 +26,7 @@ public class User {
     private Boolean admin;
     @OneToMany
     private List<Hero> heroes = new ArrayList<>();
+    @OneToMany
     private List<Empire> empires = new ArrayList<>();
     
     

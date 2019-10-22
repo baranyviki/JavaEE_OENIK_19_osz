@@ -42,9 +42,19 @@ public class EmpireRepository {
         em.getTransaction().commit();
     }
 
-    public void remove(int empireIdx) {
-        //empires.remove(empireIdx);
+    public void remove(long empireIdx) {
+        em.getTransaction().begin();
+        Empire emp = em.find(Empire.class,empireIdx);
+        em.remove(emp);
+     
+        em.getTransaction().commit();
     }
+     public void remove(Empire emp) {
+        em.getTransaction().begin();
+        em.remove(emp);
+        em.getTransaction().commit();
+    }
+    
     /*
     public void createEmpire(String name, String description, EnvironmentTypes envType )
     {

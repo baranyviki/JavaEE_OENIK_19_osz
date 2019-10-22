@@ -32,8 +32,16 @@ public class HeroRepository {
         em.getTransaction().commit();
     }
 
-    public void remove(int heroIdx) {
-       em.remove(heroIdx);
+    public void remove(long heroIdx) {
+        em.getTransaction().begin();
+        Hero h = em.find(Hero.class, heroIdx);
+        em.remove(h);
+        em.getTransaction().commit();
     }
 
+    public void remove(Hero hero) {
+        em.getTransaction().begin();
+        em.remove(hero);
+        em.getTransaction().commit();
+    }
 }

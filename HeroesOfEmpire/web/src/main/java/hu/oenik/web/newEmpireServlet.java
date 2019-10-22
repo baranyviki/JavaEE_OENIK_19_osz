@@ -74,9 +74,8 @@ public class newEmpireServlet extends HttpServlet {
         EmpireLogic c = new EmpireLogic(peopleRepository,naturalAssetRepository);
         Empire emp = c.EmpireFactory(name, description, envType);
 
-        empireRepository.add(emp);
         sess.getEmpires().add(emp);
-        
+        empireRepository.add(emp);
         request.setAttribute("heroes", sess.getHeroes());
         request.setAttribute("empires", sess.getEmpires());
         request.setAttribute("species", speciesRepository.getSpecies());
