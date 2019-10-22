@@ -27,9 +27,9 @@ import javax.persistence.criteria.Root;
  */
 public class UserRepository {
 
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Id
-    private long id;
+   // @GeneratedValue(strategy = GenerationType.AUTO)
+   // @Id
+   // private long id;
 
     private EntityManager em = Persistence.createEntityManagerFactory("heroesPU").createEntityManager();
 
@@ -59,7 +59,13 @@ public class UserRepository {
         Root rt = cq.from(User.class);
         cq.select(rt);
         cq.where(cb.equal(rt.get("name"), pName));
-        return (User) em.createQuery(cq).getSingleResult();
+        
+        Object result = em.createQuery(cq).getSingleResult();
+        if( result  != null ){
+            return (User) result;
+        }
+        
+        return null;
     }
 
     public UserRepository() {

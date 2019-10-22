@@ -11,7 +11,7 @@ import repos.UserRepository;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.logging.Level;
-import java.util.logging.Logger;
+//import java.util.logging.Logger;
 import javax.inject.Inject;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -19,6 +19,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import services.UserService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *
@@ -26,7 +28,10 @@ import services.UserService;
  */
 @WebServlet(name = "RegistrationServlet", urlPatterns = {"/reg"})
 public class RegistrationServlet extends HttpServlet {
-
+    
+private static final Logger logger = LoggerFactory.getLogger(RegistrationServlet.class);
+    
+    
    @Inject
     UserService userService;
     
@@ -73,10 +78,12 @@ public class RegistrationServlet extends HttpServlet {
         String username = request.getParameter("username");
         String fullname = request.getParameter("name");
         //User tmpU = new User(name, password, false);
+        logger.error("BAJ VAN");
          try {
              userService.registration(username, password);
          } catch (RegistrationException ex) {
-             Logger.getLogger(RegistrationServlet.class.getName()).log(Level.SEVERE, null, ex);
+             //Logger.getLogger(RegistrationServlet.class.getName()).log(Level.SEVERE, null, ex);
+             logger.error(ex.getMessage());
              response.getWriter().print("no success");
          }         
          response.sendRedirect("/web");

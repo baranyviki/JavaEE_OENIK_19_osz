@@ -14,7 +14,7 @@ import repos.UserRepository;
 import java.io.IOException;
 import java.util.List;
 import java.util.logging.Level;
-import java.util.logging.Logger;
+//import java.util.logging.Logger;
 import javax.inject.Inject;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -23,6 +23,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import repos.NaturalAssetRepository;
 import services.UserService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *
@@ -91,7 +93,7 @@ public class LoginServlet extends HttpServlet {
 
             //  getServletContext().getRequestDispatcher("/hero.jsp").include(request, response);
         } catch (LoginException ex) {
-            Logger.getLogger(LoginServlet.class.getName()).log(Level.SEVERE, null, ex);
+           // Logger.getLogger(LoginServlet.class.getName()).log(Level.SEVERE, null, ex);
             response.getWriter().print("login error");
 
             //response.sendRedirect("/home");

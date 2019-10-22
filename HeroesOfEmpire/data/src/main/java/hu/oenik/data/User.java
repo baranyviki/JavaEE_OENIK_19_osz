@@ -24,8 +24,10 @@ import javax.persistence.Table;
 public class User {
     private String name,password;
     private Boolean admin;
+    
     @OneToMany
     private List<Hero> heroes = new ArrayList<>();
+    
     @OneToMany
     private List<Empire> empires = new ArrayList<>();
     

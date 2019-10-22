@@ -26,8 +26,11 @@ public class UserService {
     public void registration( String userName, String pPassword)
     throws RegistrationException{
         try {
-            userRepository.getUserByName(userName);
-            userRepository.add(new User(userName, pPassword, false));
+           User u =  userRepository.getUserByName(userName);
+           if(u == null)
+           {
+               userRepository.add(new User(userName, pPassword, false));
+           }
         } catch (Exception ex) {
                throw new RegistrationException();
         }
@@ -38,6 +41,7 @@ public class UserService {
         try {
             return userRepository.getUser(pUserName, pPass);
         } catch (Exception ex) {
+            ex.getMessage();
             throw new LoginException();
         }
 
