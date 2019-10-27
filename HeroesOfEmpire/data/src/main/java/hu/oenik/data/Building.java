@@ -41,11 +41,7 @@ public class Building {
     @OneToMany(cascade = CascadeType.ALL)
     List<Stock> produce;
     
-    Long buildingTime;
-    
-    @ManyToOne
-    @JoinColumn(name="USER_ID")
-    User user;
+    Long buildingTime;    
 
     public Building(){
         

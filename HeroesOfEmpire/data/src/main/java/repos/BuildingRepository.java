@@ -52,10 +52,6 @@ public class BuildingRepository {
    
    public void add(Building b) {
         em.getTransaction().begin();
-        
-        for (Stock p : b.getProduce()) {
-            em.persist(p);
-        }
         em.persist(b);
         em.getTransaction().commit();
     }

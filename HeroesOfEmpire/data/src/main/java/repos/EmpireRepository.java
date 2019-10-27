@@ -62,6 +62,13 @@ public class EmpireRepository {
         em.getTransaction().commit();
     }
 
+    public void Update(Empire emp)
+    {
+        em.getTransaction().begin();
+        em.merge(emp);
+        em.getTransaction().commit();
+    }
+    
     /*
     public void createEmpire(String name, String description, EnvironmentTypes envType )
     {

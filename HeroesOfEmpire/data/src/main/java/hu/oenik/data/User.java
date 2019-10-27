@@ -112,7 +112,7 @@ public class User {
         heroes.remove(idx);
     }
 
-       public void addEmpire(Empire e) {
+    public void addEmpire(Empire e) {
         empires.add(e);
     }
 

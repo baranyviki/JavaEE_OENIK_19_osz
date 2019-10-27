@@ -78,8 +78,9 @@ public class EmpireService {
                break; 
         }
         
-        getEmpire(empireID).getBuildings().add(bu);
-        buildingsRepo.add(bu);
+        Empire emp =getEmpire(empireID);
+        emp.getBuildings().add(bu);
+        empireRepository.Update(emp);
     }
     private ArrayList<Stock> CreateStockRequirements(int b){ 
        ArrayList<Stock> req = new ArrayList<Stock>();
