@@ -57,11 +57,11 @@ public class ApplicationConfiguration {
     @Produces
     public PeopleRepository createPeopleRepository() {
         PeopleRepository people = new PeopleRepository();
-        people.add(new People("Miner","people who likes minecraft"));
-        people.add(new People("Farmer","they produces your food"));
-        people.add(new People("Soldier","normal figther guys"));
-        people.add(new People("Badass soldier","they can kill you in a brutal way"));
-        people.add(new People("Worker","man for constructions"));
+//        people.add(new People("Miner","people who likes minecraft"));
+//        people.add(new People("Farmer","they produces your food"));
+//        people.add(new People("Soldier","normal figther guys"));
+//        people.add(new People("Badass soldier","they can kill you in a brutal way"));
+//        people.add(new People("Worker","man for constructions"));
         return people;
     }
       
@@ -69,10 +69,10 @@ public class ApplicationConfiguration {
     @Produces
     public NaturalAssetRepository createNaturalAssetRepository() {
         NaturalAssetRepository nat = new NaturalAssetRepository();
-        nat.add(new NaturalAsset("Stone", "Mostly used for build buildings"));
-        nat.add(new NaturalAsset("Gold", "Mostly used for train the soldiers"));
-        nat.add(new NaturalAsset("Wood", "Mostly used for build buildings"));
-        nat.add(new NaturalAsset("Food", "nyam"));
+//        nat.add(new NaturalAsset("Stone", "Mostly used for build buildings"));
+//        nat.add(new NaturalAsset("Gold", "Mostly used for train the soldiers"));
+//        nat.add(new NaturalAsset("Wood", "Mostly used for build buildings"));
+//        nat.add(new NaturalAsset("Food", "nyam"));
         return nat;
     }
     

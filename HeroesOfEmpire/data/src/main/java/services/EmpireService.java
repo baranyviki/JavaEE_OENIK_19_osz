@@ -29,18 +29,18 @@ public class EmpireService {
 
     @Inject
     EmpireRepository empireRepository;
-   
+
     @Inject
     PeopleRepository peopleRepository;
-    
+
     @Inject
     NaturalAssetRepository nautralAssetRepository;
-        
+
     Random rand = new Random();
 
     public EmpireService() {
-    } 
-    
+    }
+
 //    public Empire EmpireFactory(String name, String description, EnvironmentTypes envType) {
 //        Empire emp = GenerateEmpireWithEnvironment(envType);
 //        emp.setName(name);
@@ -50,13 +50,16 @@ public class EmpireService {
 //        return emp;
 //    }
     
-    public Empire getEmpire(Long empID)
-    {
+    public Empire getEmpire(Long empID) {
         return empireRepository.getEmpireByID(empID);
     }
     
-    public Empire addEmpire(String name, String description, EnvironmentTypes envType, User user)
-    {    
+    public void removeEmpire(Long empireID) throws Exception {
+        empireRepository.remove(empireID);
+        
+    }
+
+    public Empire addEmpire(String name, String description, EnvironmentTypes envType, User user) {
         Empire emp = GenerateEmpireWithEnvironment(envType);
         emp.setName(name);
         emp.setDescription(description);
@@ -64,21 +67,22 @@ public class EmpireService {
         emp.setLevel(1L);
         emp.setUser(user);
         user.addEmpire(emp);
+        empireRepository.add(emp);
         return emp;
     }
-    
+
     private Empire GenerateEmpireWithEnvironment(EnvironmentTypes envType) {
         Empire empire = new Empire();
-         List<NaturalAsset> nats = nautralAssetRepository.getAssets();       
+        List<NaturalAsset> nats = nautralAssetRepository.getAssets();
         for (NaturalAsset s : nautralAssetRepository.getAssets()) {
-             int r = rand.nextInt(11);
-            empire.getProduce().add(new Stock(s, (long) (10*r)));
+            int r = rand.nextInt(11);
+            empire.getProduce().add(new Stock(s, (long) (10 * r)));
         }
         switch (envType) {
             case Mountainous:
                 for (People p : peopleRepository.getPeople()) {
                     if (p.getName().equals("Miner")) {
-                         empire.getPopulation().add(new Population(p, (long) 30));
+                        empire.getPopulation().add(new Population(p, (long) 30));
 
                     } else {
                         empire.getPopulation().add(new Population(p, (long) 10));
@@ -86,13 +90,12 @@ public class EmpireService {
                 }
                 for (NaturalAsset s : nautralAssetRepository.getAssets()) {
                     if (s.getName().equals("Stone")) {
-                       empire.getWarehouse().add(new Stock(s, (long) (10)));
+                        empire.getWarehouse().add(new Stock(s, (long) (10)));
 
                     } else {
-                       empire.getWarehouse().add(new Stock(s, (long) (5)));
+                        empire.getWarehouse().add(new Stock(s, (long) (5)));
                     }
                 }
-                
 
                 break;
             case Flatlands:
@@ -106,7 +109,7 @@ public class EmpireService {
                 }
                 for (NaturalAsset s : nautralAssetRepository.getAssets()) {
                     if (s.getName().equals("Food")) {
-                       empire.getWarehouse().add(new Stock(s, (long) (10)));
+                        empire.getWarehouse().add(new Stock(s, (long) (10)));
                     } else {
                         empire.getWarehouse().add(new Stock(s, (long) (5)));
                     }
@@ -125,7 +128,7 @@ public class EmpireService {
                     if (s.getName().equals("Food")) {
                         empire.getWarehouse().add(new Stock(s, (long) (10)));
                     } else {
-                       empire.getWarehouse().add(new Stock(s, (long) (5)));
+                        empire.getWarehouse().add(new Stock(s, (long) (5)));
                     }
                 }
 
@@ -144,7 +147,7 @@ public class EmpireService {
                 }
                 for (NaturalAsset s : nautralAssetRepository.getAssets()) {
                     if (s.getName().equals("Gold")) {
-                     empire.getWarehouse().add(new Stock(s, (long) (10)));
+                        empire.getWarehouse().add(new Stock(s, (long) (10)));
                     } else {
                         empire.getWarehouse().add(new Stock(s, (long) (5)));
                     }
@@ -154,7 +157,7 @@ public class EmpireService {
             case Beach:
                 for (People p : peopleRepository.getPeople()) {
                     if (p.getName().equals("Worker")) {
-                       empire.getPopulation().add(new Population(p, (long) 20));
+                        empire.getPopulation().add(new Population(p, (long) 20));
 
                     } else if (p.getName().equals("Soldier")) {
                         empire.getPopulation().add(new Population(p, (long) 10));
@@ -164,7 +167,7 @@ public class EmpireService {
                 }
                 for (NaturalAsset s : nautralAssetRepository.getAssets()) {
                     if (s.getName().equals("Gold")) {
-                      empire.getWarehouse().add(new Stock(s, (long) (10)));
+                        empire.getWarehouse().add(new Stock(s, (long) (10)));
                     } else {
                         empire.getWarehouse().add(new Stock(s, (long) (5)));
                     }
@@ -181,17 +184,17 @@ public class EmpireService {
 
     public void TimeChanged(Empire emp) {
         //TODO valami ilyesminek kéne történie körről körre?
-        
+
         for (Population p : emp.getPopulation()) {
-            p.setQuantity(p.getQuantity()+1L);
+            p.setQuantity(p.getQuantity() + 1L);
         }
         for (Stock w : emp.getWarehouse()) {
             for (Stock p : emp.getProduce()) {
                 if (w.getAsset().getName().equals(p.getAsset().getName())) {
-                   w.setQuantity(w.getQuantity()+p.getQuantity());
+                    w.setQuantity(w.getQuantity() + p.getQuantity());
                 }
             }
         }
     }
-    
+
 }
