@@ -18,7 +18,8 @@
     </head>
     <body>        
         <form method="post" action="modHero">
-            Hero Name:<label>${selectedHero.name}</label><input type="hidden" name ="heroname" value="${selectedHero.name}"/></br>
+            Hero Name:<label>${selectedHero.name}</label>
+            <input type="hidden" name ="heroid" value="${selectedHero.id}"/></br>
             Description:<input type="text" name="desc" value="${selectedHero.description}" /></br>
             <c:forEach var="hyb" items="${hybrids}">
                 ${hyb.species.name}<input type="text" name="${hyb.species.name}" value="${hyb.percent}"><br/>

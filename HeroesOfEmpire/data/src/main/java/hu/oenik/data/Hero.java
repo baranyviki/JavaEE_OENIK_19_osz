@@ -7,10 +7,13 @@ package hu.oenik.data;
 
 import java.util.ArrayList;
 import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -19,13 +22,46 @@ import javax.persistence.Table;
  * @author Viki
  */
 @Entity
-@Table(name="hero")
+@Table(name = "hero")
 public class Hero {
 
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Id
-   private long id;
+    private long id;
+    String name, description;
+    
+    @OneToMany(cascade = CascadeType.ALL)
+    List<Hybrid> hybrids = new ArrayList<>();
+    List<Quality> qualities = new ArrayList<>();
+    
+    @ManyToOne
+    @JoinColumn(name="USER_ID")        
+    User user;
 
+    public Hero(String name, String description, ArrayList<Hybrid> hybrids, ArrayList<Quality> qualities, User h) {
+        this.name = name;
+        this.description = description;
+        this.hybrids = hybrids;
+        this.qualities = qualities;
+        this.user = h;
+    }
+
+    public Hero(String name, String description, ArrayList<Hybrid> hybrids, User h) {
+        this.name = name;
+        this.description = description;
+        this.hybrids = hybrids;
+        this.user = h;
+    }
+
+    public Hero(String name, String description, User h) {
+        this.name = name;
+        this.description = description;
+        this.user = h;
+    }
+
+    public Hero() {
+    }
+    
     public long getId() {
         return id;
     }
@@ -33,31 +69,6 @@ public class Hero {
     public void setId(long id) {
         this.id = id;
     }
-   String name, description;
-   @OneToMany
-   List<Hybrid>  hybrids   = new ArrayList<>();
-   List<Quality> qualities = new ArrayList<>();
-
-    public Hero(String name, String description, ArrayList<Hybrid> hybrids, ArrayList<Quality> qualities) {
-        this.name = name;
-        this.description = description;
-        this.hybrids = hybrids;
-        this.qualities = qualities;
-    }
-    public Hero(String name, String description, ArrayList<Hybrid> hybrids) {
-        this.name = name;
-        this.description = description;
-        this.hybrids = hybrids;
-    }
-
-    public Hero(String name, String description) {
-        this.name = name;
-        this.description = description;
-    }
-
-    public Hero() {
-    }
-
     public String getName() {
         return name;
     }
@@ -89,6 +100,5 @@ public class Hero {
     public void setQualities(List<Quality> qualities) {
         this.qualities = qualities;
     }
-
 
 }

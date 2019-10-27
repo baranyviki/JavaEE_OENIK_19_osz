@@ -62,7 +62,9 @@ public class HeroServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        Hero h = new Hero(request.getParameter("name"), request.getParameter("desc"));
+        
+        User sess = ((User) request.getSession().getAttribute("user"));
+        Hero h = new Hero(request.getParameter("name"), request.getParameter("desc"),sess);
         for (Species s : speciesRepository.getSpecies()) {
 
             try {
@@ -77,7 +79,6 @@ public class HeroServlet extends HttpServlet {
             //response.getWriter().print(s.getName() + " - " + request.getParameter(s.getName()));
         }
 
-        User sess = ((User) request.getSession().getAttribute("user"));
         sess.getHeroes().add(h);
         heroesRepository.add(h);
         request.setAttribute("heroes", sess.getHeroes());

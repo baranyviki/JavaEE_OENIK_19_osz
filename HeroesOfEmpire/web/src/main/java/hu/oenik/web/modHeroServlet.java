@@ -22,6 +22,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import repos.HeroRepository;
+import repos.UserRepository;
 
 /**
  *
@@ -34,7 +35,8 @@ public class modHeroServlet extends HttpServlet {
     SpeciesRepository speciesRepository;
     @Inject
     HeroRepository heroRepository;
-    
+    @Inject
+    UserRepository userRepository;
 /*  
      *
      * Handles the HTTP <code>GET</code> method.
@@ -50,14 +52,9 @@ public class modHeroServlet extends HttpServlet {
 
         User sess = ((User) request.getSession().getAttribute("user"));
 
-        String heroname = request.getParameter("heroname");
-        Hero selectedHero = new Hero();
-        for (Hero h : sess.getHeroes()) {
-            if (h.getName().equals(heroname)) {
-                selectedHero = h;
-            }
-            //TODO: error handling
-        }
+        Long heroId  =Long.parseLong(request.getParameter("heroid"));
+        Hero selectedHero =heroRepository.getHero(heroId);
+        
         request.setAttribute("selectedHero", selectedHero);
 
         List<Hybrid> selectionHybrids = new ArrayList<>();
@@ -89,21 +86,11 @@ public class modHeroServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
+        Long heroID = Long.parseLong(request.getParameter("heroid"));
         String heroname = request.getParameter("heroname");
         String desc = request.getParameter("desc");
         User sessUser = ((User) request.getSession().getAttribute("user"));
-        List<Hero> hos = sessUser.getHeroes();
-        int moddedHeroIdx = 0;
-        int i = 0;
-        while (i < hos.size() && !hos.get(i).getName().equals(heroname)) {
-            i++;
-        }
-        if (i < hos.size()) {
-            moddedHeroIdx = i;
-        } else {
-            throw new ServletException("unlisted hero name in post request parameter of mod hero servlet");
-        }
-        sessUser.getHeroes().get(moddedHeroIdx).setDescription(desc);
+        
 
         List<Hybrid> heroHybrids = new ArrayList<>();
 
@@ -119,8 +106,12 @@ public class modHeroServlet extends HttpServlet {
             }
 
         }
-        sessUser.getHeroes().get(moddedHeroIdx).setHybrids(heroHybrids);
-        heroRepository.getHeroes().get(moddedHeroIdx).setHybrids(heroHybrids);
+        //sessUser.getHeroes().get(moddedHeroIdx).setHybrids(heroHybrids);
+        Hero moddedHero = heroRepository.getHero(heroID);
+        moddedHero.setDescription(desc);
+        moddedHero.setHybrids(heroHybrids);
+        heroRepository.update(moddedHero);
+        //userRepository.Update(sessUser);
         
         request.setAttribute("heroes",sessUser.getHeroes() );
         request.setAttribute("empires",sessUser.getEmpires() );

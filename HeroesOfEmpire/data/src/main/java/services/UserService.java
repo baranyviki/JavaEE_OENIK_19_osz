@@ -26,11 +26,11 @@ public class UserService {
     public void registration( String userName, String pPassword)
     throws RegistrationException{
         try {
-           User u =  userRepository.getUserByName(userName);
-           if(u == null)
-           {
+           //User u =  userRepository.getUserByName(userName);
+           //if(u == null)
+           //{
                userRepository.add(new User(userName, pPassword, false));
-           }
+           //}
         } catch (Exception ex) {
                throw new RegistrationException();
         }

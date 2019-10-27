@@ -76,9 +76,9 @@ private static final Logger logger = LoggerFactory.getLogger(RegistrationServlet
             throws ServletException, IOException {
         String password = request.getParameter("pass");
         String username = request.getParameter("username");
-        String fullname = request.getParameter("name");
+        //String fullname = request.getParameter("name");
         //User tmpU = new User(name, password, false);
-        logger.error("BAJ VAN");
+
          try {
              userService.registration(username, password);
          } catch (RegistrationException ex) {

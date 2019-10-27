@@ -13,6 +13,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -48,14 +49,27 @@ public class Empire {
     List<Stock> warehouse= new ArrayList<>();
     List<Building> buildings= new ArrayList<>();
     EnvironmentTypes environmentType;
+    
+    @ManyToOne
+    User user;
 
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+    
+    
     public Empire() {
     }
 
-    public Empire(String name, String description, Long level) {
+    public Empire(String name, String description, Long level, User u) {
         this.name = name;
         this.description = description;
         this.level = level;
+        this.user = u;
     }
 
     public Empire(String name, String description, Long level, List<Population> population, List<Stock> produce, List<Stock> warehouse, List<Building> buildings, EnvironmentTypes environmentType) {

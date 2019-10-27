@@ -44,4 +44,19 @@ public class HeroRepository {
         em.remove(hero);
         em.getTransaction().commit();
     }
+
+    public void update(Hero he) {
+        em.getTransaction().begin();
+        for (Hybrid h : he.getHybrids()) {
+            em.merge(h);
+        }
+        em.merge(he);
+        em.getTransaction().commit();
+    }
+
+    public Hero getHero(Long id)
+    {
+        Hero he = em.find(Hero.class, id);
+        return he;
+    }
 }

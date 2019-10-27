@@ -43,7 +43,14 @@ public class UserRepository {
         em.persist(pUser);
         em.getTransaction().commit();
     }
-
+    
+    public void Update(User u)
+    {
+        em.getTransaction().begin();
+        em.merge(u);
+        em.getTransaction().commit();
+    }
+    
     public User getUser(String pName, String pPassword) {
         CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery cq = cb.createQuery(User.class);
@@ -67,7 +74,9 @@ public class UserRepository {
         
         return null;
     }
+    
 
+    
     public UserRepository() {
 
     }

@@ -2,6 +2,7 @@ package hu.oenik.data;
 
 import java.util.ArrayList;
 import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -14,29 +15,27 @@ import javax.persistence.Table;
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 /**
  *
  * @author Viki
  */
 @Entity
-@Table(name="user")
+@Table(name = "user")
 public class User {
-    private String name,password;
-    private Boolean admin;
-    
-    @OneToMany
-    private List<Hero> heroes = new ArrayList<>();
-    
-    @OneToMany
-    private List<Empire> empires = new ArrayList<>();
-    
-    
+
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Id
     private Long id;
- 
-    
+
+    private String name, password;
+    private Boolean admin;
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
+    private List<Hero> heroes = new ArrayList<>();
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user", orphanRemoval = true)
+    private List<Empire> empires = new ArrayList<>();
+
     public User(String name, String password, Boolean admin) {
         this.name = name;
         this.password = password;
@@ -77,8 +76,8 @@ public class User {
     public void setHeroes(List<Hero> heroes) {
         this.heroes = heroes;
     }
-    
-       public List<Empire> getEmpires() {
+
+    public List<Empire> getEmpires() {
         return empires;
     }
 
@@ -93,4 +92,24 @@ public class User {
     public void setId(Long id) {
         this.id = id;
     }
+
+    public void addHero(Hero h) {
+        heroes.add(h);
+    }
+
+    public void removeHero(long heroID) throws Exception {
+        int idx = -1;
+        for (int j = 0; j < heroes.size(); j++) {
+            if (heroes.get(j).getId() == heroID) {
+                idx = j;
+            }
+        }
+        if(idx == -1)
+        {
+            throw new Exception("Hero not found in user list");
+        }
+                
+        heroes.remove(idx);
+    }
+
 }

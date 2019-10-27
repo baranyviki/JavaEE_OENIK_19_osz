@@ -7,6 +7,8 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
+    
+        <div style="padding-left:30px">
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Home page</title>
@@ -31,13 +33,13 @@
                 <c:forEach var="hero" items="${heroes}">
                     <tr>
                 <form method="get" action="modHero" >
-                    <input type="hidden"  value="${hero.name}" name="heroname"/>
+                    <input type="hidden"  value="${hero.id}" name="heroid"/>
                     <td>${hero.name}</td>
                     <td>${hero.description}</td>
                     <td><input type="submit" value="Modify"/></td>
                 </form>
                 <form method="post" action="deleteHero">                
-                    <input type="hidden"  value="${hero.name}" name="heroname"/>
+                    <input type="hidden"  value="${hero.id}" name="heroid"/>
                     <td><input type="submit" value="Delete"/></td>
                 </form>
             </tr>
@@ -108,4 +110,5 @@
 </form>      
 
 </body>
+</div>
 </html>

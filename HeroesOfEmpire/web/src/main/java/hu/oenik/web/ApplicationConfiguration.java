@@ -39,10 +39,10 @@ public class ApplicationConfiguration {
     @Produces
     public SpeciesRepository createSpeciesRepository() {
         SpeciesRepository sr = new SpeciesRepository();
-//        sr.add(new Species("Human", "Bold"));
-//        sr.add(new Species("Dwarf", "Strong"));
-//        sr.add(new Species("Elder Blood", "Chosen ones"));
-//        sr.add(new Species("Mutant", "Wolf School Witcher"));
+        //sr.add(new Species("Human", "Bold"));
+        //sr.add(new Species("Dwarf", "Strong"));
+        //sr.add(new Species("Elder Blood", "Chosen ones"));
+        //sr.add(new Species("Mutant", "Wolf School Witcher"));
         return sr;
     }
 

@@ -10,6 +10,8 @@ import repos.SpeciesRepository;
 import hu.oenik.data.User;
 import java.io.IOException;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.inject.Inject;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -17,6 +19,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import repos.HeroRepository;
+import repos.UserRepository;
 
 /**
  *
@@ -30,6 +33,9 @@ public class deleteHeroServlet extends HttpServlet {
 
     @Inject
     HeroRepository heroRepository;
+    
+    @Inject
+    UserRepository userRepository;
     
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -68,25 +74,17 @@ public class deleteHeroServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        String heroname = request.getParameter("heroname");
+        Long heroId =Long.parseLong( request.getParameter("heroid"));
         User sessUser = ((User) request.getSession().getAttribute("user"));
-        List<Hero> hos = sessUser.getHeroes();
-        int moddedHeroIdx = 0;
-        int i = 0;
-        while (i < hos.size() && !hos.get(i).getName().equals(heroname)) {
-            i++;
+        try {
+            sessUser.removeHero(heroId);
+        } catch (Exception ex) {
+            Logger.getLogger(deleteHeroServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
-        if (i < hos.size()) {
-            moddedHeroIdx = i;
-        } else {
-            throw new ServletException("unlisted hero name in post request parameter of delete hero servlet");
-        }
-        sessUser.getHeroes().remove(moddedHeroIdx);
-        heroRepository.remove(moddedHeroIdx);
+        heroRepository.remove(heroId);
         
         request.setAttribute("heroes", sessUser.getHeroes());
         request.setAttribute("empires", sessUser.getEmpires());
-
         request.setAttribute("species", speciesRepository.getSpecies());
         getServletContext().getRequestDispatcher("/userHome.jsp").include(request, response);
     }

@@ -1,0 +1,30 @@
+﻿2019/20/1 - J2EE fejlesztés - NIXJA1SBNE/JA1_LA_SZRF
+Feladat -2
+Birodalmak kezelésének megvalósítása JPA alapokon
+Birodalmak kezelésének megvalósítása JPA alapokon
+Valósítsd meg az ásványkincsek(név, leírás) tárolását és kezelést JPA alapokon. (5 pont)
+Készíts egy Entity-t
+Lehessen ID alapján lekérdezni,
+Lehessen név szerint rendezve lekérdezni az összes elemet.
+Legyenek tesz adataid az adatbázisodban
+Valósítsd meg épület típusok(név, leírás) tárolására és kezelését JPA alapokon. (5 pont)
+Készíts egy Entity-t
+Lehessen ID alapján lekérdezni,
+Lehessen név szerint rendezve lekérdezni az összes elemet.
+Legyenek tesz adataid az adatbázisodban
+
+Valósítsd meg a bejelentkezés utáni birodalmak létrehozását JPA környezetben.  (7 pont)
+Egy bejelentkezett felhasználónak lehet több birodalma.
+Egy birodalom létrehozásakor véletlenszerűen ossza ki a rendszer a birodalomban bányászható ásványkincsek mennyiségét.
+
+Valósítsd meg az épületek építését JPA alapokon. (8 pont)
+A bejelentkezett felhasználó a létező birodalmára építhet egy új épületet a meglévő típusokból.
+Egy birodalomban több azonos típusú épület példány is lehet.
+
+Biztosítsd a felhasználó számára, hogy kereshessen a birodalmai között az alábbi feltételek alapján -több megadott keresési beállítás esetén a feltételek között és kapcsolat legyen: (15 pont, CriteriaBuilder)
+nevének rész tartalma alapján
+leírásásának rész tartalma alapján
+listából választható ásványkincsek minimálisan elérhető készlete alapján (pl: olaj>15)
+Birodalomban lévő épületek alapján
+
+!!!!!! Az elkészített feladatot tömörítve töltsd fel. a tömötrített állomány tartalmazzon egy adatbázis dumpot is!!!!!!!!

@@ -22,19 +22,11 @@ import javax.persistence.Table;
 public class Species {
     
     @GeneratedValue(strategy = GenerationType.AUTO)
-    
     @Id
     private long id;
 
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
     String name, description;
-   List<Quality> qualities = new ArrayList<>();
+    List<Quality> qualities = new ArrayList<>();
 
     public Species() {
     }
@@ -50,6 +42,14 @@ public class Species {
         this.description = description;
     }
   
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+    
     public String getName() {
         return name;
     }

@@ -23,6 +23,14 @@ public class Hybrid {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Id
     private long id;
+    
+    @ManyToOne
+    Species species;
+    
+    @ManyToOne
+    Hero hero;
+    
+    byte percent;
 
     public Hybrid() {
     }
@@ -35,10 +43,9 @@ public class Hybrid {
         this.id = id;
     }
     
-    @ManyToOne
-    Species species;
-    byte percent;
-
+    public Hero getHero() {
+        return hero;
+    }
     public Species getSpecies() {
         return species;
     }
