@@ -6,10 +6,12 @@
 package hu.oenik.data;
 
 import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
@@ -33,8 +35,11 @@ public class Building {
     public void setId(long id) {
         this.id = id;
     }
+    
+    @OneToMany(cascade = CascadeType.ALL)
     List<Stock> produce;
-    Long buildingTime;    
+    
+    Long buildingTime;
 
     public Building(){
         

@@ -73,7 +73,7 @@ public class newEmpireServlet extends HttpServlet {
         EnvironmentTypes envType = EnvironmentTypes.valueOf(request.getParameter("envlist"));
         EmpireLogic c = new EmpireLogic(peopleRepository,naturalAssetRepository);
         Empire emp = c.EmpireFactory(name, description, envType);
-
+        emp.setUser(sess);
         sess.getEmpires().add(emp);
         empireRepository.add(emp);
         request.setAttribute("heroes", sess.getHeroes());

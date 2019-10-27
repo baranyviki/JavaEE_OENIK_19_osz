@@ -24,7 +24,10 @@ public class Population {
     @Id
     private long id;
 
-    
+    @ManyToOne
+    People people;
+    Long quantity;
+
     public long getId() {
         return id;
     }
@@ -34,12 +37,7 @@ public class Population {
     }
     
     public Population() {
-    }
-
-    
-    @ManyToOne
-    People people;
-    Long quantity;
+    }    
 
     public Population(People people, Long quantity) {
         this.people = people;

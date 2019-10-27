@@ -30,7 +30,7 @@ public class User {
     private String name, password;
     private Boolean admin;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user", orphanRemoval = true)
     private List<Hero> heroes = new ArrayList<>();
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user", orphanRemoval = true)
@@ -112,4 +112,24 @@ public class User {
         heroes.remove(idx);
     }
 
+       public void addEmpire(Empire e) {
+        empires.add(e);
+    }
+
+    public void removeEmpire(long heroID) throws Exception {
+        int idx = -1;
+        for (int j = 0; j < empires.size(); j++) {
+            if (empires.get(j).getId() == heroID) {
+                idx = j;
+            }
+        }
+        if(idx == -1)
+        {
+            throw new Exception("Empire not found in user's list");
+        }
+                
+        empires.remove(idx);
+    }
+    
+    
 }

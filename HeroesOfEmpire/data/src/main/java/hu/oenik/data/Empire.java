@@ -5,14 +5,15 @@
  */
 package hu.oenik.data;
 
-import repos.PeopleRepository;
-import repos.NaturalAssetRepository;
 import java.util.ArrayList;
 import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -25,42 +26,36 @@ import javax.persistence.Table;
 @Entity
 @Table(name="empire")
 public class Empire {
+    
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Id
-   private long id;
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
+    private long id;
     
     String name;
     String description;
     Long level;
-    @OneToMany
+    
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name="Empire_ID")
     List<Population> population = new ArrayList<>();
     
-    //List<Stock> produce= new ArrayList<>();
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinTable(name="empire_produce")
+    List<Stock> produce= new ArrayList<>();
     
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinTable(name="empire_warehouse")
     List<Stock> warehouse= new ArrayList<>();
+    
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name="Empire_ID")
     List<Building> buildings= new ArrayList<>();
+    
     EnvironmentTypes environmentType;
     
     @ManyToOne
+    @JoinColumn(name="USER_ID")
     User user;
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
-    
     
     public Empire() {
     }
@@ -77,11 +72,27 @@ public class Empire {
         this.description = description;
         this.level = level;
         this.population = population;
-        //this.produce = produce;
+        this.produce = produce;
         this.warehouse = warehouse;
         this.buildings = buildings;
         this.environmentType = environmentType;
     }  
+
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+        public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
     
 //    public Empire(String name, String description, EnvironmentTypes envType )
 //    {

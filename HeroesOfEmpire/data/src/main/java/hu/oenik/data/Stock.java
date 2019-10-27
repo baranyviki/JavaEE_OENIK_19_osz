@@ -17,32 +17,33 @@ import javax.persistence.Table;
  * @author Thrawn
  */
 @Entity
-@Table(name="stock")
+@Table(name = "stock")
 public class Stock {
+
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Id
     private long id;
-    
-    
+
+    @ManyToOne
+    NaturalAsset asset;
+
+    Long quantity;
+
+    public Stock() {
+
+    }
+
+    public Stock(NaturalAsset asset, Long quantity) {
+        this.asset = asset;
+        this.quantity = quantity;
+    }
+
     public long getId() {
         return id;
     }
 
     public void setId(long id) {
         this.id = id;
-    }
-    
-    @ManyToOne
-    NaturalAsset asset;
-    Long quantity;
-    
-    public Stock() {
-        
-    }
-
-    public Stock(NaturalAsset asset, Long quantity) {
-        this.asset = asset;
-        this.quantity = quantity;
     }
 
     public NaturalAsset getAsset() {
@@ -60,5 +61,5 @@ public class Stock {
     public void setQuantity(Long quantity) {
         this.quantity = quantity;
     }
-    
+
 }
