@@ -9,11 +9,13 @@ import hu.oenik.data.Empire;
 import hu.oenik.data.User;
 import java.io.IOException;
 import java.util.List;
+import javax.inject.Inject;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import services.EmpireService;
 
 /**
  *
@@ -22,6 +24,9 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet(name = "manageEmpireServlet", urlPatterns = {"/manageEmpire"})
 public class manageEmpireServlet extends HttpServlet {
 
+    @Inject
+    EmpireService empireService;
+    
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
@@ -34,21 +39,21 @@ public class manageEmpireServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String empireName = request.getParameter("empirename");
+        Long empireID  =Long.parseLong(request.getParameter("empireid"));
         User sess = ((User) request.getSession().getAttribute("user"));
-        List<Empire> emp = sess.getEmpires();
-        int idx = 0;
-        int selected = 0;
-        while (idx < emp.size() && !emp.get(idx).getName().equals(empireName)) {
-            idx++;
-        }
-        if (idx < emp.size()) {
-            selected = idx;
-        } else {
-            throw new ServletException("user dont have empire with given name");
-        }
-
-        request.setAttribute("selectedEmpire", sess.getEmpires().get(selected));
+//        List<Empire> emp = sess.getEmpires();
+//        int idx = 0;
+//        int selected = 0;
+//        while (idx < emp.size() && !emp.get(idx).getName().equals(empireName)) {
+//            idx++;
+//        }
+//        if (idx < emp.size()) {
+//            selected = idx;
+//        } else {
+//            throw new ServletException("user dont have empire with given name");
+//        }
+        Empire emp = empireService.getEmpire(empireID);
+        request.setAttribute("selectedEmpire", emp);
 
         getServletContext().getRequestDispatcher("/empire.jsp").include(request, response);
     }

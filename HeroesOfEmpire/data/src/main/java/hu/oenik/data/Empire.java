@@ -277,7 +277,7 @@ public class Empire {
     public void setPopulation(List<Population> population) {
         this.population = population;
     }
-/*
+
     public List<Stock> getProduce() {
         return produce;
     }
@@ -285,7 +285,7 @@ public class Empire {
     public void setProduce(List<Stock> produce) {
         this.produce = produce;
     }
-*/
+
     public List<Stock> getWarehouse() {
         return warehouse;
     }

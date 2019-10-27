@@ -29,7 +29,13 @@ public class EmpireRepository {
     public List<Empire> getEmpires() {
         return em.createQuery("SELECT e FROM Empire e", Empire.class).getResultList();
     }
-
+    
+    public Empire getEmpireByID(long empireID)
+    {
+      Empire emp = em.find(Empire.class, empireID);
+      return emp;
+    }
+    
     public void add(Empire emp) {
         em.getTransaction().begin();
       //  for (Stock s : emp.getWarehouse()) {

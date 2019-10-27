@@ -10,12 +10,14 @@ import repos.SpeciesRepository;
 import hu.oenik.data.User;
 import java.io.IOException;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.inject.Inject;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import repos.EmpireRepository;
+import services.EmpireService;
 
 /**
  *
@@ -27,7 +29,7 @@ public class deleteEmpireServlet extends HttpServlet {
     SpeciesRepository sepeciesRepository;
 
     @Inject
-    EmpireRepository empireRepository;
+    EmpireService empireService;
     
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -63,22 +65,24 @@ public class deleteEmpireServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String empireName = request.getParameter("empirename");
+        Long empireID  =Long.parseLong(request.getParameter("empireid"));
         User sess = ((User) request.getSession().getAttribute("user"));
-        List<Empire> emp = sess.getEmpires();
-        int idx = 0;
-        int selected = 0;
-        while (idx < emp.size() && !emp.get(idx).getName().equals(empireName)) {
-            idx++;
-        }
-        if (idx < emp.size()) {
-            selected = idx;
-        } else {
-            throw new ServletException("user dont have empire with given name");
-        }
-
-        sess.getEmpires().remove(selected);
-        empireRepository.remove(selected);
+//        List<Empire> emp = sess.getEmpires();
+//        int idx = 0;
+//        int selected = 0;
+//        while (idx < emp.size() && !emp.get(idx).getName().equals(empireName)) {
+//            idx++;
+//        }
+//        if (idx < emp.size()) {
+//            selected = idx;
+//        } else {
+//            throw new ServletException("user dont have empire with given name");
+//        }
+        try {
+            empireService.removeEmpire(empireID);
+        } catch (Exception ex) {
+            Logger.getLogger(deleteEmpireServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }        
         
         request.setAttribute("heroes", sess.getHeroes());
         request.setAttribute("empires", sess.getEmpires());

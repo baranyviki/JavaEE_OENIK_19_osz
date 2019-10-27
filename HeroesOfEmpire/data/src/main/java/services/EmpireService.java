@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package bl;
+package services;
 
 import hu.oenik.data.Empire;
 import hu.oenik.data.EnvironmentTypes;
@@ -11,45 +11,68 @@ import hu.oenik.data.NaturalAsset;
 import hu.oenik.data.People;
 import hu.oenik.data.Population;
 import hu.oenik.data.Stock;
+import hu.oenik.data.User;
+import java.util.List;
 import java.util.Random;
-import javax.enterprise.context.ApplicationScoped;
+import javax.ejb.Singleton;
 import javax.inject.Inject;
+import repos.EmpireRepository;
 import repos.NaturalAssetRepository;
 import repos.PeopleRepository;
 
 /**
  *
  * @author Viki
- * empire service created instead of this
  */
-public class EmpireLogic {
+@Singleton
+public class EmpireService {
 
+    @Inject
+    EmpireRepository empireRepository;
+   
+    @Inject
     PeopleRepository peopleRepository;
-    NaturalAssetRepository nautralAssetRepository;
-    Random rand = new Random();
     
-    public EmpireLogic(PeopleRepository peopleRepository, NaturalAssetRepository nautralAssetRepository) {
-        this.peopleRepository = peopleRepository;
-        this.nautralAssetRepository = nautralAssetRepository;
+    @Inject
+    NaturalAssetRepository nautralAssetRepository;
+        
+    Random rand = new Random();
+
+    public EmpireService() {
+    } 
+    
+//    public Empire EmpireFactory(String name, String description, EnvironmentTypes envType) {
+//        Empire emp = GenerateEmpireWithEnvironment(envType);
+//        emp.setName(name);
+//        emp.setDescription(description);
+//        emp.setEnvironmentType(envType);
+//        emp.setLevel(1L);
+//        return emp;
+//    }
+    
+    public Empire getEmpire(Long empID)
+    {
+        return empireRepository.getEmpireByID(empID);
     }
     
-    
-    
-    public Empire EmpireFactory(String name, String description, EnvironmentTypes envType) {
+    public Empire addEmpire(String name, String description, EnvironmentTypes envType, User user)
+    {    
         Empire emp = GenerateEmpireWithEnvironment(envType);
         emp.setName(name);
         emp.setDescription(description);
         emp.setEnvironmentType(envType);
         emp.setLevel(1L);
+        emp.setUser(user);
+        user.addEmpire(emp);
         return emp;
     }
-
+    
     private Empire GenerateEmpireWithEnvironment(EnvironmentTypes envType) {
         Empire empire = new Empire();
-//        List<NaturalAsset> nats = nautralAssetRepository.getAssets();       
+         List<NaturalAsset> nats = nautralAssetRepository.getAssets();       
         for (NaturalAsset s : nautralAssetRepository.getAssets()) {
              int r = rand.nextInt(11);
-            //empire.getProduce().add(new Stock(s, (long) (10*r)));
+            empire.getProduce().add(new Stock(s, (long) (10*r)));
         }
         switch (envType) {
             case Mountainous:
@@ -63,10 +86,10 @@ public class EmpireLogic {
                 }
                 for (NaturalAsset s : nautralAssetRepository.getAssets()) {
                     if (s.getName().equals("Stone")) {
-                       // empire.getWarehouse().add(new Stock(s, (long) (10)));
+                       empire.getWarehouse().add(new Stock(s, (long) (10)));
 
                     } else {
-                       // empire.getWarehouse().add(new Stock(s, (long) (5)));
+                       empire.getWarehouse().add(new Stock(s, (long) (5)));
                     }
                 }
                 
@@ -83,9 +106,9 @@ public class EmpireLogic {
                 }
                 for (NaturalAsset s : nautralAssetRepository.getAssets()) {
                     if (s.getName().equals("Food")) {
-                       // empire.getWarehouse().add(new Stock(s, (long) (10)));
+                       empire.getWarehouse().add(new Stock(s, (long) (10)));
                     } else {
-                        //empire.getWarehouse().add(new Stock(s, (long) (5)));
+                        empire.getWarehouse().add(new Stock(s, (long) (5)));
                     }
                 }
 
@@ -100,9 +123,9 @@ public class EmpireLogic {
                 }
                 for (NaturalAsset s : nautralAssetRepository.getAssets()) {
                     if (s.getName().equals("Food")) {
-                       // empire.getWarehouse().add(new Stock(s, (long) (10)));
+                        empire.getWarehouse().add(new Stock(s, (long) (10)));
                     } else {
-                      //  empire.getWarehouse().add(new Stock(s, (long) (5)));
+                       empire.getWarehouse().add(new Stock(s, (long) (5)));
                     }
                 }
 
@@ -121,9 +144,9 @@ public class EmpireLogic {
                 }
                 for (NaturalAsset s : nautralAssetRepository.getAssets()) {
                     if (s.getName().equals("Gold")) {
-                      //  empire.getWarehouse().add(new Stock(s, (long) (10)));
+                     empire.getWarehouse().add(new Stock(s, (long) (10)));
                     } else {
-                       // empire.getWarehouse().add(new Stock(s, (long) (5)));
+                        empire.getWarehouse().add(new Stock(s, (long) (5)));
                     }
                 }
 
@@ -141,9 +164,9 @@ public class EmpireLogic {
                 }
                 for (NaturalAsset s : nautralAssetRepository.getAssets()) {
                     if (s.getName().equals("Gold")) {
-                       // empire.getWarehouse().add(new Stock(s, (long) (10)));
+                      empire.getWarehouse().add(new Stock(s, (long) (10)));
                     } else {
-                       // empire.getWarehouse().add(new Stock(s, (long) (5)));
+                        empire.getWarehouse().add(new Stock(s, (long) (5)));
                     }
                 }
                 break;
@@ -162,12 +185,13 @@ public class EmpireLogic {
         for (Population p : emp.getPopulation()) {
             p.setQuantity(p.getQuantity()+1L);
         }
-       /* for (Stock w : emp.getWarehouse()) {
+        for (Stock w : emp.getWarehouse()) {
             for (Stock p : emp.getProduce()) {
                 if (w.getAsset().getName().equals(p.getAsset().getName())) {
                    w.setQuantity(w.getQuantity()+p.getQuantity());
                 }
             }
-        }*/
+        }
     }
+    
 }

@@ -5,17 +5,11 @@
  */
 package services;
 
-import javax.inject.Inject;
-import repos.HeroRepository;
-
 /**
  *
  * @author Viki
  */
 public class HeroService {
-    
-    @Inject 
-    HeroRepository heroRepository;
-    
+   
     
 }

@@ -80,15 +80,15 @@
                 <td>${emp.level}</td>                
                 <td>${emp.environmentType}</td>
         <form method="get" action="manageEmpire">            
-            <input type="hidden"  value="${emp.name}" name="empirename"/>
+            <input type="hidden"  value="${emp.id}" name="empireid"/>
             <td><input type="submit" value="View"/></td>
         </form>
         <form method="post" action="manageEmpire">                
-            <input type="hidden"  value="${emp.name}" name="empirename"/>
+            <input type="hidden"  value="${emp.id}" name="empireid"/>
             <td><input type="submit" value="Modify"/></td>
         </form>
         <form method="post" action="deleteEmpire">                
-            <input type="hidden"  value="${emp.name}" name="empirename"/>
+            <input type="hidden"  value="${emp.id}" name="empireid"/>
             <td><input type="submit" value="Delete"/></td>
         </form>
     </tr>
