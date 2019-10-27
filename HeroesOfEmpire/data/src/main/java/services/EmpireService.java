@@ -73,16 +73,49 @@ public class EmpireService {
                bu.setDescription("Trains soldiers");
                bu.setBuildingTime((long)2);
                bu.setProduce(CreateStockRequirements(1));
-               
+            break;
+            case "Farm":
+               bu.setName(building);
+               bu.setDescription("produces food");
+               bu.setBuildingTime((long)2);
+               bu.setProduce(CreateStockRequirements(2));              
+                      
+            break;
+            case "Blacksmith":
+               bu.setName(building);
+               bu.setDescription("do you want a powerful ring?");
+               bu.setBuildingTime((long)2);
+               bu.setProduce(CreateStockRequirements(3));            
+                      
+            break;
+            case "Mine":
+               bu.setName(building);
+               bu.setDescription("too deep");
+               bu.setBuildingTime((long)2);
+               bu.setProduce(CreateStockRequirements(4));             
+                      
+            break;
+            case "Lumberyard":
+               bu.setName(building);
+               bu.setDescription("chop-chop");
+               bu.setBuildingTime((long)2);
+               bu.setProduce(CreateStockRequirements(5));             
                       
                break; 
+               case "Townhall":
+               bu.setName(building);
+               bu.setDescription("ocsmanyiroda");
+               bu.setBuildingTime((long)2);
+               bu.setProduce(CreateStockRequirements(6));             
+                      
+               break;
         }
         
         Empire emp =getEmpire(empireID);
         emp.getBuildings().add(bu);
         empireRepository.Update(emp);
     }
-    private ArrayList<Stock> CreateStockRequirements(int b){ 
+     private ArrayList<Stock> CreateStockRequirements(int b){ 
        ArrayList<Stock> req = new ArrayList<Stock>();
        List<NaturalAsset> nats = nautralAssetRepository.getAssets();
         switch(b){
@@ -101,28 +134,65 @@ public class EmpireService {
                 }
                 break;
             case 2:
-                req.add(new Stock(new NaturalAsset("Stone","Mostly used for build buildings"),(long)10));
-                
-                req.add(new Stock(new NaturalAsset("Wood", "Mostly used for build buildings"),(long)30));
+                for (NaturalAsset s : nautralAssetRepository.getAssets()) {
+                    if (s.getName().equals("Stone")) {
+                        req.add(new Stock(s, (long) (10)));
+
+                    } 
+                    else if (s.getName().equals("Wood")){
+                        req.add(new Stock(s, (long) (30)));
+                    }
+                }                
                 break;
             case 3:
-                req.add(new Stock(new NaturalAsset("Stone","Mostly used for build buildings"),(long)50));
-                req.add(new Stock(new NaturalAsset("Gold", "Mostly used for train the soldiers"),(long)10));
-                req.add(new Stock(new NaturalAsset("Wood", "Mostly used for build buildings"),(long)40));
+                for (NaturalAsset s : nautralAssetRepository.getAssets()) {
+                    if (s.getName().equals("Stone")) {
+                        req.add(new Stock(s, (long) (50)));
+
+                    } else if (s.getName().equals("Gold")){
+                        req.add(new Stock(s, (long) (10)));
+                    }
+                    else if (s.getName().equals("Wood")){
+                        req.add(new Stock(s, (long) (40)));
+                    }
+                }                
                 break;
             case 4:
-                req.add(new Stock(new NaturalAsset("Stone","Mostly used for build buildings"),(long)20));
-                req.add(new Stock(new NaturalAsset("Gold", "Mostly used for train the soldiers"),(long)10));
-                req.add(new Stock(new NaturalAsset("Wood", "Mostly used for build buildings"),(long)30));
+                for (NaturalAsset s : nautralAssetRepository.getAssets()) {
+                    if (s.getName().equals("Stone")) {
+                        req.add(new Stock(s, (long) (20)));
+
+                    } else if (s.getName().equals("Gold")){
+                        req.add(new Stock(s, (long) (10)));
+                    }
+                    else if (s.getName().equals("Wood")){
+                        req.add(new Stock(s, (long) (30)));
+                    }
+                }                   
                 break;
             case 5:
-                req.add(new Stock(new NaturalAsset("Stone","Mostly used for build buildings"),(long)30));                
-                req.add(new Stock(new NaturalAsset("Wood", "Mostly used for build buildings"),(long)10));
+                for (NaturalAsset s : nautralAssetRepository.getAssets()) {
+                    if (s.getName().equals("Stone")) {
+                        req.add(new Stock(s, (long) (30)));
+
+                    } 
+                    else if (s.getName().equals("Wood")){
+                        req.add(new Stock(s, (long) (10)));
+                    }
+                }   
                 break;
             case 6:
-                req.add(new Stock(new NaturalAsset("Stone","Mostly used for build buildings"),(long)50));
-                req.add(new Stock(new NaturalAsset("Gold", "Mostly used for train the soldiers"),(long)50));
-                req.add(new Stock(new NaturalAsset("Wood", "Mostly used for build buildings"),(long)50));
+                for (NaturalAsset s : nautralAssetRepository.getAssets()) {
+                    if (s.getName().equals("Stone")) {
+                        req.add(new Stock(s, (long) (50)));
+
+                    } else if (s.getName().equals("Gold")){
+                        req.add(new Stock(s, (long) (50)));
+                    }
+                    else if (s.getName().equals("Wood")){
+                        req.add(new Stock(s, (long) (50)));
+                    }
+                }                    
                 break;
         }        
         return req;
