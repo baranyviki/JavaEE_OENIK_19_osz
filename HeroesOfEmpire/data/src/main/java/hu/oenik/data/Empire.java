@@ -94,6 +94,8 @@ public class Empire {
         this.id = id;
     }
     
+    
+    
 //    public Empire(String name, String description, EnvironmentTypes envType )
 //    {
 //        this.name = name;

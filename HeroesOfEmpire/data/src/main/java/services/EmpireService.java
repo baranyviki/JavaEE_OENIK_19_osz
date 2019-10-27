@@ -5,6 +5,7 @@
  */
 package services;
 
+import hu.oenik.data.Building;
 import hu.oenik.data.Empire;
 import hu.oenik.data.EnvironmentTypes;
 import hu.oenik.data.NaturalAsset;
@@ -12,10 +13,12 @@ import hu.oenik.data.People;
 import hu.oenik.data.Population;
 import hu.oenik.data.Stock;
 import hu.oenik.data.User;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import javax.ejb.Singleton;
 import javax.inject.Inject;
+import repos.BuildingRepository;
 import repos.EmpireRepository;
 import repos.NaturalAssetRepository;
 import repos.PeopleRepository;
@@ -35,6 +38,9 @@ public class EmpireService {
 
     @Inject
     NaturalAssetRepository nautralAssetRepository;
+    
+    @Inject
+    BuildingRepository buildingsRepo;
 
     Random rand = new Random();
 
@@ -58,6 +64,68 @@ public class EmpireService {
         empireRepository.remove(empireID);
         
     }
+    
+    public void addBuilding(long empireID,String building){
+        Building bu = new Building();
+        switch(building){
+            case "Barrack":
+               bu.setName(building);
+               bu.setDescription("Trains soldiers");
+               bu.setBuildingTime((long)2);
+               bu.setProduce(CreateStockRequirements(1));
+               
+                      
+               break; 
+        }
+        
+        getEmpire(empireID).getBuildings().add(bu);
+        buildingsRepo.add(bu);
+    }
+    private ArrayList<Stock> CreateStockRequirements(int b){ 
+       ArrayList<Stock> req = new ArrayList<Stock>();
+       List<NaturalAsset> nats = nautralAssetRepository.getAssets();
+        switch(b){
+            case 1:
+                
+                 for (NaturalAsset s : nautralAssetRepository.getAssets()) {
+                    if (s.getName().equals("Stone")) {
+                        req.add(new Stock(s, (long) (40)));
+
+                    } else if (s.getName().equals("Gold")){
+                        req.add(new Stock(s, (long) (20)));
+                    }
+                    else if (s.getName().equals("Wood")){
+                        req.add(new Stock(s, (long) (30)));
+                    }
+                }
+                break;
+            case 2:
+                req.add(new Stock(new NaturalAsset("Stone","Mostly used for build buildings"),(long)10));
+                
+                req.add(new Stock(new NaturalAsset("Wood", "Mostly used for build buildings"),(long)30));
+                break;
+            case 3:
+                req.add(new Stock(new NaturalAsset("Stone","Mostly used for build buildings"),(long)50));
+                req.add(new Stock(new NaturalAsset("Gold", "Mostly used for train the soldiers"),(long)10));
+                req.add(new Stock(new NaturalAsset("Wood", "Mostly used for build buildings"),(long)40));
+                break;
+            case 4:
+                req.add(new Stock(new NaturalAsset("Stone","Mostly used for build buildings"),(long)20));
+                req.add(new Stock(new NaturalAsset("Gold", "Mostly used for train the soldiers"),(long)10));
+                req.add(new Stock(new NaturalAsset("Wood", "Mostly used for build buildings"),(long)30));
+                break;
+            case 5:
+                req.add(new Stock(new NaturalAsset("Stone","Mostly used for build buildings"),(long)30));                
+                req.add(new Stock(new NaturalAsset("Wood", "Mostly used for build buildings"),(long)10));
+                break;
+            case 6:
+                req.add(new Stock(new NaturalAsset("Stone","Mostly used for build buildings"),(long)50));
+                req.add(new Stock(new NaturalAsset("Gold", "Mostly used for train the soldiers"),(long)50));
+                req.add(new Stock(new NaturalAsset("Wood", "Mostly used for build buildings"),(long)50));
+                break;
+        }        
+        return req;
+    }
 
     public Empire addEmpire(String name, String description, EnvironmentTypes envType, User user) {
         Empire emp = GenerateEmpireWithEnvironment(envType);
@@ -66,7 +134,7 @@ public class EmpireService {
         emp.setEnvironmentType(envType);
         emp.setLevel(1L);
         emp.setUser(user);
-        user.addEmpire(emp);
+        user.addEmpire(emp);        
         empireRepository.add(emp);
         return emp;
     }

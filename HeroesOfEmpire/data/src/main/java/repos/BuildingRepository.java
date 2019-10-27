@@ -35,44 +35,6 @@ public class BuildingRepository {
         */        
     }
     
-    /*ezt majd vmi stockService-be kesobb at lehetne tenni*/
-    private ArrayList<Stock> CreateStockRequirements(int b){ 
-       ArrayList<Stock> req = new ArrayList<Stock>();
-        switch(b){
-            case 1:
-                req.add(new Stock(new NaturalAsset("Stone","Mostly used for build buildings"),(long)40));
-                req.add(new Stock(new NaturalAsset("Gold", "Mostly used for train the soldiers"),(long)20));
-                req.add(new Stock(new NaturalAsset("Wood", "Mostly used for build buildings"),(long)30));
-                break;
-            case 2:
-                req.add(new Stock(new NaturalAsset("Stone","Mostly used for build buildings"),(long)10));
-                
-                req.add(new Stock(new NaturalAsset("Wood", "Mostly used for build buildings"),(long)30));
-                break;
-            case 3:
-                req.add(new Stock(new NaturalAsset("Stone","Mostly used for build buildings"),(long)50));
-                req.add(new Stock(new NaturalAsset("Gold", "Mostly used for train the soldiers"),(long)10));
-                req.add(new Stock(new NaturalAsset("Wood", "Mostly used for build buildings"),(long)40));
-                break;
-            case 4:
-                req.add(new Stock(new NaturalAsset("Stone","Mostly used for build buildings"),(long)20));
-                req.add(new Stock(new NaturalAsset("Gold", "Mostly used for train the soldiers"),(long)10));
-                req.add(new Stock(new NaturalAsset("Wood", "Mostly used for build buildings"),(long)30));
-                break;
-            case 5:
-                req.add(new Stock(new NaturalAsset("Stone","Mostly used for build buildings"),(long)30));                
-                req.add(new Stock(new NaturalAsset("Wood", "Mostly used for build buildings"),(long)10));
-                break;
-            case 6:
-                req.add(new Stock(new NaturalAsset("Stone","Mostly used for build buildings"),(long)50));
-                req.add(new Stock(new NaturalAsset("Gold", "Mostly used for train the soldiers"),(long)50));
-                req.add(new Stock(new NaturalAsset("Wood", "Mostly used for build buildings"),(long)50));
-                break;
-        }
-        
-        return req;
-    }
-
    public List<Building> getBuildings() {
         //class-ra hivatkozunk.
         return em.createQuery("SELECT s FROM Building s ORDER BY name", Building.class).getResultList();
@@ -87,4 +49,15 @@ public class BuildingRepository {
         cq.where(cb.equal(rt.get("id"), id));
         return (Building) em.createQuery(cq).getSingleResult();
    }
+   
+   public void add(Building b) {
+        em.getTransaction().begin();
+        
+        for (Stock p : b.getProduce()) {
+            em.persist(p);
+        }
+        em.persist(b);
+        em.getTransaction().commit();
+    }
+   
 }

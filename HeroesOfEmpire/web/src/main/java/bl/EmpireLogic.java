@@ -63,10 +63,10 @@ public class EmpireLogic {
                 }
                 for (NaturalAsset s : nautralAssetRepository.getAssets()) {
                     if (s.getName().equals("Stone")) {
-                       // empire.getWarehouse().add(new Stock(s, (long) (10)));
+                       empire.getWarehouse().add(new Stock(s, (long) (10)));
 
                     } else {
-                       // empire.getWarehouse().add(new Stock(s, (long) (5)));
+                        empire.getWarehouse().add(new Stock(s, (long) (5)));
                     }
                 }
                 
@@ -83,9 +83,9 @@ public class EmpireLogic {
                 }
                 for (NaturalAsset s : nautralAssetRepository.getAssets()) {
                     if (s.getName().equals("Food")) {
-                       // empire.getWarehouse().add(new Stock(s, (long) (10)));
+                        empire.getWarehouse().add(new Stock(s, (long) (10)));
                     } else {
-                        //empire.getWarehouse().add(new Stock(s, (long) (5)));
+                        empire.getWarehouse().add(new Stock(s, (long) (5)));
                     }
                 }
 
@@ -100,9 +100,9 @@ public class EmpireLogic {
                 }
                 for (NaturalAsset s : nautralAssetRepository.getAssets()) {
                     if (s.getName().equals("Food")) {
-                       // empire.getWarehouse().add(new Stock(s, (long) (10)));
+                        empire.getWarehouse().add(new Stock(s, (long) (10)));
                     } else {
-                      //  empire.getWarehouse().add(new Stock(s, (long) (5)));
+                       empire.getWarehouse().add(new Stock(s, (long) (5)));
                     }
                 }
 
@@ -121,9 +121,9 @@ public class EmpireLogic {
                 }
                 for (NaturalAsset s : nautralAssetRepository.getAssets()) {
                     if (s.getName().equals("Gold")) {
-                      //  empire.getWarehouse().add(new Stock(s, (long) (10)));
+                       empire.getWarehouse().add(new Stock(s, (long) (10)));
                     } else {
-                       // empire.getWarehouse().add(new Stock(s, (long) (5)));
+                        empire.getWarehouse().add(new Stock(s, (long) (5)));
                     }
                 }
 
@@ -141,9 +141,9 @@ public class EmpireLogic {
                 }
                 for (NaturalAsset s : nautralAssetRepository.getAssets()) {
                     if (s.getName().equals("Gold")) {
-                       // empire.getWarehouse().add(new Stock(s, (long) (10)));
+                        empire.getWarehouse().add(new Stock(s, (long) (10)));
                     } else {
-                       // empire.getWarehouse().add(new Stock(s, (long) (5)));
+                        empire.getWarehouse().add(new Stock(s, (long) (5)));
                     }
                 }
                 break;

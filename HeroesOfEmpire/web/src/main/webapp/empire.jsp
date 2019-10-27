@@ -23,27 +23,7 @@
             <input type="hidden" name="empireName" value="${selectedEmpire.name}" /></br>
             Description:<label  name="level" >${selectedEmpire.description}</label></br>
             Level:<label  name="level" >${selectedEmpire.level}</label></br>
-            Environment:<label name="envtype" >${selectedEmpire.environmentType}</label></br>
-                Produce:<br/>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Asset Name</th>
-                            <th>Description</th>
-                            <th>Quantity</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <c:forEach var="stock" items="${selectedEmpire.produce}">
-                            <tr>                            
-                                <td>${stock.asset.name}</td>
-                                <td>${stock.asset.name}</td>
-                                <td>${stock.quantity}</td>                            
-                            </tr>
-                        </c:forEach>
-                    </tbody>
-                </table>
-
+            Environment:<label name="envtype" >${selectedEmpire.environmentType}</label></br> 
                 Warehouse:<br/>
                 <table>
                     <thead>
@@ -83,7 +63,40 @@
                         </c:forEach>
                     </tbody>
                 </table>
-                </br>
+                
+                Buildings:<br/>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Description</th>
+                            
+                        </tr>                         
+                    </thead>
+                    <tbody>
+                        <c:forEach var="bul" items="${selectedEmpire.buildings}">
+                          <tr>
+                                <td>${bul.name}</td>
+                                <td>${bul.description}</td>                                
+                          </tr>
+                        </c:forEach>
+                    </tbody>
+                <table/>
+                </br>                
         </form>
+          <h3>Construct a new building</h3>
+                <form method="post" action="newBuilding">
+                    <select name="buildinglist">  
+                       <option value="Barrack">Barrack</option>
+                       <option value="Farm">Farm</option>
+                       <option value="Blacksmith">Blacksmith</option>
+                       <option value="Mine">Mine</option>
+                       <option value="Lumberyard">Lumberyard</option>
+                       <option value="Townhall">Townhall</option>
+                   </select>
+                   <input type="hidden" value="${selectedEmpire.id}" name="empireid"/>
+                   <input type="submit" value="OK"/>                       
+                    
+                </form>      
     </body>
 </html>

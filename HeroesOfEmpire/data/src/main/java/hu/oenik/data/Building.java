@@ -11,6 +11,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -40,6 +42,10 @@ public class Building {
     List<Stock> produce;
     
     Long buildingTime;
+    
+    @ManyToOne
+    @JoinColumn(name="USER_ID")
+    User user;
 
     public Building(){
         
@@ -83,6 +89,10 @@ public class Building {
     public void setBuildingTime(Long buildingTime) {
         this.buildingTime = buildingTime;
     }
+    
+//    public void setEmpire(Long EmpId){
+//        this.
+//    }
 
     
 }
