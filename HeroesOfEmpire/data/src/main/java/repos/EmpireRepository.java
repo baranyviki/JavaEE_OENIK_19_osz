@@ -5,15 +5,19 @@
  */
 package repos;
 
+import hu.oenik.data.Building;
 import hu.oenik.data.Empire;
-import hu.oenik.data.Hero;
-import hu.oenik.data.Hybrid;
 import hu.oenik.data.Population;
 import hu.oenik.data.Stock;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.Persistence;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Join;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
 
 /**
  *
@@ -76,4 +80,41 @@ public class EmpireRepository {
         empires.add(emp);
     }
      */
+    
+    public List<Empire> searchEmpires(Long UserID,String name, String description, Stock minimalwh, Building building )
+    {
+        CriteriaBuilder cb = em.getCriteriaBuilder();
+        CriteriaQuery cq = cb.createQuery(Empire.class);
+        Root rt = cq.from(Empire.class);
+        List<Predicate> preds = new ArrayList<>();
+        preds.add(cb.equal(rt.get("user"), UserID));
+        
+        if(name != null){
+        preds.add(cb.like(rt.get("name"), "%"+name+"%"));
+        }
+         
+        if(name != null){
+        preds.add(cb.like(rt.get("description"), "%"+description+"%"));
+        }
+        
+        if(minimalwh != null){
+        Join<Empire,Stock> stock = rt.join("warehouse");
+        
+        }
+        if(building != null)
+        {
+        Join<Empire, Building> bld = rt.join("buildings");
+        }
+        cq.select(rt);              
+                  
+        cq.select(rt).where(preds.toArray(new Predicate[]{}));
+        
+        Object result = em.createQuery(cq).getResultList();
+        if( result  != null ){
+            return (List<Empire>) result;
+        }
+        
+        return null;
+    }
+    
 }

@@ -79,6 +79,7 @@ public class deleteEmpireServlet extends HttpServlet {
 //            throw new ServletException("user dont have empire with given name");
 //        }
         try {
+            sess.removeEmpire(empireID);
             empireService.removeEmpire(empireID);
         } catch (Exception ex) {
             Logger.getLogger(deleteEmpireServlet.class.getName()).log(Level.SEVERE, null, ex);

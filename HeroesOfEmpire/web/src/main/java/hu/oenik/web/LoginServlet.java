@@ -7,13 +7,13 @@ package hu.oenik.web;
 
 import hu.oenik.data.EnvironmentTypes;
 import exceptions.LoginException;
+import hu.oenik.data.Building;
+import hu.oenik.data.Empire;
 import hu.oenik.data.NaturalAsset;
 import repos.SpeciesRepository;
 import hu.oenik.data.User;
-import repos.UserRepository;
 import java.io.IOException;
 import java.util.List;
-import java.util.logging.Level;
 //import java.util.logging.Logger;
 import javax.inject.Inject;
 import javax.servlet.ServletException;
@@ -21,26 +21,33 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import repos.BuildingRepository;
 import repos.NaturalAssetRepository;
 import services.UserService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import repos.EmpireRepository;
 
 /**
  *
  * @author Viki
  */
-
-
 @WebServlet(name = "LoginServlet", urlPatterns = {"/login"})
 public class LoginServlet extends HttpServlet {
 
     @Inject
     UserService userService;
-      
+
     @Inject
     SpeciesRepository speciesRepository;
-    
+
+//    @Inject
+//    EmpireRepository empRe;
+//
+//    @Inject
+//    NaturalAssetRepository natRe;
+//
+//    @Inject
+//    BuildingRepository bldRe;
+
     /*
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -91,9 +98,21 @@ public class LoginServlet extends HttpServlet {
             request.setAttribute("envtypes", s);
             getServletContext().getRequestDispatcher("/userHome.jsp").include(request, response);
 
-            //  getServletContext().getRequestDispatcher("/hero.jsp").include(request, response);
+            //testing 
+//            List<Building> bldlist = bldRe.getOrderedBuildings();
+//            Building bld = bldRe.getBuildingByName("Barrack");
+//            Building bild = bldRe.getBuildingByID(251L);
+//                    
+//            List<NaturalAsset> nts = natRe.getOrderedNaturalAssets();
+//            NaturalAsset nt = natRe.getNaturalAssetByName("Gold");
+//            NaturalAsset nas = natRe.getNaturalAssetByID(101L);
+//            
+            //
+            // List<Empire> emp = empRe.searchEmpires(loggedIn.getId(),null, "fire", null, null);
+            
+            
         } catch (LoginException ex) {
-           // Logger.getLogger(LoginServlet.class.getName()).log(Level.SEVERE, null, ex);
+            // Logger.getLogger(LoginServlet.class.getName()).log(Level.SEVERE, null, ex);
             response.getWriter().print("login error");
 
             //response.sendRedirect("/home");
